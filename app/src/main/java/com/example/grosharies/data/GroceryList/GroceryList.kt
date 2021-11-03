@@ -22,3 +22,32 @@ data class GroceryList(
     val id: Long? = null
 ) {
 }
+
+
+
+fun getExampleData(): List<GroceryList> {
+    return listOf(
+        GroceryList(
+            "test1", 123, "Mikal",
+            listOf(
+                ListItem("test", 1, false),
+                ListItem("test2", 2, false)
+            ),
+        ),
+        GroceryList(
+            "test2", 123, "Mikal",
+            listOf(
+                ListItem("test", 1, false),
+                ListItem("test2", 2, false),
+                ListItem("test3", 2, false),
+                ListItem("test4", 2, false),
+            ),
+        ),
+        GroceryList(
+            "test3", 123456789, "Mikal",
+            listOf(
+                ListItem("test", 1, false)
+            ),
+        )
+    )
+}
