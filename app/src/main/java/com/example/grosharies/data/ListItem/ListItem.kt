@@ -1,15 +1,11 @@
-package com.example.grosharies
+package com.example.grosharies.data.ListItem
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "listItem")
-data class ListItems(
-
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    val id: Long? = null,
+data class ListItem(
 
     @ColumnInfo(name = "itemName")
     val itemName: String,
@@ -17,5 +13,9 @@ data class ListItems(
     val itemAmount: Int,
     @ColumnInfo(name = "itemPurchased")
     val itemPurchased: Boolean,
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    val id: Long? = null
 ) {
 }
