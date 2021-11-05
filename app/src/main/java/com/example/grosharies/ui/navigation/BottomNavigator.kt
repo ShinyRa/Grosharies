@@ -26,7 +26,7 @@ fun BottomNavigator(navController: NavController) {
 
     val listItems = listOf(
         BottomNavigatorItem("home", R.drawable.ic_home_24) { navController.navigate("home") },
-        BottomNavigatorItem("groups", R.drawable.ic_group_24) { navController.navigate("group") },
+        BottomNavigatorItem("groups", R.drawable.ic_group_24) { navController.navigate("group/view") },
         BottomNavigatorItem("lists", R.drawable.ic_list_24) { navController.navigate("list") }
     )
 
