@@ -11,7 +11,7 @@ fun Home() {
     GroshariesTheme {
         // A surface container using the 'background' color from the theme
         Surface(color = MaterialTheme.colors.background) {
-            Text("Home")
+            Text("Hello Github!")
         }
     }
 }
