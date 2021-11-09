@@ -14,8 +14,6 @@ import com.example.grosharies.R
 import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.backdrop
 
-val GROUP_OVERVIEW_ROUTE: String = "group/view"
-
 @Composable
 fun GroupOverview(navController: NavController) {
     val (groups, setGroups) = remember { mutableStateOf(listOf<Group>()) }

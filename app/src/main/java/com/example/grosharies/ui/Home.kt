@@ -1,4 +1,4 @@
-package com.example.grosharies.ui.navigation
+package com.example.grosharies.ui
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -7,10 +7,11 @@ import androidx.compose.runtime.Composable
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun Lists() {
+fun Home() {
     GroshariesTheme {
+        // A surface container using the 'background' color from the theme
         Surface(color = MaterialTheme.colors.background) {
-            Text("Lists")
+            Text("Home")
         }
     }
 }
