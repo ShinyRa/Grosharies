@@ -1,4 +1,4 @@
-package com.example.grosharies
+package com.example.grosharies.ui.groceryList
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,13 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.grosharies.data.GroceryList.GroceryList
 
 @Composable
 fun CreateListOverview(
-    groceryList: List<GroceryList>,
+    groupId: String? = null,
     modifier: Modifier = Modifier
 ) {
+    val groceryList: List<GroceryList> = getExampleData(groupId)
     Box(modifier = modifier) {
         LazyColumn(
             contentPadding = PaddingValues(
@@ -31,7 +31,7 @@ fun CreateListOverview(
                     backgroundColor = Color.White,
                     modifier = Modifier.padding(PaddingValues(bottom = 16.dp))
                 ) {
-                    Column() {
+                    Column{
                         Row(
                             Modifier
                                 .padding(

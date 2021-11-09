@@ -9,7 +9,6 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 @Composable
 fun Lists() {
     GroshariesTheme {
-        // A surface container using the 'background' color from the theme
         Surface(color = MaterialTheme.colors.background) {
             Text("Lists")
         }

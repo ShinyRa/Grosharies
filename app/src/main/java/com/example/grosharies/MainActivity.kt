@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.grosharies.data.GroceryList.getExampleData
+import com.example.grosharies.ui.groceryList.CreateListOverview
 import com.example.grosharies.ui.navigation.DefaultScaffold
 import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.background2
@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
 fun DefaultPreview() {
     GroshariesTheme {
         Surface(color = background2) {
-            CreateListOverview(getExampleData())
+            CreateListOverview(null)
         }
     }
 }
