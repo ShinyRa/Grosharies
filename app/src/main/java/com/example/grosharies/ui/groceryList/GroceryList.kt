@@ -1,4 +1,4 @@
-package com.example.grosharies.ui.GroceryList
+package com.example.grosharies.ui.groceryList
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -25,7 +25,7 @@ data class GroceryList(
 
 
 
-fun getExampleData(groupId: String?): List<GroceryList> {
+fun getExampleData(groupId: String? = null): List<GroceryList> {
     // TODO: groupId is an example, should be implemented once the database is realised.
     return listOf(
         GroceryList(
