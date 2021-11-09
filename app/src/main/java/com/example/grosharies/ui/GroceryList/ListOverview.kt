@@ -10,13 +10,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.grosharies.data.GroceryList.GroceryList
+import com.example.grosharies.ui.GroceryList.GroceryList
+import com.example.grosharies.ui.GroceryList.getExampleData
 
 @Composable
 fun CreateListOverview(
-    groceryList: List<GroceryList>,
+    groupId: String?,
     modifier: Modifier = Modifier
 ) {
+    val groceryList: List<GroceryList> = getExampleData(groupId)
     Box(modifier = modifier) {
         LazyColumn(
             contentPadding = PaddingValues(
