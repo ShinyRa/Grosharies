@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Grosharies</string>
+    <string name="home">Home</string>
+    <string name="groups">Groups</string>
+    <string name="lists">Lists</string>
+    <string name="group_detail">Group: %d</string>
 </resources>
