@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.example.grosharies.ui.groceryList.CreateListOverview
 import com.example.grosharies.ui.groups.GROUP_OVERVIEW_ROUTE
 import com.example.grosharies.ui.groups.GROUP_VIEW_ROUTE
 import com.example.grosharies.ui.groups.GroupOverview
@@ -27,7 +28,7 @@ fun DefaultScaffold() {
                             GroupView(entry.arguments?.getString("groupId"))
                         }
                     }
-                    composable(route = "list") { Lists() }
+                    composable(route = "list") { CreateListOverview() }
                 }
             }
         },
