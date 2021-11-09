@@ -10,7 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.R
+import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.backdrop
 
@@ -29,9 +31,11 @@ fun GroupOverview(navController: NavController) {
     fun removeFromGroups(group: Group) = setGroups(groups.filter { it.id != group.id })
 
     GroshariesTheme {
-        Surface(color = backdrop, modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()) {
+        Surface(
+            color = backdrop, modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+        ) {
             Column {
                 groups.map { group ->
                     GroupCard(
@@ -40,6 +44,7 @@ fun GroupOverview(navController: NavController) {
                         deleteGroup = { group -> removeFromGroups(group) }
                     )
                 }
+
 
                 Button(onClick = { addGroup() }, modifier = Modifier.fillMaxWidth()) {
                     Text(text = "ADD GROUP")
@@ -72,6 +77,17 @@ fun GroupCard(group: Group, onClick: () -> Unit, deleteGroup: (Group) -> Unit) {
                     }
                 }
             }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                MainButton(text = "Edit List") {
+                }
+
+                MainButton(text = "Start Shopping") {
+                }
+            }
         }
+
     }
 }
