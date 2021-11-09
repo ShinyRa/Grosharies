@@ -10,7 +10,6 @@ val PrimaryColor = Color(0xFF34A853)
 val SecondaryColor = Color(0xFFFDB84D)
 val PrimaryBackgroundColor = Color(0xFFFFFFFF)
 val SecondaryBackgroundColor = Color(0xFFE8E8E8)
-val Black = Color(0xFF000000)
 
 val background1 = Color(0xFFFFFFFF)
 val background2 = Color(0xFFE8E8E8)
