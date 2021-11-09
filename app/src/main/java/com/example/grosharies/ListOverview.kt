@@ -31,7 +31,7 @@ fun CreateListOverview(
                     backgroundColor = Color.White,
                     modifier = Modifier.padding(PaddingValues(bottom = 16.dp))
                 ) {
-                    Column() {
+                    Column{
                         Row(
                             Modifier
                                 .padding(
