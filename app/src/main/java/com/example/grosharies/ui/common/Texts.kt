@@ -4,6 +4,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun defaultText(text: String) {
+fun DefaultText(text: String) {
     Text(text = "$text!")
 }

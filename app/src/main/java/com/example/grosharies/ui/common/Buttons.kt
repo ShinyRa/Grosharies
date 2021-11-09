@@ -1,5 +1,6 @@
 package com.example.grosharies.ui.common
 
+import android.view.View
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -14,29 +15,29 @@ import androidx.compose.ui.unit.dp
 import com.example.grosharies.ui.theme.PrimaryColor
 
 @Composable
-fun mainButton(text: String, color: Color = Color.White) {
+fun MainButton(text: String, color: Color = Color.White, onClickListener: ()-> Unit) {
     // Create a Main Button or Normal Button
-    Button(onClick = {}, modifier = Modifier.padding(8.dp), colors = ButtonDefaults.textButtonColors(
-        backgroundColor = PrimaryColor) ){
+    Button(onClick = {onClickListener()}, modifier = Modifier.padding(8.dp), colors = ButtonDefaults.textButtonColors(
+        backgroundColor = PrimaryColor)){
 
         Text(text = text, color = color )
     }
 }
 
 @Composable
-fun textButton(text: String, color: Color = Color.White) {
+fun TextButton(text: String, color: Color = Color.White, onClickListener: ()-> Unit) {
     // Create a Text Button
-    TextButton(onClick = { /*TODO*/ }, modifier = Modifier.padding(8.dp), colors = ButtonDefaults.textButtonColors(
+    TextButton(onClick = { onClickListener() }, modifier = Modifier.padding(8.dp), colors = ButtonDefaults.textButtonColors(
         backgroundColor = PrimaryColor)) {
         Text(text = text, color = color)
     }
 }
 
 @Composable
-fun elevatedButton(text: String, color: Color = Color.White) {
+fun ElevatedButton(text: String, color: Color = Color.White, onClickListener: ()-> Unit) {
     // Elevated Button
     Button(
-        onClick = { /*TODO*/ },
+        onClick = { onClickListener() },
         modifier = Modifier.padding(8.dp),
         elevation = ButtonDefaults.elevation(),
         colors = ButtonDefaults.textButtonColors(
@@ -47,10 +48,10 @@ fun elevatedButton(text: String, color: Color = Color.White) {
 }
 
 @Composable
-fun roundedButton(text: String, color: Color = Color.White) {
+fun RoundedButton(text: String, color: Color = Color.White, onClickListener: ()-> Unit) {
     // Rounded Button
     Button(
-        onClick = { /*TODO*/ },
+        onClick = { onClickListener() },
         modifier = Modifier.padding(8.dp),
         shape = RoundedCornerShape(20.dp),
         colors = ButtonDefaults.textButtonColors(
@@ -61,11 +62,11 @@ fun roundedButton(text: String, color: Color = Color.White) {
 }
 
 @Composable
-fun outlinedButton(text: String, color: Color = Color.White) {
+fun OutlinedButton(text: String, color: Color = Color.White, onClickListener: ()-> Unit) {
     // Outlined Button
     // add border field and set BorderStroke and its color
     OutlinedButton(
-        onClick = { /*TODO*/ },
+        onClick = { onClickListener() },
         border = BorderStroke(1.dp, Color.Red),
         modifier = Modifier.padding(8.dp),
         colors = ButtonDefaults.textButtonColors(
@@ -76,12 +77,12 @@ fun outlinedButton(text: String, color: Color = Color.White) {
 }
 
 @Composable
-fun outlinedBuittonWithIcon(text: String, color: Color = Color.White) {
+fun OutlinedBuittonWithIcon(text: String, color: Color = Color.White, onClickListener: ()-> Unit) {
     // Outlined Button with icon
     // add border field and set BorderStroke and its color
     // add Icon field
     OutlinedButton(
-        onClick = { /*TODO*/ },
+        onClick = { onClickListener() },
         border = BorderStroke(1.dp, Color.Red),
         modifier = Modifier.padding(8.dp),
         colors = ButtonDefaults.textButtonColors(
@@ -97,10 +98,10 @@ fun outlinedBuittonWithIcon(text: String, color: Color = Color.White) {
 }
 
 @Composable
-fun iconButtonLeftSide(text: String, color: Color = Color.White) {
+fun IconButtonLeftSide(text: String, color: Color = Color.White, onClickListener: ()-> Unit) {
     // Icon Button
     // Icon on the left of text
-    Button(onClick = {}, modifier = Modifier.padding(8.dp), colors = ButtonDefaults.textButtonColors(
+    Button(onClick = {onClickListener()}, modifier = Modifier.padding(8.dp), colors = ButtonDefaults.textButtonColors(
         backgroundColor = PrimaryColor)) {
         Row {
             Icon(
@@ -114,10 +115,10 @@ fun iconButtonLeftSide(text: String, color: Color = Color.White) {
 }
 
 @Composable
-fun iconButtonRightSide(text: String, color: Color = Color.White) {
+fun IconButtonRightSide(text: String, color: Color = Color.White, onClickListener: ()-> Unit) {
     // Icon Button
     // Icon on the Right of text
-    Button(onClick = {}, modifier = Modifier.padding(8.dp), colors = ButtonDefaults.textButtonColors(
+    Button(onClick = {onClickListener()}, modifier = Modifier.padding(8.dp), colors = ButtonDefaults.textButtonColors(
         backgroundColor = PrimaryColor)) {
         Text(text = text, color = color)
         Icon(
@@ -129,7 +130,7 @@ fun iconButtonRightSide(text: String, color: Color = Color.White) {
 }
 
 @Composable
-fun customBackgroundButtons(text: String, color: Color = Color.White) {
+fun CustomBackgroundButtons(text: String, color: Color = Color.White, onClickListener: ()-> Unit) {
 //custom background buttons
 // create a variable mainButtonColor and define background Color and content Color
     val mainButtonColor = ButtonDefaults.buttonColors(
@@ -138,7 +139,7 @@ fun customBackgroundButtons(text: String, color: Color = Color.White) {
     )
 
     Row {
-        Button(onClick = {}, modifier = Modifier.padding(8.dp), colors = ButtonDefaults.textButtonColors(
+        Button(onClick = {onClickListener()}, modifier = Modifier.padding(8.dp), colors = ButtonDefaults.textButtonColors(
             backgroundColor = PrimaryColor)) {
             Text(text = text, color = color)
         }
