@@ -18,7 +18,7 @@ fun DefaultScaffold() {
     Scaffold(
         topBar = { TopAppBar(title = { Text("Grosharies") }, backgroundColor = primary)  },
         content = {
-            Surface() {
+            Surface {
                 NavHost(navController = navController, startDestination = "home") {
                     composable(route = "home") { Home() }
                     navigation(startDestination = "group/view", route = "group") {
