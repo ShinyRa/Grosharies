@@ -5,5 +5,5 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun DefaultText(text: String) {
-    Text(text = "$text!")
+    Text(text = "$text")
 }
