@@ -4,7 +4,7 @@ import com.example.grosharies.R
 
 sealed class Screen(val route: String, val nameResource: Int) {
     companion object {
-        // Need it for top bar navigation text
+        // Need to find screen by route for top bar navigation text
         fun findByRoute(route: String): Screen? = Screen::class.sealedSubclasses.map { it.objectInstance as Screen }
                 .firstOrNull { it.route == route }
     }
