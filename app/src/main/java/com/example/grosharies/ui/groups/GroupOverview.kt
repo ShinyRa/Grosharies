@@ -20,7 +20,14 @@ import com.example.grosharies.ui.theme.backdrop
 
 @Composable
 fun GroupOverview(navController: NavController) {
-    val (groups, setGroups) = remember { mutableStateOf(listOf<Group>(Group(-1, "Test"), Group(-2, "Test 2"))) }
+    val (groups, setGroups) = remember {
+        mutableStateOf(
+            listOf<Group>(
+                Group(-1, "Test"),
+                Group(-2, "Test 2")
+            )
+        )
+    }
     val counter = remember { mutableStateOf(0) }
 
     fun addGroup() {
@@ -36,9 +43,11 @@ fun GroupOverview(navController: NavController) {
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+            ) {
                 groups.map { group ->
                     GroupCard(
                         group = group,
@@ -69,38 +78,25 @@ fun GroupCard(
         .padding(16.dp)
         .clickable { onClick() }) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(
+                    modifier = Modifier.weight(8f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     DefaultText(group.name)
                 }
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    IconButton(
-                        onClick = { deleteGroup(group) }
-                    ) {
-                        Icon(
-                            painterResource(id = R.drawable.ic_close_24),
-                            contentDescription = "delete"
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
+                Column(
+                    modifier = Modifier.weight(2f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
 
-@Preview
-@Composable
-fun Preview() {
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp)
-        .clickable {  }) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-                DefaultText("Hi!")
-                Row(horizontalArrangement = Arrangement.End) {
+
                     IconButton(
-                        onClick = {  }
+                        onClick = {deleteGroup(group)}
                     ) {
                         Icon(
                             painterResource(id = R.drawable.ic_close_24),
@@ -112,3 +108,42 @@ fun Preview() {
         }
     }
 }
+//
+//@Preview
+//@Composable
+//fun Preview() {
+//    Card(modifier = Modifier
+//        .fillMaxWidth()
+//        .padding(16.dp)
+//        .clickable { }) {
+//        Column(modifier = Modifier.padding(16.dp)) {
+//            Row(
+//                modifier = Modifier.fillMaxWidth(),
+//                verticalAlignment = Alignment.CenterVertically,
+//                horizontalArrangement = Arrangement.SpaceBetween
+//            ) {
+//                Column(
+//                    modifier = Modifier.weight(8f),
+//                    horizontalAlignment = Alignment.CenterHorizontally
+//                ) {
+//                    DefaultText("Hi!")
+//                }
+//                Column(
+//                    modifier = Modifier.weight(2f),
+//                    horizontalAlignment = Alignment.CenterHorizontally
+//                ) {
+//
+//
+//                    IconButton(
+//                        onClick = { }
+//                    ) {
+//                        Icon(
+//                            painterResource(id = R.drawable.ic_close_24),
+//                            contentDescription = "delete"
+//                        )
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
