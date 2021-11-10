@@ -13,7 +13,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.example.grosharies.R
 
-// Still not working because don't know how to get navController as a reference instead of immutable copy grrrrrrr test
+// Still not working because don't know how to get navController as a reference instead of immutable copy grrrrrrr
 fun hasBack(queue: ArrayDeque<NavBackStackEntry>): Boolean = queue.size > 0
 
 @Composable
