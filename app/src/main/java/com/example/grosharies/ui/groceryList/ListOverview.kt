@@ -12,12 +12,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.grosharies.data.ListItem.ListItem
 import com.example.grosharies.ui.groups.Group
+import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun ListOverview(groupId: String? = null, modifier: Modifier = Modifier) {
+fun ListOverview(groupId: String? = null, navController: NavController) {
     val (lists, setLists) = remember { mutableStateOf(listOf<GroceryList>()) }
     val counter = remember { mutableStateOf(0) }
 
@@ -41,8 +43,8 @@ fun ListOverview(groupId: String? = null, modifier: Modifier = Modifier) {
 
     GroshariesTheme {
         val groceryList: List<GroceryList> = getExampleData(groupId)
-        Box(modifier = modifier) {
-            Column() {
+        Box {
+            Column {
                 LazyColumn(
                     contentPadding = PaddingValues(
                         start = 16.dp,
@@ -104,7 +106,7 @@ fun ListOverview(groupId: String? = null, modifier: Modifier = Modifier) {
                                         Modifier
                                             .padding(8.dp)
                                     ) {
-                                        Button(onClick = { /*TODO*/ }) {
+                                        Button(onClick = { navController.navigate(Screen.ListEdit.route + "/${groupId}/${lists[index].id}") }) {
                                             Text(text = "Edit")
                                         }
                                     }

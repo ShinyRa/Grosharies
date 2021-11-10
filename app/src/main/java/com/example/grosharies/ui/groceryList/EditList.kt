@@ -87,48 +87,47 @@ fun EditList(GroupId: String? = null, listId: String? = null) {
             }
             var newName: String
             var newAmount: Int
-            Column(verticalArrangement = Arrangement.Center) {
-                Row(
+
+            Row(
+                modifier = Modifier
+                    .padding(
+                        PaddingValues(
+                            start = 16.dp,
+                            end = 16.dp,
+                        )
+                    )
+                    .fillMaxWidth(),
+            ) {
+                TextField(
+                    value = "",
+                    onValueChange = { newName = it },
+                    label = { Text("New item name:") },
                     modifier = Modifier
+                        .weight(5f)
                         .padding(
                             PaddingValues(
-                                start = 16.dp,
-                                end = 16.dp,
+                                top = 8.dp,
+                                bottom = 8.dp,
+                                end = 4.dp
                             )
                         )
-                        .fillMaxWidth(),
-                ) {
-                    TextField(
-                        value = "",
-                        onValueChange = { newName = it },
-                        label = { Text("New item name:") },
-                        modifier = Modifier
-                            .weight(5f)
-                            .padding(
-                                PaddingValues(
-                                    top = 8.dp,
-                                    bottom = 8.dp,
-                                    end = 4.dp
-                                )
+                )
+                TextField(
+                    value = "",
+                    onValueChange = {
+                        newAmount = it.toInt()
+                    },
+                    label = { Text("Amount:") },
+                    modifier = Modifier
+                        .weight(2f)
+                        .padding(
+                            PaddingValues(
+                                top = 8.dp,
+                                bottom = 8.dp,
+                                start = 4.dp
                             )
-                    )
-                    TextField(
-                        value = "",
-                        onValueChange = {
-                            newAmount = it.toInt()
-                        },
-                        label = { Text("Amount:") },
-                        modifier = Modifier
-                            .weight(2f)
-                            .padding(
-                                PaddingValues(
-                                    top = 8.dp,
-                                    bottom = 8.dp,
-                                    start = 4.dp
-                                )
-                            )
-                    )
-                }
+                        )
+                )
                 Button(
                     onClick = { SaveEdit() }, modifier = Modifier
                         .fillMaxWidth()
@@ -137,10 +136,12 @@ fun EditList(GroupId: String? = null, listId: String? = null) {
                     Text(text = "SAVE")
                 }
             }
+
+
+
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
