@@ -15,7 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.example.grosharies.R
 import com.example.grosharies.ui.theme.primary
-import com.example.grosharies.ui.theme.text
+import com.example.grosharies.ui.theme.textColor
 
 data class BottomNavigatorItem(val name: String, val id: Int, val navigate: () -> Unit)
 
@@ -25,9 +25,9 @@ fun BottomNavigator(navController: NavController) {
     val (selected, setSelected) = remember { mutableStateOf(0) }
 
     val listItems = listOf(
-        BottomNavigatorItem("home", R.drawable.ic_home_24) { navController.navigate("home") },
-        BottomNavigatorItem("groups", R.drawable.ic_group_24) { navController.navigate("group/view") },
-        BottomNavigatorItem("lists", R.drawable.ic_list_24) { navController.navigate("list") }
+        BottomNavigatorItem("home", R.drawable.ic_home_24) { navController.navigate(Screen.Home.route) },
+        BottomNavigatorItem("groups", R.drawable.ic_group_24) { navController.navigate(Screen.Groups.route) },
+        BottomNavigatorItem("lists", R.drawable.ic_list_24) { navController.navigate(Screen.Lists.route) }
     )
 
     fun switch(active: Int) {
@@ -52,7 +52,7 @@ fun BottomNavigator(navController: NavController) {
                     selected = selected == index,
                     onClick = { switch(index) },
                     selectedContentColor = primary,
-                    unselectedContentColor = text
+                    unselectedContentColor = textColor
                 )
             }
         }

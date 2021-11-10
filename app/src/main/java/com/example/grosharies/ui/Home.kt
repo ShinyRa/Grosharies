@@ -1,4 +1,4 @@
-package com.example.grosharies.ui.navigation
+package com.example.grosharies.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
