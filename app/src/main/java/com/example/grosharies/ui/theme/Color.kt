@@ -20,4 +20,4 @@ val secondary = Color(0xFFFDB84D)
 val backdrop = Color(0xFFE8E8E8)
 val invalid = Color(0xFFFF6534)
 
-val text = Color(0xFF2A2D3A)
+val textColor = Color(0xFF2A2D3A)

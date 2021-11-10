@@ -3,6 +3,8 @@ package com.example.grosharies.ui.common
 import android.view.View
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -13,14 +15,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.grosharies.ui.theme.PrimaryColor
+import com.example.grosharies.ui.theme.SecondaryColor
+import com.example.grosharies.ui.theme.textColor
 
 @Composable
-fun MainButton(text: String, color: Color = Color.White, onClickListener: ()-> Unit) {
+fun MainButton(text: String, onClickListener: () -> Unit, isSecondary: Boolean = false) {
     // Create a Main Button or Normal Button
-    Button(onClick = {onClickListener()}, modifier = Modifier.padding(8.dp), colors = ButtonDefaults.textButtonColors(
-        backgroundColor = PrimaryColor)){
-
-        Text(text = text, color = color )
+    Button(
+        onClick = {onClickListener()},
+        modifier = Modifier.padding(8.dp).fillMaxWidth(),
+        colors = ButtonDefaults.textButtonColors(
+            backgroundColor = if(isSecondary) SecondaryColor else PrimaryColor
+        )
+    ) {
+        Text(text = text, color = Color.White )
     }
 }
 
@@ -48,16 +56,17 @@ fun ElevatedButton(text: String, color: Color = Color.White, onClickListener: ()
 }
 
 @Composable
-fun RoundedButton(text: String, color: Color = Color.White, onClickListener: ()-> Unit) {
+fun RoundedButton(text: String, onClickListener: () -> Unit, isSecondary: Boolean = false) {
     // Rounded Button
     Button(
         onClick = { onClickListener() },
-        modifier = Modifier.padding(8.dp),
+        modifier = Modifier.padding(8.dp).fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
         colors = ButtonDefaults.textButtonColors(
-            backgroundColor = PrimaryColor)
+            backgroundColor = if(isSecondary) SecondaryColor else PrimaryColor
+        )
     ) {
-        Text(text = text, color = color)
+        Text(text = text, color = if(isSecondary) textColor else Color.White)
     }
 }
 

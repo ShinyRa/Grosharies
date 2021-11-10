@@ -15,7 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.example.grosharies.R
 import com.example.grosharies.ui.theme.primary
-import com.example.grosharies.ui.theme.text
+import com.example.grosharies.ui.theme.textColor
 
 data class BottomNavigatorItem(val name: String, val id: Int, val navigate: () -> Unit)
 
@@ -52,7 +52,7 @@ fun BottomNavigator(navController: NavController) {
                     selected = selected == index,
                     onClick = { switch(index) },
                     selectedContentColor = primary,
-                    unselectedContentColor = text
+                    unselectedContentColor = textColor
                 )
             }
         }
