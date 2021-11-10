@@ -23,8 +23,6 @@ data class GroceryList(
 ) {
 }
 
-
-
 fun getExampleData(groupId: String? = null): List<GroceryList> {
     // TODO: groupId is an example, should be implemented once the database is realised.
     return listOf(
