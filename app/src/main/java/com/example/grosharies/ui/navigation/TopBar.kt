@@ -5,6 +5,8 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -18,8 +20,14 @@ fun hasBack(queue: ArrayDeque<NavBackStackEntry>): Boolean = queue.size > 0
 
 @Composable
 fun TopBar(navController: NavController) {
+    var (currentRoute, setCurrentRoute) = remember { mutableStateOf<String?>("") }
+    navController.addOnDestinationChangedListener{ _, destination, _ ->
+        run {
+            setCurrentRoute(destination.route)
+        }
+    }
     TopAppBar(
-        title = { Text(stringResource(id = R.string.app_name)) },
+        title = { Text(stringResource(id = Screen.findByRoute(currentRoute ?: "home")?.nameResource ?: R.string.home)) },
         navigationIcon = {
             if (hasBack(queue = navController.backQueue)) {
                 IconButton(onClick = { navController.navigateUp() }) {
