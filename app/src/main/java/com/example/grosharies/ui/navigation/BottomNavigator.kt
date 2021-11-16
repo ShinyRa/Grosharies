@@ -25,9 +25,18 @@ fun BottomNavigator(navController: NavController) {
     val (selected, setSelected) = remember { mutableStateOf(0) }
 
     val listItems = listOf(
-        BottomNavigatorItem("home", R.drawable.ic_home_24) { navController.navigate(Screen.Home.route) },
-        BottomNavigatorItem("groups", R.drawable.ic_group_24) { navController.navigate(Screen.Groups.route) },
-        BottomNavigatorItem("lists", R.drawable.ic_list_24) { navController.navigate(Screen.Lists.route) }
+        BottomNavigatorItem(
+            "home",
+            R.drawable.ic_home_24
+        ) { navController.navigate(Screen.Home.route) },
+        BottomNavigatorItem(
+            "groups",
+            R.drawable.ic_group_24
+        ) { navController.navigate(Screen.Groups.route) },
+        BottomNavigatorItem(
+            "lists",
+            R.drawable.ic_list_24
+        ) { navController.navigate(Screen.Lists.route) }
     )
 
     fun switch(active: Int) {

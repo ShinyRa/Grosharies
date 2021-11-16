@@ -1,9 +1,11 @@
 package com.example.grosharies.ui.groceryList
 
-import android.view.View
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.*
+import androidx.compose.material.Checkbox
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,7 +16,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.data.ListItem.ListItem
 import com.example.grosharies.ui.common.MainButton
-import com.example.grosharies.ui.common.TextButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
 
@@ -40,7 +41,7 @@ fun StartShopping(groupId: String? = null, listId: String? = null, navController
                     ListItem("Item4", 362, false),
                     ListItem("Item5", 123, false),
                 ),
-            1
+                1
             )
         val listItems = groceryList.listItems
         Column(
