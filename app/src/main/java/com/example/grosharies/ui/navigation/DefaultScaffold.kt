@@ -20,7 +20,7 @@ fun DefaultScaffold() {
         content = {
             Surface {
                 NavHost(navController = navController, startDestination = "home") {
-                    composable(route = Screen.Home.route) { Home() }
+                    composable(route = Screen.Home.route) { Home(navController) }
                     composable(route = Screen.Groups.route) { GroupOverview(navController) }
                     composable(route = Screen.GroupDetail.route + "/{groupId}") { entry ->
                         GroupView(
