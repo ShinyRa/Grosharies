@@ -32,7 +32,8 @@ fun DefaultScaffold() {
                     composable(route = Screen.ListEdit.route + "/{groupId}/{listId}") { entry ->
                         EditList(
                             entry.arguments?.getString("groupId"),
-                            entry.arguments?.getString("listId")
+                            entry.arguments?.getString("listId"),
+                            navController = navController
                         )
                     }
                 }

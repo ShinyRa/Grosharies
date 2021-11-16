@@ -9,13 +9,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.data.ListItem.ListItem
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun EditList(GroupId: String? = null, listId: String? = null) {
+fun EditList(GroupId: String? = null, listId: String? = null, navController: NavController) {
 
     fun SaveEdit() {
+        navController.navigate("list/view/${GroupId}")
         // TODO: send edited values to the overview
     }
 
@@ -159,7 +162,8 @@ fun EditList(GroupId: String? = null, listId: String? = null) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
+    val navController = rememberNavController()
     Surface(color = MaterialTheme.colors.background) {
-        EditList()
+        EditList(navController = navController)
     }
 }
