@@ -15,13 +15,15 @@ import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.data.ListItem.ListItem
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.common.TextButton
+import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun StartShopping(GroupId: String? = null, listId: String? = null, navController: NavController) {
+fun StartShopping(groupId: String? = null, listId: String? = null, navController: NavController) {
 
     fun finishShopping() {
-        navController.navigate("list/view/${GroupId}")
+        navController.navigate(Screen.GroupDetail.withArgs(groupId.toString()))
+        // TODO: Think about namespace throughout the app
         // TODO: send edited values to the overview
     }
 
