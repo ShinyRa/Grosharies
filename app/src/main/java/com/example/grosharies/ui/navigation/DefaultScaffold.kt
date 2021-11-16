@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.ui.groceryList.ListOverview
 import com.example.grosharies.ui.Home
 import com.example.grosharies.ui.groceryList.EditList
+import com.example.grosharies.ui.groceryList.StartShopping
 import com.example.grosharies.ui.groups.GroupOverview
 import com.example.grosharies.ui.groups.GroupView
 
@@ -31,6 +32,13 @@ fun DefaultScaffold() {
                     composable(route = Screen.Lists.route) { ListOverview(navController = navController) }
                     composable(route = Screen.ListEdit.route + "/{groupId}/{listId}") { entry ->
                         EditList(
+                            entry.arguments?.getString("groupId"),
+                            entry.arguments?.getString("listId"),
+                            navController = navController
+                        )
+                    }
+                    composable(route = Screen.StartShopping.route + "/{groupId}/{listId}") { entry ->
+                        StartShopping(
                             entry.arguments?.getString("groupId"),
                             entry.arguments?.getString("listId"),
                             navController = navController

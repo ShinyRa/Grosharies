@@ -114,7 +114,7 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
                                         Modifier
                                             .padding(8.dp)
                                     ) {
-                                        Button(onClick = { /*TODO*/ }) {
+                                        Button(onClick = { navController.navigate(Screen.StartShopping.route + "/${groupId}/${lists[index].id}") }) {
                                             Text(text = "Start shopping")
                                         }
                                     }
