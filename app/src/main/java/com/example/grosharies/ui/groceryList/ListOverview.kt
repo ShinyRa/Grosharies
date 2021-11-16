@@ -14,6 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.data.ListItem.ListItem
+import com.example.grosharies.ui.common.MainButton
+import com.example.grosharies.ui.common.TextButton
 import com.example.grosharies.ui.groups.Group
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
@@ -106,29 +108,23 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
                                         Modifier
                                             .padding(8.dp)
                                     ) {
-                                        Button(onClick = { navController.navigate(Screen.ListEdit.route + "/${groupId}/${lists[index].id}") }) {
-                                            Text(text = "Edit")
+                                        TextButton(text = "Edit") {
                                         }
                                     }
                                     Column(
                                         Modifier
                                             .padding(8.dp)
                                     ) {
-                                        Button(onClick = { navController.navigate(Screen.StartShopping.route + "/${groupId}/${lists[index].id}") }) {
-                                            Text(text = "Start shopping")
-                                        }
+                                        MainButton(
+                                            text = "Start Shopping",
+                                            onClickListener = { navController.navigate(Screen.StartShopping.route + "/${groupId}/${lists[index].id}") })
                                     }
                                 }
                             }
                         }
                     }
                 }
-                Button(
-                    onClick = { addGroceryList() },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(text = "ADD NEW LIST")
-                }
+                MainButton(text = "ADD NEW LIST", onClickListener = { addGroceryList() })
             }
         }
     }
