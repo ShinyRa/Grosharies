@@ -2,7 +2,6 @@ package com.example.grosharies.ui.groceryList
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -16,7 +15,6 @@ import androidx.navigation.NavController
 import com.example.grosharies.data.ListItem.ListItem
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.common.TextButton
-import com.example.grosharies.ui.groups.Group
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
 
@@ -108,17 +106,18 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
                                         Modifier
                                             .padding(8.dp)
                                     ) {
-                                        TextButton(text = "Edit") {
-                                        }
+                                        TextButton(
+                                            text = "Edit",
+                                            onClickListener = { navController.navigate(Screen.ListEdit.withArgs(groupId.toString(), lists[index].id.toString())) }
+                                        )
                                     }
-
                                     Column(
                                         Modifier
                                             .padding(8.dp)
                                     ) {
                                         MainButton(
                                             text = "Start Shopping",
-                                            onClickListener = { /*TODO*/ })
+                                            onClickListener = { navController.navigate(Screen.StartShopping.withArgs(groupId.toString(), lists[index].id.toString())) })
                                     }
                                 }
                             }

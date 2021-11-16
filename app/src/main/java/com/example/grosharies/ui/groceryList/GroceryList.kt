@@ -16,6 +16,8 @@ data class GroceryList(
     val createdBy: String,
     @ColumnInfo(name = "listItems")
     val listItems: List<ListItem>,
+    @ColumnInfo(name = "listItems")
+    val groupId: Long? = null,
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

@@ -17,6 +17,7 @@ sealed class Screen(val route: String, val nameResource: Int) {
     object GroupDetail : Screen("group/view", R.string.group_detail)
     object Lists : Screen("list", R.string.lists)
     object ListEdit : Screen("list/edit", R.string.lists)
+    object StartShopping : Screen("list/shop", R.string.group_detail)
 
     fun withArgs(vararg args: String): String {
         return buildString {

@@ -1,16 +1,12 @@
 package com.example.grosharies.ui.groceryList
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.data.ListItem.ListItem
 import com.example.grosharies.ui.theme.GroshariesTheme
 
@@ -35,23 +31,12 @@ fun EditList(GroupId: String? = null, listId: String? = null, navController: Nav
                     ListItem("Item4", 362, false),
                     ListItem("Item5", 123, false),
                     ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
                 )
             )
         val listItems = groceryList.listItems
         Column(
             modifier = Modifier
                 .fillMaxHeight(),
-//                .verticalScroll(ScrollState(0)),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             LazyColumn {
@@ -105,7 +90,7 @@ fun EditList(GroupId: String? = null, listId: String? = null, navController: Nav
             var newName: String
             var newAmount: Int
 
-            Column() {
+            Column {
                 Row(
                     modifier = Modifier
                         .padding(
@@ -156,14 +141,5 @@ fun EditList(GroupId: String? = null, listId: String? = null, navController: Nav
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    val navController = rememberNavController()
-    Surface(color = MaterialTheme.colors.background) {
-        EditList(navController = navController)
     }
 }
