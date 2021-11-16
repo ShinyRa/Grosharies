@@ -9,30 +9,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.R
 import com.example.grosharies.ui.common.DefaultText
 import com.example.grosharies.ui.common.RoundedButton
+import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.backdrop
 
 @Composable
-fun GroupOverview(navController: NavController) {
+fun Overview(navController: NavController) {
     val (groups, setGroups) = remember {
         mutableStateOf(
-            listOf<Group>(
-                Group(-1, "Test"),
-                Group(-2, "Test 2")
-            )
+            listOf<Group>()
         )
     }
     val counter = remember { mutableStateOf(0) }
 
     fun addGroup() {
-        counter.value = counter.value + 1
-        setGroups(groups + Group(counter.value, "Group ${counter.value}"))
+        navController.navigate(Screen.GroupNew.route)
     }
 
     fun removeFromGroups(group: Group) = setGroups(groups.filter { it.id != group.id })
@@ -46,7 +42,7 @@ fun GroupOverview(navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp)
+                    .padding(PaddingValues(vertical = 16.dp, horizontal = 8.dp))
             ) {
                 groups.map { group ->
                     GroupCard(
@@ -58,7 +54,7 @@ fun GroupOverview(navController: NavController) {
 
                 Column(verticalArrangement = Arrangement.Bottom) {
                     RoundedButton(text = "Create", onClickListener = { addGroup() })
-                    RoundedButton(text = "Join", isSecondary = true, onClickListener = { })
+                    RoundedButton(text = "Join", isSecondary = true, onClickListener = { navController.navigate(Screen.GroupEdit.route) })
                 }
             }
         }
