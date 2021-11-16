@@ -39,13 +39,8 @@ fun Home( navController : NavController ) {
 
 @Composable
 fun Grosharies() {
-    Text("Grosharies \n", fontSize = 50.sp, color= PrimaryColor, style = TextStyle(
-        textDecoration = TextDecoration.combine(
-            listOf(
-                )
-        ), fontWeight = FontWeight.Bold)
+    Text("Grosharies \n", fontSize = 50.sp, color= PrimaryColor, fontWeight = FontWeight.Bold)
 
-    )
 }
 
 @Composable
