@@ -16,7 +16,7 @@ fun New(
 ) {
     Surface(modifier = Modifier.padding(16.dp)) {
         DefaultText("New!")
-        
+
         Button(onClick = {
             addGroup(Group(1, "Test"))
             navController.popBackStack()

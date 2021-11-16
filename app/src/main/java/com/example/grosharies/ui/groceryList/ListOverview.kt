@@ -108,7 +108,14 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
                                     ) {
                                         TextButton(
                                             text = "Edit",
-                                            onClickListener = { navController.navigate(Screen.ListEdit.withArgs(groupId.toString(), lists[index].id.toString())) }
+                                            onClickListener = {
+                                                navController.navigate(
+                                                    Screen.ListEdit.withArgs(
+                                                        groupId.toString(),
+                                                        lists[index].id.toString()
+                                                    )
+                                                )
+                                            }
                                         )
                                     }
                                     Column(
@@ -117,7 +124,14 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
                                     ) {
                                         MainButton(
                                             text = "Start Shopping",
-                                            onClickListener = { navController.navigate(Screen.StartShopping.withArgs(groupId.toString(), lists[index].id.toString())) })
+                                            onClickListener = {
+                                                navController.navigate(
+                                                    Screen.StartShopping.withArgs(
+                                                        groupId.toString(),
+                                                        lists[index].id.toString()
+                                                    )
+                                                )
+                                            })
                                     }
                                 }
                             }

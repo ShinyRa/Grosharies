@@ -7,10 +7,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -20,12 +18,14 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.PrimaryColor
 
 @Composable
-fun Home( navController : NavController ) {
+fun Home(navController: NavController) {
     GroshariesTheme {
         Surface(color = MaterialTheme.colors.background) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally,
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxSize()) {
+                modifier = Modifier.fillMaxSize()
+            ) {
                 Grosharies()
                 Text()
 
@@ -39,23 +39,24 @@ fun Home( navController : NavController ) {
 
 @Composable
 fun Grosharies() {
-    Text("Grosharies \n", fontSize = 50.sp, color= PrimaryColor, fontWeight = FontWeight.Bold)
+    Text("Grosharies \n", fontSize = 50.sp, color = PrimaryColor, fontWeight = FontWeight.Bold)
 
 }
 
 @Composable
 fun Text() {
-    Text("Use this app with your friends to have a collaborative grocery list that you can share easily! \n \n \n",
+    Text(
+        "Use this app with your friends to have a collaborative grocery list that you can share easily! \n \n \n",
         fontSize = 15.sp,
         textAlign = TextAlign.Center,
         modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp)
+            .fillMaxWidth()
+            .padding(16.dp)
     )
 }
 
 @Composable
-fun ButtonsHomeScreen(navController : NavController) {
+fun ButtonsHomeScreen(navController: NavController) {
 
     Column(
         modifier = Modifier
@@ -64,11 +65,15 @@ fun ButtonsHomeScreen(navController : NavController) {
     ) {
         RoundedButton(text = "Most recent list", isSecondary = true, onClickListener = { /*TODO*/ })
 
-        RoundedButton(text = "Groups", onClickListener = { navController.navigate(Screen.Groups.route) })
+        RoundedButton(
+            text = "Groups",
+            onClickListener = { navController.navigate(Screen.Groups.route) })
 
-        RoundedButton(text = "Personal List", onClickListener = { navController.navigate(Screen.Lists.route)})
+        RoundedButton(
+            text = "Personal List",
+            onClickListener = { navController.navigate(Screen.Lists.route) })
     }
-    }
+}
 
 
 /*@Composable

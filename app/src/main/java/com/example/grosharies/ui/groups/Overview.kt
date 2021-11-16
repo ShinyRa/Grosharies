@@ -2,7 +2,10 @@ package com.example.grosharies.ui.groups
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,7 +57,10 @@ fun Overview(navController: NavController) {
 
                 Column(verticalArrangement = Arrangement.Bottom) {
                     RoundedButton(text = "Create", onClickListener = { addGroup() })
-                    RoundedButton(text = "Join", isSecondary = true, onClickListener = { navController.navigate(Screen.GroupEdit.route) })
+                    RoundedButton(
+                        text = "Join",
+                        isSecondary = true,
+                        onClickListener = { navController.navigate(Screen.GroupEdit.route) })
                 }
             }
         }
@@ -92,7 +98,7 @@ fun GroupCard(
 
 
                     IconButton(
-                        onClick = {deleteGroup(group)}
+                        onClick = { deleteGroup(group) }
                     ) {
                         Icon(
                             painterResource(id = R.drawable.ic_close_24),
