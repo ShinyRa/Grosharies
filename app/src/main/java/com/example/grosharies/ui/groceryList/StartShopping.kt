@@ -37,7 +37,8 @@ fun StartShopping(GroupId: String? = null, listId: String? = null, navController
                     ListItem("Item3", 33, false),
                     ListItem("Item4", 362, false),
                     ListItem("Item5", 123, false),
-                )
+                ),
+            1
             )
         val listItems = groceryList.listItems
         Column(
