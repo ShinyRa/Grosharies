@@ -38,7 +38,7 @@ fun DefaultScaffold() {
         content = {
             Surface(modifier = Modifier.padding(it)) {
                 NavHost(navController = navController, startDestination = Screen.Home.route, route = "root") {
-                    composable(route = Screen.Home.route) { Home() }
+                    composable(route = Screen.Home.route) { Home(navController = navController) }
                     navigation(startDestination = Screen.Groups.route, "group") {
                         composable(route = Screen.Groups.route) {
                             Overview(navController = navController)
