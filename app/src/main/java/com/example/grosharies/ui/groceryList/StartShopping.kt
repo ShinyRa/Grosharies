@@ -50,10 +50,8 @@ fun StartShopping(GroupId: String? = null, listId: String? = null, navController
                 items(listItems.size) { index ->
                     val name = listItems[index].itemName
                     val amount = listItems[index].itemAmount.toString()
-                    var bought = listItems[index].itemPurchased
 
-                    val checkedState = remember { mutableStateOf(bought) }
-//                    val text = remember { mutableStateOf(checkbox.value) }
+                    val checkedState = remember { mutableStateOf(listItems[index].itemPurchased) }
 
                     Row(
                         modifier = Modifier
@@ -65,11 +63,7 @@ fun StartShopping(GroupId: String? = null, listId: String? = null, navController
                             modifier = Modifier
                                 .padding(8.dp),
                             onCheckedChange = {
-                                bought = it
                                 checkedState.value = it
-//                                if (it) {
-//                                    showMessage(context, checkbox.value)
-//                                }
                             }
                         )
                         Column(

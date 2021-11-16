@@ -31,16 +31,6 @@ fun EditList(GroupId: String? = null, listId: String? = null, navController: Nav
                     ListItem("Item4", 362, false),
                     ListItem("Item5", 123, false),
                     ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
-                    ListItem("Item6", 33, false),
                 )
             )
         val listItems = groceryList.listItems
@@ -100,7 +90,7 @@ fun EditList(GroupId: String? = null, listId: String? = null, navController: Nav
             var newName: String
             var newAmount: Int
 
-            Column() {
+            Column {
                 Row(
                     modifier = Modifier
                         .padding(
