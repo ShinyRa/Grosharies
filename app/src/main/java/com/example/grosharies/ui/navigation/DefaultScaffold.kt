@@ -11,9 +11,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.example.grosharies.ui.groceryList.ListOverview
 import com.example.grosharies.ui.Home
 import com.example.grosharies.ui.groceryList.CreateListOverview
 import com.example.grosharies.ui.groups.*
+import com.example.grosharies.ui.groceryList.EditList
+import com.example.grosharies.ui.groups.GroupOverview
+import com.example.grosharies.ui.groups.GroupView
 
 @Composable
 fun DefaultScaffold() {
@@ -38,16 +42,20 @@ fun DefaultScaffold() {
             Surface(modifier = Modifier.padding(it)) {
                 NavHost(navController = navController, startDestination = Screen.Home.route, route = "root") {
                     composable(route = Screen.Home.route) { Home() }
-                    composable(route = Screen.Lists.route) { CreateListOverview() }
-                    navigation(startDestination = Screen.Groups.route, "group") {
-                        composable(route = Screen.Groups.route) {
-                            Overview(navController = navController)
-                        }
-                        composable(route = Screen.GroupNew.route) { New(addGroup = { group: Group -> addGroup(group) }, navController = navController) }
-                        composable(route = Screen.GroupEdit.route) { Edit() }
-                        composable(route = Screen.GroupDetail.route + "/{groupId}") { entry ->
-                            GroupView(groupId = entry.arguments?.getString("groupId"))
-                        }
+                    composable(route = Screen.Groups.route) { GroupOverview(navController) }
+                    composable(route = Screen.GroupDetail.route + "/{groupId}") { entry ->
+                        GroupView(
+                            entry.arguments?.getString("groupId"),
+                            navController = navController
+                        )
+                    }
+                    composable(route = Screen.Lists.route) { ListOverview(navController = navController) }
+                    composable(route = Screen.ListEdit.route + "/{groupId}/{listId}") { entry ->
+                        EditList(
+                            entry.arguments?.getString("groupId"),
+                            entry.arguments?.getString("listId"),
+                            navController = navController
+                        )
                     }
                 }
             }
@@ -55,7 +63,3 @@ fun DefaultScaffold() {
         bottomBar = { BottomNavigator(navController) }
     )
 }
-
-
-
-

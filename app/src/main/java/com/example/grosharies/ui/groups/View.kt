@@ -6,11 +6,12 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.grosharies.ui.groceryList.CreateListOverview
+import androidx.navigation.NavController
+import com.example.grosharies.ui.groceryList.ListOverview
 
 @Composable
-fun GroupView(groupId: String?) {
+fun GroupView(groupId: String?, navController: NavController) {
     Surface(color = MaterialTheme.colors.background, modifier = Modifier.padding(16.dp)) {
-        CreateListOverview(groupId)
+        ListOverview(groupId, navController = navController)
     }
 }
