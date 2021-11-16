@@ -15,8 +15,6 @@ import com.example.grosharies.ui.Home
 import com.example.grosharies.ui.groups.*
 import com.example.grosharies.ui.groceryList.EditList
 import com.example.grosharies.ui.groceryList.StartShopping
-import com.example.grosharies.ui.groups.GroupOverview
-import com.example.grosharies.ui.groups.GroupView
 
 @Composable
 fun DefaultScaffold() {
