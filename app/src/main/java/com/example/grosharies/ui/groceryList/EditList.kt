@@ -10,15 +10,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.data.ListItem.ListItem
+import com.example.grosharies.ui.common.MainButton
+import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun EditList(GroupId: String? = null, listId: String? = null, navController: NavController) {
+fun EditList(groupId: String? = null, listId: String? = null, navController: NavController) {
 
     fun SaveEdit() {
-        navController.navigate("list/view/${GroupId}")
+        navController.navigate(Screen.GroupDetail.withArgs(groupId.toString()))
+
         // TODO: send edited values to the overview
     }
+
 
     GroshariesTheme {
         val groceryList =
@@ -134,13 +138,15 @@ fun EditList(GroupId: String? = null, listId: String? = null, navController: Nav
                             )
                     )
                 }
-                Button(
-                    onClick = { SaveEdit() }, modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
-                    Text(text = "SAVE")
-                }
+                MainButton(text = "SAVE", onClickListener = { SaveEdit() })
+
+//                Button(
+//                    onClick = { finishShopping() }, modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(16.dp)
+//                ) {
+//                    Text(text = "SAVE")
+//                }
             }
         }
     }
