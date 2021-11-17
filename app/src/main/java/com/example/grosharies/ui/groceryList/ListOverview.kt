@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -19,8 +18,6 @@ import androidx.navigation.NavController
 import com.example.grosharies.data.GroceryList.GroceryList
 import com.example.grosharies.data.GroceryList.GroceryListViewModel
 import com.example.grosharies.data.GroceryList.GroceryListViewModel.GroceryListViewModelFactory
-import com.example.grosharies.data.GroceryList.getExampleData
-import com.example.grosharies.data.ListItem.ListItem
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.common.TextButton
 import com.example.grosharies.ui.navigation.Screen
@@ -29,7 +26,6 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 @Composable
 fun ListOverview(groupId: String? = null, navController: NavController) {
     val (lists, setLists) = remember { mutableStateOf(listOf<GroceryList>()) }
-    val counter = remember { mutableStateOf(0) }
 
     val context = LocalContext.current
     val myGroceryListViewModel: GroceryListViewModel = viewModel(
@@ -39,12 +35,9 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
     val listItems = myGroceryListViewModel.getAllGroceryLists.observeAsState(listOf()).value
 
     fun addGroceryList() {
-        counter.value = counter.value + 1
-        setLists(
-            lists + GroceryList(
-                "List ${counter.value}",
-                counter.value.toLong(),
-                "Name ${counter.value}",
+        myGroceryListViewModel.insertGroceryLists(
+            GroceryList(
+                "test1", 123, "Mikal",
             )
         )
     }
@@ -52,7 +45,6 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
     fun removeFromLists(list: GroceryList) = setLists(lists.filter { it.id != list.id })
 
     GroshariesTheme {
-//        val groceryList: List<GroceryList> = getExampleData(groupId)
         val groceryList: List<GroceryList> = listItems
 
         Box {
@@ -91,6 +83,7 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
                                         Text(text = "By: ${groceryList[index].createdBy}")
                                         Text(text = "Last edited: ${groceryList[index].lastEdited}")
                                     }
+                                    // TODO: get list items
 //                                    Column(
 //                                        Modifier
 //                                            .padding(8.dp),

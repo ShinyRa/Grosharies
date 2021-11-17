@@ -8,13 +8,6 @@ class GroceryListRepository(private val groceryListDao: GroceryListDao) {
 
     val getAllGroceryLists: LiveData<List<GroceryList>> = groceryListDao.getGroceryLists()
 
-//    private val groceryListDao: GroceryListDao
-
-//    init {
-//        val groceryListDatabase = GroshariesRoomDatabase.getDatabase(context)
-//        groceryListDao = groceryListDatabase!!.groceryListDao()
-//    }
-
     fun getGroceryLists(): LiveData<List<GroceryList>> {
         return groceryListDao.getGroceryLists()
     }
