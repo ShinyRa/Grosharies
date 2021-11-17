@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import com.example.grosharies.data.GroshariesRoomDatabase
 
-class GroceryListRepository(context: Context) {
-    private val groceryListDao: GroceryListDao
+class GroceryListRepository(private val groceryListDao: GroceryListDao) {
 
-    init {
-        val groceryListDatabase = GroshariesRoomDatabase.getDatabase(context)
-        groceryListDao = groceryListDatabase!!.groceryListDao()
-    }
+    val getAllGroceryLists: LiveData<List<GroceryList>> = groceryListDao.getGroceryLists()
+
+//    private val groceryListDao: GroceryListDao
+
+//    init {
+//        val groceryListDatabase = GroshariesRoomDatabase.getDatabase(context)
+//        groceryListDao = groceryListDatabase!!.groceryListDao()
+//    }
 
     fun getGroceryLists(): LiveData<List<GroceryList>> {
         return groceryListDao.getGroceryLists()
