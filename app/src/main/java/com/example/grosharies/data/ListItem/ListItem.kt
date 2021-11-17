@@ -17,5 +17,4 @@ data class ListItem(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Long? = null
-) {
-}
+)

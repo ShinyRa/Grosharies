@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.grosharies.data.ListItem.ListItem
 
-@Entity(tableName = "list")
+@Entity(tableName = "GroceryList")
 data class GroceryList(
 
     @ColumnInfo(name = "listName")
@@ -22,8 +22,7 @@ data class GroceryList(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Long? = null
-) {
-}
+)
 
 fun getExampleData(groupId: String? = null): List<GroceryList> {
     // TODO: groupId is an example, should be implemented once the database is realised.

@@ -8,8 +8,8 @@ class GroupRepository(context: Context) {
     private var groupDao: GroupDao
 
     init {
-        val groshariesRoomDatabase = GroshariesRoomDatabase.getDatabase(context)
-        groupDao = groshariesRoomDatabase!!.groupDao()
+        val groupRoomDatabase = GroshariesRoomDatabase.getDatabase(context)
+        groupDao = groupRoomDatabase!!.groupDao()
     }
 
     fun getGroups(): LiveData<List<Group>> {

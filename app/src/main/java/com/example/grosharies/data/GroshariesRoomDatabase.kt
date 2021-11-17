@@ -5,13 +5,19 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.grosharies.data.GroceryList.GroceryList
+import com.example.grosharies.data.GroceryList.GroceryListDao
 import com.example.grosharies.data.Group.Group
 import com.example.grosharies.data.Group.GroupDao
 import com.example.grosharies.data.ListItem.ListItem
 
-@Database(entities = [Group::class, ListItem::class, GroceryList::class], version = 1, exportSchema = false)
-abstract class GroshariesRoomDatabase: RoomDatabase() {
+@Database(
+    entities = [Group::class, ListItem::class, GroceryList::class],
+    version = 1,
+    exportSchema = false
+)
+abstract class GroshariesRoomDatabase : RoomDatabase() {
     abstract fun groupDao(): GroupDao
+    abstract fun groceryListDao(): GroceryListDao
 
     companion object {
         private const val DATABASE_NAME = "GROSHARIES_DATABASE"
