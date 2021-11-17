@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.R
+import com.example.grosharies.data.Group.Group
 import com.example.grosharies.ui.common.DefaultText
 import com.example.grosharies.ui.common.RoundedButton
 import com.example.grosharies.ui.navigation.Screen
