@@ -67,26 +67,10 @@ fun ButtonsHomeScreen(navController: NavController) {
 
         RoundedButton(
             text = "Groups",
-            onClickListener = { navController.navigate(Screen.Groups.route) })
+            onClickListener = { navController.navigate(Screen.GroupName.route) })
 
         RoundedButton(
             text = "Personal List",
             onClickListener = { navController.navigate(Screen.Lists.route) })
     }
 }
-
-
-/*@Composable
-fun Groups() {
-    //OutlinedButton(onClick = { /* Do something! */ }) {
-        //Text(" \n ‍👩‍👧‍👧Groups \n", fontSize = 20.sp) }
-    RoundedButton(text = "Groups", onClickListener = { /*TODO*/})
-}
-
-@Composable
-fun PersonalList() {
-    //OutlinedButton(onClick = { /* Do something! */ }) {
-        //Text(" \n 🙎‍♂️Personal list \n", fontSize = 20.sp)}
-    RoundedButton(text = "Personal List", onClickListener = { /*TODO*/})
-
-}*/
