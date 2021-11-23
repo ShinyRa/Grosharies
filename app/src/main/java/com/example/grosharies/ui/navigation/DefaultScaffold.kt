@@ -63,20 +63,22 @@ fun DefaultScaffold() {
                             )
                         }
                     }
-                    composable(route = Screen.Lists.route) { ListOverview(navController = navController) }
-                    composable(route = Screen.ListEdit.route + "/{groupId}/{listId}") { entry ->
-                        EditList(
-                            entry.arguments?.getString("groupId"),
-                            entry.arguments?.getString("listId"),
-                            navController = navController
-                        )
-                    }
-                    composable(route = Screen.StartShopping.route + "/{groupId}/{listId}") { entry ->
-                        StartShopping(
-                            entry.arguments?.getString("groupId"),
-                            entry.arguments?.getString("listId"),
-                            navController = navController
-                        )
+                    navigation(startDestination = Screen.Lists.route, "list") {
+                        composable(route = Screen.Lists.route) { ListOverview(navController = navController) }
+                        composable(route = Screen.ListEdit.route + "/{groupId}/{listId}") { entry ->
+                            EditList(
+                                entry.arguments?.getString("groupId"),
+                                entry.arguments?.getString("listId"),
+                                navController = navController
+                            )
+                        }
+                        composable(route = Screen.StartShopping.route + "/{groupId}/{listId}") { entry ->
+                            StartShopping(
+                                entry.arguments?.getString("groupId"),
+                                entry.arguments?.getString("listId"),
+                                navController = navController
+                            )
+                        }
                     }
                 }
             }
