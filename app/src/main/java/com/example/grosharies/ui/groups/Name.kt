@@ -3,7 +3,10 @@ package com.example.grosharies.ui.groups
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -19,7 +22,23 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
 fun NameInput(navController: NavController) {
-    InfoText()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(100.dp),
+    ) {
+        InfoText()
+    }
+    val query = remember {
+        mutableStateOf("Name")
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        TextField(value = query.value,
+            onValueChange = { query.value = it })
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
