@@ -33,7 +33,7 @@ fun DefaultScaffold() {
 
     fun addGroup(group: Group) {
         counter.value = counter.value + 1
-        setGroups(groups + Group(counter.value, group.name))
+        setGroups(groups + Group(group.name))
     }
 
     fun removeFromGroups(group: Group) = setGroups(groups.filter { it.id != group.id })
@@ -68,7 +68,7 @@ fun DefaultScaffold() {
                         }
                     }
                     navigation(startDestination = Screen.Lists.route, "list") {
-                        composable(route = Screen.Lists.route) { ListOverview(navController = navController) }
+                        composable(route = Screen.Lists.route) { ListOverview("0", navController = navController) }
                         composable(route = Screen.ListEdit.route + "/{groupId}/{listId}") { entry ->
                             EditList(
                                 entry.arguments?.getString("groupId"),

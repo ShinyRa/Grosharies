@@ -7,7 +7,10 @@ import androidx.room.*
 interface GroceryListDao {
 
     @Query("SELECT * FROM `GroceryList`")
-    fun getGroceryLists(): LiveData<List<GroceryList>>
+    fun getAllGroceryLists(): LiveData<List<GroceryList>>
+
+    @Query("SELECT * FROM `GroceryList` WHERE groupId = :groupId")
+    fun getGroceryLists(groupId: String): LiveData<List<GroceryList>>
 
     @Insert
     suspend fun insertGroceryLists(groceryList: GroceryList)
