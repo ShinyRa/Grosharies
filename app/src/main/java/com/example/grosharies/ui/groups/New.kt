@@ -19,7 +19,7 @@ fun New(
         DefaultText("New!")
 
         Button(onClick = {
-            addGroup(Group(1, "Test"))
+            addGroup(Group("Test"))
             navController.popBackStack()
         }) {
             DefaultText(text = "Click")
