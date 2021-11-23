@@ -2,14 +2,16 @@ package com.example.grosharies.data.Group
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import com.example.grosharies.data.GroceryList.GroceryList
+import com.example.grosharies.data.GroceryList.GroceryListDao
 import com.example.grosharies.data.GroshariesRoomDatabase
 
-class GroupRepository(context: Context) {
-    private var groupDao: GroupDao
+class GroupRepository(private val groupDao: GroupDao) {
 
-    init {
-        val groupRoomDatabase = GroshariesRoomDatabase.getDatabase(context)
-        groupDao = groupRoomDatabase!!.groupDao()
+    val getAllGroups: LiveData<List<Group>> = groupDao.getGroups()
+
+    fun getGroceryLists(): LiveData<List<Group>> {
+        return groupDao.getGroups()
     }
 
     fun getGroups(): LiveData<List<Group>> {

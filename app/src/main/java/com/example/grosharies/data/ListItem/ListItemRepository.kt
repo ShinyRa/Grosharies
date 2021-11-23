@@ -3,14 +3,11 @@ package com.example.grosharies.data.ListItem
 import android.content.Context
 import androidx.lifecycle.LiveData
 import com.example.grosharies.data.GroshariesRoomDatabase
+import com.example.grosharies.data.Group.Group
+import com.example.grosharies.data.Group.GroupDao
 
-class ListItemRepository(context: Context) {
-    private val listItemDao: ListItemDao
-
-    init {
-        val listItemDatabase = GroshariesRoomDatabase.getDatabase(context)
-        listItemDao = listItemDatabase!!.listItemDao()
-    }
+class ListItemRepository(private val listItemDao: ListItemDao) {
+    val getAllListItems: LiveData<List<ListItem>> = listItemDao.getListItems()
 
     fun getListItems(): LiveData<List<ListItem>> {
         return listItemDao.getListItems()
