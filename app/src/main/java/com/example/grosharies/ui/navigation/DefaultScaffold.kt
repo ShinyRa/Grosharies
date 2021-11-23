@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
@@ -45,6 +46,7 @@ fun DefaultScaffold() {
                 ) {
                     composable(route = Screen.Home.route) { Home(navController = navController) }
                     navigation(startDestination = Screen.Groups.route, "group") {
+                        composable(route = Screen.GroupName.route) { NameInput(navController = navController) }
                         composable(route = Screen.Groups.route) {
                             Overview(navController = navController)
                         }
