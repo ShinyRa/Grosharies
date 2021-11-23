@@ -11,11 +11,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.example.grosharies.data.Group.Group
 import com.example.grosharies.ui.Home
 import com.example.grosharies.ui.groceryList.EditList
 import com.example.grosharies.ui.groceryList.ListOverview
 import com.example.grosharies.ui.groceryList.StartShopping
-import com.example.grosharies.ui.groups.*
+import com.example.grosharies.ui.groups.Edit
+import com.example.grosharies.ui.groups.New
+import com.example.grosharies.ui.groups.Overview
+import com.example.grosharies.ui.groups.View
 
 @Composable
 fun DefaultScaffold() {
