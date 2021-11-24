@@ -28,14 +28,14 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 import java.util.*
 
 @Composable
-fun ListOverview(groupId: String? = null, navController: NavController) {
+fun ListOverview(groupId: String, navController: NavController) {
 
     val context = LocalContext.current
     val myGroceryListViewModel: GroceryListViewModel = viewModel(
         factory = GroceryListViewModelFactory(context.applicationContext as Application)
     )
 
-    myGroceryListViewModel.getListItemsByGroup(groupId!!)
+    myGroceryListViewModel.getListItemsByGroup(groupId)
     val listItems = myGroceryListViewModel.GroceryLists.observeAsState(listOf()).value
 
     fun addGroceryList() {
