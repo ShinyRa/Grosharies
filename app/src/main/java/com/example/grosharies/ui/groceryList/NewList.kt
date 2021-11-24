@@ -76,12 +76,3 @@ fun NewList(groupId: String, navController: NavController) {
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    val navController = rememberNavController()
-    Surface(color = MaterialTheme.colors.background) {
-        NewList("0", navController = navController)
-    }
-}

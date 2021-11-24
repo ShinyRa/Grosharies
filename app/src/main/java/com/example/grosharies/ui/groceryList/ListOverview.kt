@@ -3,10 +3,7 @@ package com.example.grosharies.ui.groceryList
 import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -14,9 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.R
 import com.example.grosharies.data.GroceryList.GroceryList
 import com.example.grosharies.data.GroceryList.GroceryListViewModel
@@ -25,7 +24,6 @@ import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.common.TextButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
-import java.util.*
 
 @Composable
 fun ListOverview(groupId: String, navController: NavController) {
@@ -40,11 +38,6 @@ fun ListOverview(groupId: String, navController: NavController) {
 
     fun addGroceryList() {
         navController.navigate(Screen.ListNew.withArgs(groupId))
-//        myGroceryListViewModel.insertGroceryLists(
-//            GroceryList(
-//                "test", Date(), "Mikal", groupId = groupId.toLong(),
-//            )
-//        )
     }
 
     fun removeFromList(list: GroceryList) {
@@ -129,7 +122,7 @@ fun ListOverview(groupId: String, navController: NavController) {
                                             onClickListener = {
                                                 navController.navigate(
                                                     Screen.ListEdit.withArgs(
-                                                        groupId.toString(),
+                                                        groupId,
                                                         groceryList[index].id.toString()
                                                     )
                                                 )
@@ -145,7 +138,7 @@ fun ListOverview(groupId: String, navController: NavController) {
                                             onClickListener = {
                                                 navController.navigate(
                                                     Screen.StartShopping.withArgs(
-                                                        groupId.toString(),
+                                                        groupId,
                                                         groceryList[index].id.toString()
                                                     )
                                                 )
@@ -159,5 +152,15 @@ fun ListOverview(groupId: String, navController: NavController) {
                 MainButton(text = "ADD NEW LIST", onClickListener = { addGroceryList() })
             }
         }
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    val navController = rememberNavController()
+    Surface(color = MaterialTheme.colors.background) {
+        ListOverview("0", navController = navController)
     }
 }

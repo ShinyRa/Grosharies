@@ -7,7 +7,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class GroceryListViewModel(application: Application) : AndroidViewModel(application) {
-//    val getAllGroceryLists: LiveData<List<GroceryList>>
     private val repository: GroceryListRepository
 
     val mutableGroceryList: MutableLiveData<String> = MutableLiveData()
@@ -16,7 +15,6 @@ class GroceryListViewModel(application: Application) : AndroidViewModel(applicat
     init {
         val groceryListDao = GroshariesRoomDatabase.getDatabase(application)!!.groceryListDao()
         repository = GroceryListRepository(groceryListDao)
-//        getAllGroceryLists = repository.getAllGroceryLists
 
         GroceryLists = Transformations.switchMap(mutableGroceryList) { param ->
             repository.getGroceryLists(param)
