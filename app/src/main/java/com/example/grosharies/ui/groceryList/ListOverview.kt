@@ -1,29 +1,21 @@
 package com.example.grosharies.ui.groceryList
 
 import android.app.Application
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.R
 import com.example.grosharies.data.GroceryList.GroceryList
 import com.example.grosharies.data.GroceryList.GroceryListViewModel
@@ -35,26 +27,18 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
 fun ListOverview(groupId: String, navController: NavController) {
-    val (lists, setLists) = remember { mutableStateOf(listOf<GroceryList>()) }
 
     val context = LocalContext.current
     val myGroceryListViewModel: GroceryListViewModel = viewModel(
         factory = GroceryListViewModelFactory(context.applicationContext as Application)
     )
 
-//    val listItems = myGroceryListViewModel.getAllGroceryLists.observeAsState(listOf()).value
     myGroceryListViewModel.getListItemsByGroup(groupId)
-    val listItems = myGroceryListViewModel.listItems.observeAsState(listOf()).value
+    val listItems = myGroceryListViewModel.GroceryLists.observeAsState(listOf()).value
 
     fun addGroceryList() {
-        myGroceryListViewModel.insertGroceryLists(
-            GroceryList(
-                "test", 123, "Mikal", groupId = groupId.toLong(),
-            )
-        )
+        navController.navigate(Screen.ListNew.withArgs(groupId))
     }
-
-    fun removeFromLists(list: GroceryList) = setLists(lists.filter { it.id != list.id })
 
     fun removeFromList(list: GroceryList) {
         myGroceryListViewModel.deleteGroceryLists(list)
@@ -92,8 +76,8 @@ fun ListOverview(groupId: String, navController: NavController) {
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                 ) {
                                     Column(
-                                        Modifier
-                                            .padding(8.dp)
+                                        Modifier.padding(8.dp)
+                                            .weight(8f)
                                     ) {
                                         Text(text = groceryList[index].listName)
                                         Text(text = "By: ${groceryList[index].createdBy}")
@@ -102,7 +86,8 @@ fun ListOverview(groupId: String, navController: NavController) {
                                     // TODO: get list items
                                     Column(
                                         Modifier
-                                            .padding(8.dp),
+                                            .padding(8.dp)
+                                            .weight(2f),
                                         horizontalAlignment = Alignment.End
                                     ) {
 //                                        groceryList[index].listItems.take(2).forEach { item ->
@@ -138,7 +123,7 @@ fun ListOverview(groupId: String, navController: NavController) {
                                             onClickListener = {
                                                 navController.navigate(
                                                     Screen.ListEdit.withArgs(
-                                                        groupId.toString(),
+                                                        groupId,
                                                         groceryList[index].id.toString()
                                                     )
                                                 )
@@ -154,7 +139,7 @@ fun ListOverview(groupId: String, navController: NavController) {
                                             onClickListener = {
                                                 navController.navigate(
                                                     Screen.StartShopping.withArgs(
-                                                        groupId.toString(),
+                                                        groupId,
                                                         groceryList[index].id.toString()
                                                     )
                                                 )
@@ -168,5 +153,15 @@ fun ListOverview(groupId: String, navController: NavController) {
                 MainButton(text = "ADD NEW LIST", onClickListener = { addGroceryList() })
             }
         }
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    val navController = rememberNavController()
+    Surface(color = MaterialTheme.colors.background) {
+        ListOverview("0", navController = navController)
     }
 }
