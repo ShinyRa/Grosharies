@@ -1,50 +1,52 @@
 package com.example.grosharies.ui.groceryList
 
+import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.grosharies.data.ListItem.ListItem
+import androidx.navigation.compose.rememberNavController
+import com.example.grosharies.R
+import com.example.grosharies.data.GroceryList.GroceryList
+import com.example.grosharies.data.GroceryList.GroceryListViewModel
+import com.example.grosharies.data.GroceryList.GroceryListViewModel.GroceryListViewModelFactory
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.common.TextButton
-import com.example.grosharies.ui.groups.Group
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun ListOverview(groupId: String? = null, navController: NavController) {
-    val (lists, setLists) = remember { mutableStateOf(listOf<GroceryList>()) }
-    val counter = remember { mutableStateOf(0) }
+fun ListOverview(groupId: String, navController: NavController) {
+
+    val context = LocalContext.current
+    val myGroceryListViewModel: GroceryListViewModel = viewModel(
+        factory = GroceryListViewModelFactory(context.applicationContext as Application)
+    )
+
+    myGroceryListViewModel.getListItemsByGroup(groupId)
+    val listItems = myGroceryListViewModel.GroceryLists.observeAsState(listOf()).value
 
     fun addGroceryList() {
-        counter.value = counter.value + 1
-        setLists(
-            lists + GroceryList(
-                "List ${counter.value}",
-                counter.value.toLong(),
-                "Name ${counter.value}",
-                listOf(
-                    ListItem("itemName ${counter.value}", counter.value, false),
-                    ListItem("itemName ${counter.value}", counter.value, false),
-                    ListItem("itemName ${counter.value}", counter.value, false)
-                )
-            )
-        )
+        navController.navigate(Screen.ListNew.withArgs(groupId))
     }
 
-    fun removeFromLists(list: GroceryList) = setLists(lists.filter { it.id != list.id })
+    fun removeFromList(list: GroceryList) {
+        myGroceryListViewModel.deleteGroceryLists(list)
+    }
 
     GroshariesTheme {
-        val groceryList: List<GroceryList> = getExampleData(groupId)
+        val groceryList: List<GroceryList> = listItems
+
         Box {
             Column {
                 LazyColumn(
@@ -55,7 +57,7 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
                         bottom = 8.dp
                     )
                 ) {
-                    items(lists.size) { index ->
+                    items(groceryList.size) { index ->
                         Card(
                             backgroundColor = Color.White,
                             modifier = Modifier.padding(PaddingValues(bottom = 16.dp))
@@ -74,22 +76,30 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                 ) {
                                     Column(
-                                        Modifier
-                                            .padding(8.dp)
+                                        Modifier.padding(8.dp)
+                                            .weight(8f)
                                     ) {
-                                        Text(text = lists[index].listName)
-                                        Text(text = "By: ${lists[index].createdBy}")
-                                        Text(text = "Last edited: ${lists[index].lastEdited}")
+                                        Text(text = groceryList[index].listName)
+                                        Text(text = "By: ${groceryList[index].createdBy}")
+                                        Text(text = "Last edited: ${groceryList[index].lastEdited}")
                                     }
+                                    // TODO: get list items
                                     Column(
                                         Modifier
-                                            .padding(8.dp),
+                                            .padding(8.dp)
+                                            .weight(2f),
                                         horizontalAlignment = Alignment.End
                                     ) {
-                                        lists[index].listItems.take(2).forEach { item ->
-                                            Text(text = item.itemName, color = Color.Gray)
+//                                        groceryList[index].listItems.take(2).forEach { item ->
+//                                            Text(text = item.itemName, color = Color.Gray)
+//                                        }
+//                                        Text(text = "...", color = Color.Gray)
+                                        IconButton(onClick = { removeFromList(groceryList[index]) }) {
+                                            Icon(
+                                                painterResource(id = R.drawable.ic_close_24),
+                                                contentDescription = "close"
+                                            )
                                         }
-                                        Text(text = "...", color = Color.Gray)
                                     }
                                 }
                                 Row(
@@ -108,17 +118,32 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
                                         Modifier
                                             .padding(8.dp)
                                     ) {
-                                        TextButton(text = "Edit") {
-                                        }
+                                        TextButton(
+                                            text = "Edit",
+                                            onClickListener = {
+                                                navController.navigate(
+                                                    Screen.ListEdit.withArgs(
+                                                        groupId,
+                                                        groceryList[index].id.toString()
+                                                    )
+                                                )
+                                            }
+                                        )
                                     }
-
                                     Column(
                                         Modifier
                                             .padding(8.dp)
                                     ) {
                                         MainButton(
                                             text = "Start Shopping",
-                                            onClickListener = { /*TODO*/ })
+                                            onClickListener = {
+                                                navController.navigate(
+                                                    Screen.StartShopping.withArgs(
+                                                        groupId,
+                                                        groceryList[index].id.toString()
+                                                    )
+                                                )
+                                            })
                                     }
                                 }
                             }
@@ -128,5 +153,15 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
                 MainButton(text = "ADD NEW LIST", onClickListener = { addGroceryList() })
             }
         }
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    val navController = rememberNavController()
+    Surface(color = MaterialTheme.colors.background) {
+        ListOverview("0", navController = navController)
     }
 }

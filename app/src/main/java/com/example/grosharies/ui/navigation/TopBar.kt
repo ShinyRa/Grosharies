@@ -20,20 +20,29 @@ fun hasBack(queue: ArrayDeque<NavBackStackEntry>): Boolean = queue.size > 0
 
 @Composable
 fun TopBar(navController: NavController) {
-    var (currentRoute, setCurrentRoute) = remember { mutableStateOf<String?>("") }
-    navController.addOnDestinationChangedListener{ _, destination, _ ->
+    val (currentRoute, setCurrentRoute) = remember { mutableStateOf<String?>("") }
+    navController.addOnDestinationChangedListener { _, destination, _ ->
         run {
             setCurrentRoute(destination.route)
         }
     }
     TopAppBar(
-        title = { Text(stringResource(id = Screen.findByRoute(currentRoute ?: "home")?.nameResource ?: R.string.home)) },
+        title = {
+            Text(
+                stringResource(
+                    id = Screen.findByRoute(currentRoute ?: "home")?.nameResource ?: R.string.home
+                )
+            )
+        },
         navigationIcon = {
             if (hasBack(queue = navController.backQueue)) {
                 IconButton(onClick = { navController.navigateUp() }) {
-                    Icon(painter = painterResource(
-                        id = R.drawable.ic_chevron_left_24),
-                        contentDescription = "Back")
+                    Icon(
+                        painter = painterResource(
+                            id = R.drawable.ic_chevron_left_24
+                        ),
+                        contentDescription = "Back"
+                    )
                 }
             }
         },

@@ -11,14 +11,12 @@ import com.example.grosharies.ui.common.DefaultText
 
 @Composable
 fun New(
-    addGroup: (group: Group) -> Unit,
-    navController: NavController
+    navController: NavController,
 ) {
     Surface(modifier = Modifier.padding(16.dp)) {
         DefaultText("New!")
-        
+
         Button(onClick = {
-            addGroup(Group(1, "Test"))
             navController.popBackStack()
         }) {
             DefaultText(text = "Click")

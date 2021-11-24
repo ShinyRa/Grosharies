@@ -17,22 +17,36 @@ import com.example.grosharies.R
 import com.example.grosharies.ui.theme.primary
 import com.example.grosharies.ui.theme.textColor
 
-data class BottomNavigatorItem(val name: String, val id: Int, val navigate: () -> Unit)
+data class BottomNavigatorItem(
+    val name: String,
+    val routes: Array<String>,
+    val id: Int,
+    val navigate: () -> Unit,
+)
 
 @Composable
 fun BottomNavigator(navController: NavController) {
 
-    val (selected, setSelected) = remember { mutableStateOf(0) }
-
     val listItems = listOf(
-        BottomNavigatorItem("home", R.drawable.ic_home_24) { navController.navigate(Screen.Home.route) },
-        BottomNavigatorItem("groups", R.drawable.ic_group_24) { navController.navigate(Screen.Groups.route) },
-        BottomNavigatorItem("lists", R.drawable.ic_list_24) { navController.navigate(Screen.Lists.route) }
+        BottomNavigatorItem("home",
+            arrayOf(Screen.Home.route),
+            R.drawable.ic_home_24) { navController.navigate(Screen.Home.route) },
+        BottomNavigatorItem("groups",
+            arrayOf(Screen.Groups.route,
+                Screen.GroupDetail.route,
+                Screen.GroupNew.route,
+                Screen.GroupEdit.route),
+            R.drawable.ic_group_24) { navController.navigate(Screen.Groups.route) },
+        BottomNavigatorItem("lists",
+            arrayOf(Screen.Lists.route, Screen.ListEdit.route, Screen.StartShopping.route),
+            R.drawable.ic_list_24) { navController.navigate(Screen.Lists.withArgs("0")) }
     )
 
-    fun switch(active: Int) {
-        setSelected(active)
-        listItems[active].navigate()
+    val (currentRoute, setCurrentRoute) = remember { mutableStateOf<String?>("") }
+    navController.addOnDestinationChangedListener { _, destination, _ ->
+        run {
+            setCurrentRoute(destination.route)
+        }
     }
 
     BottomAppBar(backgroundColor = Color.White, content = {
@@ -40,7 +54,7 @@ fun BottomNavigator(navController: NavController) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            listItems.forEachIndexed { index, bottomNavigatorItem ->
+            listItems.forEachIndexed { _, bottomNavigatorItem ->
                 BottomNavigationItem(
                     icon = {
                         Icon(
@@ -49,8 +63,8 @@ fun BottomNavigator(navController: NavController) {
                         )
                     },
                     label = { Text(text = bottomNavigatorItem.name) },
-                    selected = selected == index,
-                    onClick = { switch(index) },
+                    selected = bottomNavigatorItem.routes.asList().contains(currentRoute),
+                    onClick = { bottomNavigatorItem.navigate() },
                     selectedContentColor = primary,
                     unselectedContentColor = textColor
                 )
