@@ -34,7 +34,7 @@ import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun ListOverview(groupId: String? = null, navController: NavController) {
+fun ListOverview(groupId: String, navController: NavController) {
     val (lists, setLists) = remember { mutableStateOf(listOf<GroceryList>()) }
 
     val context = LocalContext.current
@@ -43,7 +43,7 @@ fun ListOverview(groupId: String? = null, navController: NavController) {
     )
 
 //    val listItems = myGroceryListViewModel.getAllGroceryLists.observeAsState(listOf()).value
-    myGroceryListViewModel.getListItemsByGroup(groupId!!)
+    myGroceryListViewModel.getListItemsByGroup(groupId)
     val listItems = myGroceryListViewModel.listItems.observeAsState(listOf()).value
 
     fun addGroceryList() {
