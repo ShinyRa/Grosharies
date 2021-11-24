@@ -1,5 +1,6 @@
 package com.example.grosharies.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -7,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -14,6 +16,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.grosharies.R
 import com.example.grosharies.ui.common.RoundedButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
@@ -29,6 +32,8 @@ fun Home( navController : NavController ) {
                 Grosharies()
                 Text()
 
+                Screenimage()
+
                 ButtonsHomeScreen(navController)
 
             }
@@ -39,19 +44,31 @@ fun Home( navController : NavController ) {
 
 @Composable
 fun Grosharies() {
-    Text("Grosharies \n", fontSize = 50.sp, color= PrimaryColor, fontWeight = FontWeight.Bold)
+    Text("Grosharies \n", fontSize = 40.sp, color= PrimaryColor, fontWeight = FontWeight.Bold)
 
 }
 
 @Composable
 fun Text() {
     Text("Use this app with your friends to have a collaborative grocery list that you can share easily! \n \n \n",
-        fontSize = 15.sp,
+        fontSize = 10.sp,
         textAlign = TextAlign.Center,
         modifier = Modifier
         .fillMaxWidth()
         .padding(16.dp)
     )
+}
+
+
+@Composable
+fun Screenimage() {
+    Row {
+        Image(
+            painter = painterResource(R.drawable.gro_im1),
+            contentDescription = "Woman grosharing",
+        )
+    }
+
 }
 
 @Composable
