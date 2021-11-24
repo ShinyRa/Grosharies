@@ -1,5 +1,6 @@
 package com.example.grosharies.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -7,11 +8,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.grosharies.R
 import com.example.grosharies.ui.common.RoundedButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
@@ -28,6 +32,8 @@ fun Home(navController: NavController) {
             ) {
                 Grosharies()
                 Text()
+
+                Screenimage()
 
                 ButtonsHomeScreen(navController)
 
@@ -53,6 +59,18 @@ fun Text() {
             .fillMaxWidth()
             .padding(16.dp)
     )
+}
+
+
+@Composable
+fun Screenimage() {
+    Row {
+        Image(
+            painter = painterResource(R.drawable.gro_im1),
+            contentDescription = "Woman grosharing",
+        )
+    }
+
 }
 
 @Composable
