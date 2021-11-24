@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.grosharies.data.GroceryList.GroceryList
 import com.example.grosharies.data.GroceryList.GroceryListDao
 import com.example.grosharies.data.Group.Group
@@ -16,6 +17,7 @@ import com.example.grosharies.data.ListItem.ListItemDao
     version = 2,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class GroshariesRoomDatabase : RoomDatabase() {
     abstract fun groupDao(): GroupDao
     abstract fun groceryListDao(): GroceryListDao
