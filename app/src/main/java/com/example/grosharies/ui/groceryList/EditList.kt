@@ -1,32 +1,38 @@
 package com.example.grosharies.ui.groceryList
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.grosharies.data.GroceryList.GroceryList
+import androidx.navigation.compose.rememberNavController
+import com.example.grosharies.data.ListItem.ListItemViewModel
+import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun EditList(GroupId: String? = null, listId: String? = null, navController: NavController) {
+fun EditList(groupId: String? = null, listId: String? = null, navController: NavController) {
+//    val viewModel: ListItemViewModel
+
+    var newAmount = 0
+    var newName = ""
 
     fun SaveEdit() {
-        navController.navigate("list/view/${GroupId}")
+
+//        if (newAmount != 0 && newName.isNotEmpty()) {
+//            viewModel.insertGroceryLists()
+//        }
+
+        navController.navigate(Screen.GroupDetail.withArgs(groupId.toString()))
         // TODO: send edited values to the overview
     }
 
     GroshariesTheme {
-        val groceryList =
-            GroceryList(
-                "Example",
-                123,
-                "Mikal",
-            )
-//        val listItems = groceryList.listItems
+//        val listItems = ListItemViewModel.get
 //        Column(
 //            modifier = Modifier
 //                .fillMaxHeight(),
@@ -80,8 +86,6 @@ fun EditList(GroupId: String? = null, listId: String? = null, navController: Nav
 //                    }
 //                }
 //            }
-        var newName: String
-        var newAmount: Int
 
         Column {
             Row(
@@ -125,6 +129,13 @@ fun EditList(GroupId: String? = null, listId: String? = null, navController: Nav
                         )
                 )
             }
+            ClickableText(
+                text = AnnotatedString("Add new row"),
+                onClick = {
+                    // TODO: figure out how to add a new row
+                },
+                modifier = Modifier.padding(PaddingValues(start = 16.dp))
+            )
             Button(
                 onClick = { SaveEdit() }, modifier = Modifier
                     .fillMaxWidth()

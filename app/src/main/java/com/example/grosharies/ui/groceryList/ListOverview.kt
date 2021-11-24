@@ -1,7 +1,6 @@
 package com.example.grosharies.ui.groceryList
 
 import android.app.Application
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Card
@@ -10,18 +9,12 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.grosharies.R
@@ -32,29 +25,27 @@ import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.common.TextButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
+import java.util.*
 
 @Composable
 fun ListOverview(groupId: String? = null, navController: NavController) {
-    val (lists, setLists) = remember { mutableStateOf(listOf<GroceryList>()) }
 
     val context = LocalContext.current
     val myGroceryListViewModel: GroceryListViewModel = viewModel(
         factory = GroceryListViewModelFactory(context.applicationContext as Application)
     )
 
-//    val listItems = myGroceryListViewModel.getAllGroceryLists.observeAsState(listOf()).value
     myGroceryListViewModel.getListItemsByGroup(groupId!!)
-    val listItems = myGroceryListViewModel.listItems.observeAsState(listOf()).value
+    val listItems = myGroceryListViewModel.GroceryLists.observeAsState(listOf()).value
 
     fun addGroceryList() {
-        myGroceryListViewModel.insertGroceryLists(
-            GroceryList(
-                "test", 123, "Mikal", groupId = groupId.toLong(),
-            )
-        )
+        navController.navigate(Screen.ListNew.withArgs(groupId))
+//        myGroceryListViewModel.insertGroceryLists(
+//            GroceryList(
+//                "test", Date(), "Mikal", groupId = groupId.toLong(),
+//            )
+//        )
     }
-
-    fun removeFromLists(list: GroceryList) = setLists(lists.filter { it.id != list.id })
 
     fun removeFromList(list: GroceryList) {
         myGroceryListViewModel.deleteGroceryLists(list)

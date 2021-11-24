@@ -16,19 +16,23 @@ class ListItemViewModel(application: Application) : AndroidViewModel(application
         getAllGroceryLists = repository.getListItems()
     }
 
-    fun insertGroceryLists(listItem: ListItem) {
+//    fun getListItemsByGroup(groupId: String) {
+//        mutableListItems.value = groupId
+//    }
+
+    fun insertListItem(listItem: ListItem) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertListItem(listItem)
         }
     }
 
-    fun updateGroceryLists(listItem: ListItem) {
+    fun updateListItem(listItem: ListItem) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateListItem(listItem)
         }
     }
 
-    fun deleteGroceryLists(listItem: ListItem) {
+    fun deleteListItem(listItem: ListItem) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteListItem(listItem)
         }

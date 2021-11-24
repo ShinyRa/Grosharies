@@ -15,6 +15,7 @@ import com.example.grosharies.data.Group.Group
 import com.example.grosharies.ui.Home
 import com.example.grosharies.ui.groceryList.EditList
 import com.example.grosharies.ui.groceryList.ListOverview
+import com.example.grosharies.ui.groceryList.NewList
 import com.example.grosharies.ui.groceryList.StartShopping
 import com.example.grosharies.ui.groups.Edit
 import com.example.grosharies.ui.groups.New
@@ -68,7 +69,12 @@ fun DefaultScaffold() {
                         }
                     }
                     navigation(startDestination = Screen.Lists.route, "list") {
-                        composable(route = Screen.Lists.route) { ListOverview("0", navController = navController) }
+                        composable(route = Screen.Lists.route) {
+                            ListOverview(
+                                "0",
+                                navController = navController
+                            )
+                        }
                         composable(route = Screen.ListEdit.route + "/{groupId}/{listId}") { entry ->
                             EditList(
                                 entry.arguments?.getString("groupId"),
@@ -80,6 +86,12 @@ fun DefaultScaffold() {
                             StartShopping(
                                 entry.arguments?.getString("groupId"),
                                 entry.arguments?.getString("listId"),
+                                navController = navController
+                            )
+                        }
+                        composable(route = Screen.ListNew.route + "/{groupId}") { entry ->
+                            NewList(
+                                entry.arguments?.getString("groupId"),
                                 navController = navController
                             )
                         }
