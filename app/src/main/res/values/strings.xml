@@ -6,5 +6,4 @@
     <string name="group_edit">Edit group</string>
     <string name="group_detail">Group: %d</string>
     <string name="lists">Lists</string>
-    <string name="group_name">Name</string>
 </resources>

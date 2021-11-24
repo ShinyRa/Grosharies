@@ -10,21 +10,10 @@ class GroceryListViewModel(application: Application) : AndroidViewModel(applicat
     val getAllGroceryLists: LiveData<List<GroceryList>>
     private val repository: GroceryListRepository
 
-    val mutableListItems: MutableLiveData<String> = MutableLiveData()
-    val listItems: LiveData<List<GroceryList>>
-
     init {
         val groceryListDao = GroshariesRoomDatabase.getDatabase(application)!!.groceryListDao()
         repository = GroceryListRepository(groceryListDao)
         getAllGroceryLists = repository.getAllGroceryLists
-
-        listItems = Transformations.switchMap(mutableListItems) { param ->
-            repository.getGroceryLists(param)
-        }
-    }
-
-    fun getListItemsByGroup(groupId: String) {
-        mutableListItems.value = groupId
     }
 
     fun insertGroceryLists(groceryList: GroceryList) {

@@ -13,7 +13,7 @@ import com.example.grosharies.data.ListItem.ListItemDao
 
 @Database(
     entities = [Group::class, ListItem::class, GroceryList::class],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 abstract class GroshariesRoomDatabase : RoomDatabase() {

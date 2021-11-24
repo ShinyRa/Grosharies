@@ -39,10 +39,10 @@ fun BottomNavigator(navController: NavController) {
             R.drawable.ic_group_24) { navController.navigate(Screen.Groups.route) },
         BottomNavigatorItem("lists",
             arrayOf(Screen.Lists.route, Screen.ListEdit.route, Screen.StartShopping.route),
-            R.drawable.ic_list_24) { navController.navigate(Screen.Lists.withArgs("0")) }
+            R.drawable.ic_list_24) { navController.navigate(Screen.Lists.route) }
     )
 
-    val (currentRoute, setCurrentRoute) = remember { mutableStateOf<String?>("") }
+    var (currentRoute, setCurrentRoute) = remember { mutableStateOf<String?>("") }
     navController.addOnDestinationChangedListener { _, destination, _ ->
         run {
             setCurrentRoute(destination.route)

@@ -1,13 +1,15 @@
 package com.example.grosharies.data.GroceryList
 
+import android.content.Context
 import androidx.lifecycle.LiveData
+import com.example.grosharies.data.GroshariesRoomDatabase
 
 class GroceryListRepository(private val groceryListDao: GroceryListDao) {
 
-    val getAllGroceryLists: LiveData<List<GroceryList>> = groceryListDao.getAllGroceryLists()
+    val getAllGroceryLists: LiveData<List<GroceryList>> = groceryListDao.getGroceryLists()
 
-    fun getGroceryLists(groupId: String): LiveData<List<GroceryList>> {
-        return groceryListDao.getGroceryLists(groupId)
+    fun getGroceryLists(): LiveData<List<GroceryList>> {
+        return groceryListDao.getGroceryLists()
     }
 
     suspend fun insertGroceryLists(groceryList: GroceryList) {

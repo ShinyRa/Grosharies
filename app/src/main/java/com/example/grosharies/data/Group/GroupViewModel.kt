@@ -7,40 +7,34 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class GroupViewModel(application: Application) : AndroidViewModel(application) {
-    val getAllGroups: LiveData<List<Group>>
+    val getAllGroceryLists: LiveData<List<Group>>
     private val repository: GroupRepository
 
     init {
         val groupDao = GroshariesRoomDatabase.getDatabase(application)!!.groupDao()
         repository = GroupRepository(groupDao)
-        getAllGroups = repository.getAllGroups
+        getAllGroceryLists = repository.getAllGroups
     }
 
-    fun getGroups() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.getGroups()
-        }
-    }
-
-    fun insertGroup(group: Group) {
+    fun insertGroceryLists(group: Group) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertGroup(group)
         }
     }
 
-    fun updateGroup(group: Group) {
+    fun updateGroceryLists(group: Group) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateGroup(group)
         }
     }
 
-    fun deleteGroup(group: Group) {
+    fun deleteGroceryLists(group: Group) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteGroup(group)
         }
     }
 
-    class GroupViewModelFactory(
+    class GroceryListViewModelFactory(
         private val application: Application
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
