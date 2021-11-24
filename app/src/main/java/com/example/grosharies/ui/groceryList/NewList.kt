@@ -24,7 +24,7 @@ import java.util.*
 
 
 @Composable
-fun NewList(groupId: String?, navController: NavController) {
+fun NewList(groupId: String, navController: NavController) {
     var listName by remember { mutableStateOf("") }
     val context = LocalContext.current
     val myGroceryListViewModel: GroceryListViewModel = viewModel(
@@ -68,7 +68,7 @@ fun NewList(groupId: String?, navController: NavController) {
                             listName = listName,
                             lastEdited = Date(),
                             createdBy = "Mikal",
-                            groupId = groupId!!.toLong()
+                            groupId = groupId.toLong()
                         )
                     )
                     navController.navigate(Screen.GroupDetail.withArgs(groupId))

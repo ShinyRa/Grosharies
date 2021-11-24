@@ -10,8 +10,12 @@ import androidx.navigation.compose.navigation
 import com.example.grosharies.ui.Home
 import com.example.grosharies.ui.groceryList.EditList
 import com.example.grosharies.ui.groceryList.ListOverview
+import com.example.grosharies.ui.groceryList.NewList
 import com.example.grosharies.ui.groceryList.StartShopping
-import com.example.grosharies.ui.groups.*
+import com.example.grosharies.ui.groups.Edit
+import com.example.grosharies.ui.groups.New
+import com.example.grosharies.ui.groups.Overview
+import com.example.grosharies.ui.groups.View
 
 @Composable
 fun Navigator(navController: NavHostController) {
@@ -46,21 +50,29 @@ fun NavGraphBuilder.groupNavigation(navController: NavController) {
 
 fun NavGraphBuilder.listNavigation(navController: NavController) {
     navigation(startDestination = Screen.Lists.route, "list") {
-        composable(route = Screen.Lists.route + "/{groupId}") {
-            entry ->
-                ListOverview(navController = navController, groupId = entry.arguments?.getString("groupId") ?: "0")
+        composable(route = Screen.Lists.route + "/{groupId}") { entry ->
+            ListOverview(
+                navController = navController,
+                groupId = entry.arguments?.getString("groupId") ?: "0"
+            )
         }
         composable(route = Screen.ListEdit.route + "/{groupId}/{listId}") { entry ->
             EditList(
-                entry.arguments?.getString("groupId"),
-                entry.arguments?.getString("listId"),
+                entry.arguments?.getString("groupId") ?: "0",
+                entry.arguments?.getString("listId") ?: "0",
                 navController = navController
             )
         }
         composable(route = Screen.StartShopping.route + "/{groupId}/{listId}") { entry ->
             StartShopping(
-                entry.arguments?.getString("groupId"),
-                entry.arguments?.getString("listId"),
+                entry.arguments?.getString("groupId") ?: "0",
+                entry.arguments?.getString("listId") ?: "0",
+                navController = navController
+            )
+        }
+        composable(route = Screen.ListNew.route + "/{groupId}") { entry ->
+            NewList(
+                entry.arguments?.getString("groupId") ?: "0",
                 navController = navController
             )
         }
