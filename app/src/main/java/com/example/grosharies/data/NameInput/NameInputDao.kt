@@ -7,7 +7,7 @@ import androidx.room.*
 interface NameInputDao {
 
     @Query("SELECT * FROM `NameInput`")
-    fun getAllNameInput(): LiveData<List<NameInput>>
+    fun getAllNameInputs(): LiveData<List<NameInput>>
 
     @Query("SELECT * FROM `NameInput` limit 1")
     fun getNameInput(): LiveData<List<NameInput>>

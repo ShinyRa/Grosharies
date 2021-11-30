@@ -19,7 +19,6 @@ import com.example.grosharies.data.NameInput.NameInput
 
 @Composable
 fun NameInput(navController: NavController) {
-    var listName by remember { mutableStateOf("") }
     val nameValue = remember {
         mutableStateOf("Name")
     }

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 
 class NameInputRepository(private val nameInputDao: NameInputDao) {
 
-    val getAllNameInput: LiveData<List<NameInput>> = nameInputDao.getAllNameInput()
+    val getAllNameInputs: LiveData<List<NameInput>> = nameInputDao.getAllNameInputs()
 
     fun getNameInput(): LiveData<List<NameInput>> {
         return nameInputDao.getNameInput()

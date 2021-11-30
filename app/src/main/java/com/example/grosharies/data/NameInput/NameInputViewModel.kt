@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class NameInputViewModel(application: Application) : AndroidViewModel(application) {
-    val getAllNameInput: LiveData<List<NameInput>>
+    val getAllNameInputs: LiveData<List<NameInput>>
     private val repository: NameInputRepository
 
     val mutableListItems: MutableLiveData<String> = MutableLiveData()
@@ -16,14 +16,14 @@ class NameInputViewModel(application: Application) : AndroidViewModel(applicatio
     init {
         val nameInputDao = GroshariesRoomDatabase.getDatabase(application)!!.nameInputDao()
         repository = NameInputRepository(nameInputDao)
-        getAllNameInput = repository.getAllNameInput
+        getAllNameInputs = repository.getAllNameInputs
 
         listItems = Transformations.switchMap(mutableListItems) { param ->
             repository.getNameInput()
         }
     }
 
-    fun getNameInputByGroup(groupId: String) {
+    fun getAllNameInputsByGroup(groupId: String) {
         mutableListItems.value = groupId
     }
 
