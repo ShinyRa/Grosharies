@@ -3,7 +3,6 @@ package com.example.grosharies.data.GroceryList
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import java.util.*
 
@@ -13,7 +12,6 @@ import java.util.*
         entity = GroceryList::class,
         parentColumns = ["id"],
         childColumns = ["groupId"],
-        onDelete = CASCADE
     )]
 )
 data class GroceryList(

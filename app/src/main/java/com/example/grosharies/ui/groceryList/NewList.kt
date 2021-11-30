@@ -126,6 +126,9 @@ fun NewList(groupId: String, navController: NavController) {
 }
 
 fun addNewList(listName: String, groupId: Long) {
+    println("groupId: $groupId")
+    println("groupId != 0L: ${groupId != 0L}")
+    println("7L != 0L: ${7L != 0L}")
     if (groupId > 0) {
         groceryListViewModel.insertGroceryLists(
             GroceryList(
