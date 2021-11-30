@@ -11,9 +11,11 @@ import com.example.grosharies.data.Group.Group
 import com.example.grosharies.data.Group.GroupDao
 import com.example.grosharies.data.ListItem.ListItem
 import com.example.grosharies.data.ListItem.ListItemDao
+import com.example.grosharies.data.NameInput.NameInput
+import com.example.grosharies.data.NameInput.NameInputDao
 
 @Database(
-    entities = [Group::class, ListItem::class, GroceryList::class],
+    entities = [Group::class, ListItem::class, GroceryList::class, NameInput::class],
     version = 1,
     exportSchema = false
 )
@@ -22,6 +24,7 @@ abstract class GroshariesRoomDatabase : RoomDatabase() {
     abstract fun groupDao(): GroupDao
     abstract fun groceryListDao(): GroceryListDao
     abstract fun listItemDao(): ListItemDao
+    abstract fun nameInputDao(): NameInputDao
 
     companion object {
         private const val DATABASE_NAME = "GROSHARIES_DATABASE"

@@ -1,35 +1,45 @@
 package com.example.grosharies.ui.groups
 
+import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.grosharies.data.NameInput.NameInputViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
+import java.util.*
+import com.example.grosharies.data.NameInput.NameInput
 
 @Composable
 fun NameInput(navController: NavController) {
+    val nameValue = remember {
+        mutableStateOf("Name")
+    }
+    val context = LocalContext.current
+    val nameInputViewModel: NameInputViewModel = viewModel(
+        factory = NameInputViewModel.NameInputViewModelFactory(context.applicationContext as Application)
+
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(100.dp),
     ) {
         InfoText()
-        val query = remember {
-            mutableStateOf("Name")
-        }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            TextField(value = query.value,
-                onValueChange = { query.value = it })
+            TextField(value = nameValue.value,
+                onValueChange = { nameValue.value = it })
         }
     }
     Column(
@@ -38,7 +48,14 @@ fun NameInput(navController: NavController) {
             .padding(16.dp),
         verticalArrangement = Arrangement.Bottom
     ) {
-        MainButton(text = "SAVE", onClickListener = { navController.navigate(Screen.Groups.route) })
+        MainButton(text = "SAVE", onClickListener = {
+            navController.navigate(Screen.Groups.route)
+            nameInputViewModel.insertNameInput(
+                NameInput(
+                    name = nameValue.value,
+                )
+            )
+        })
     }
 }
 
