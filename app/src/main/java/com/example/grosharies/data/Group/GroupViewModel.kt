@@ -10,16 +10,26 @@ class GroupViewModel(application: Application) : AndroidViewModel(application) {
     val getAllGroups: LiveData<List<Group>>
     private val repository: GroupRepository
 
+    val groupId: MutableLiveData<Int> = MutableLiveData()
+    val group: LiveData<Group>
+
     init {
         val groupDao = GroshariesRoomDatabase.getDatabase(application)!!.groupDao()
         repository = GroupRepository(groupDao)
         getAllGroups = repository.getAllGroups
+        group = Transformations.switchMap(groupId) {
+            repository.getGroupById(it)
+        }
     }
 
     fun getGroups() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getGroups()
         }
+    }
+
+    fun getGroupById(id: Int) {
+        groupId.value = id
     }
 
     fun insertGroup(group: Group) {
