@@ -1,11 +1,13 @@
 package com.example.grosharies.ui.groceryList
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -87,7 +89,7 @@ fun NewList(groupId: String, navController: NavController) {
                     label = { Text("New item:") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(8f)
+                        .weight(7f)
                         .padding(
                             PaddingValues(
                                 top = 8.dp,
@@ -98,13 +100,14 @@ fun NewList(groupId: String, navController: NavController) {
                 )
                 TextField(
                     value = itemAmount,
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     onValueChange = {
                         itemAmount = it
                     },
                     label = { Text("amount:") },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(2f)
+                        .weight(3f)
                         .padding(
                             PaddingValues(
                                 top = 8.dp,
