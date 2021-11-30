@@ -10,6 +10,10 @@ class GroceryListRepository(private val groceryListDao: GroceryListDao) {
         return groceryListDao.getGroceryLists(groupId)
     }
 
+    fun getGroceryListsWithoutGroup(): LiveData<List<GroceryList>> {
+        return groceryListDao.getGroceryListsWithoutGroup()
+    }
+
     suspend fun insertGroceryLists(groceryList: GroceryList) {
         groceryListDao.insertGroceryLists(groceryList)
     }
