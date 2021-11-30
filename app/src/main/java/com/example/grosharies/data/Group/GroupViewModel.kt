@@ -17,8 +17,8 @@ class GroupViewModel(application: Application) : AndroidViewModel(application) {
         val groupDao = GroshariesRoomDatabase.getDatabase(application)!!.groupDao()
         repository = GroupRepository(groupDao)
         getAllGroups = repository.getAllGroups
-        group = Transformations.switchMap(groupId) {
-            repository.getGroupById(it)
+        group = Transformations.switchMap(groupId) { id ->
+            repository.getGroupById(id)
         }
     }
 
