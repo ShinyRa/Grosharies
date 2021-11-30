@@ -17,12 +17,20 @@ class GroceryListViewModel(application: Application) : AndroidViewModel(applicat
         repository = GroceryListRepository(groceryListDao)
 
         GroceryLists = Transformations.switchMap(mutableGroceryList) { param ->
-            repository.getGroceryLists(param)
+            if (param == "null") {
+                repository.getGroceryListsWithoutGroup()
+            } else {
+                repository.getGroceryLists(param)
+            }
         }
     }
 
     fun getListItemsByGroup(groupId: String) {
         mutableGroceryList.value = groupId
+    }
+
+    fun getListItemsWithoutGroup() {
+        mutableGroceryList.value = "null"
     }
 
     fun insertGroceryLists(groceryList: GroceryList) {
