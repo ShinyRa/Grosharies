@@ -9,6 +9,9 @@ interface GroupDao {
     @Query("SELECT * FROM `Group`")
     fun getGroups(): LiveData<List<Group>>
 
+    @Query("SELECT * FROM `Group` WHERE id = :id")
+    fun getGroupById(id: Int): LiveData<Group>
+
     @Insert
     suspend fun insertGroup(group: Group)
 
