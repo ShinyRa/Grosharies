@@ -8,18 +8,10 @@ import com.example.grosharies.data.GroceryList.GroceryList
 
 @Entity(
     tableName = "Group",
-    foreignKeys = [ForeignKey(
-        entity = GroceryList::class,
-        parentColumns = ["id"],
-        childColumns = ["groupId"]
-    )]
 )
 data class Group(
     @ColumnInfo(name = "name")
     var name: String,
-
-    @ColumnInfo(name = "groupId")
-    val groupId: Long? = null,
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

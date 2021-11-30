@@ -33,7 +33,11 @@ fun ListOverview(groupId: String, navController: NavController) {
         factory = GroceryListViewModelFactory(context.applicationContext as Application)
     )
 
-    myGroceryListViewModel.getListItemsByGroup(groupId)
+    if (groupId == "0") {
+        myGroceryListViewModel.getListItemsWithoutGroup()
+    } else {
+        myGroceryListViewModel.getListItemsByGroup(groupId)
+    }
     val listItems = myGroceryListViewModel.GroceryLists.observeAsState(listOf()).value
 
     fun addGroceryList() {
@@ -76,7 +80,8 @@ fun ListOverview(groupId: String, navController: NavController) {
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                 ) {
                                     Column(
-                                        Modifier.padding(8.dp)
+                                        Modifier
+                                            .padding(8.dp)
                                             .weight(8f)
                                     ) {
                                         Text(text = groceryList[index].listName)
