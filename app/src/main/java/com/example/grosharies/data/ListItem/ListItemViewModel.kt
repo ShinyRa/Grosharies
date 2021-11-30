@@ -38,7 +38,7 @@ class ListItemViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    class GroceryListViewModelFactory(
+    class ListItemViewModelFactory(
         private val application: Application
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

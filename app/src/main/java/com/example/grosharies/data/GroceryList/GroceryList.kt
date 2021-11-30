@@ -2,10 +2,20 @@ package com.example.grosharies.data.GroceryList
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity(tableName = "GroceryList")
+@Entity(
+    tableName = "GroceryList",
+    foreignKeys = [ForeignKey(
+        entity = GroceryList::class,
+        parentColumns = ["id"],
+        childColumns = ["groupId"],
+        onDelete = CASCADE
+    )]
+)
 data class GroceryList(
 
     @ColumnInfo(name = "listName")
@@ -14,6 +24,7 @@ data class GroceryList(
     val lastEdited: Date,
     @ColumnInfo(name = "createdBy")
     val createdBy: String,
+
     @ColumnInfo(name = "groupId")
     val groupId: Long? = null,
 
