@@ -39,11 +39,10 @@ fun New(
     }
 
     var group = groupViewModel.group.observeAsState(initial = Group(name = "")).value
-
+    val name = remember { mutableStateOf(TextFieldValue(group.name)) }
+    val password = remember { mutableStateOf(TextFieldValue("")) }
 
     Surface(modifier = Modifier.padding(16.dp)) {
-        val name = remember { mutableStateOf(TextFieldValue(group.name)) }
-        val password = remember { mutableStateOf(TextFieldValue("")) }
         Column(modifier = Modifier.padding(PaddingValues(vertical = 16.dp))) {
             Text(text = "name",
                 modifier = Modifier.padding(PaddingValues(horizontal = 7.dp)),
