@@ -14,11 +14,11 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 fun DefaultScaffold() {
     val navController = rememberNavController()
-    val (topBarState, setTopBarState) = remember { mutableStateOf(TopBarState("Test", arrayOf())) }
-    val setTitle = { title: String -> setTopBarState(TopBarState(title = title, actions = topBarState.actions)) }
+//    val (topBarState, setTopBarState) = remember { mutableStateOf(TopBarState("Test", arrayOf())) }
+//    val setTitle = { title: String -> setTopBarState(TopBarState(title = title, actions = topBarState.actions)) }
 
     Scaffold(
-        topBar = { TopBar(navController, topBarState) },
+        topBar = { TopBar(navController) },
         content = {
             Surface(modifier = Modifier.padding(it)) {
                 Navigator(navController = navController)
