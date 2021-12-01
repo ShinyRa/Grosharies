@@ -3,13 +3,21 @@ package com.example.grosharies.ui.groceryList
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.example.grosharies.data.GroceryList.GroceryList
+import com.example.grosharies.data.GroceryList.GroceryListViewModel
+import com.example.grosharies.data.ListItem.ListItemViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
 import java.util.*
 
 @Composable
-fun StartShopping(groupId: String? = null, listId: String? = null, navController: NavController) {
+fun StartShopping(
+    groupId: String? = null,
+    listId: String? = null,
+    navController: NavController,
+    groceryListViewModel: GroceryListViewModel,
+    listItemViewModel: ListItemViewModel
+) {
 
     fun finishShopping() {
         navController.navigate(Screen.GroupDetail.withArgs(groupId.toString()))

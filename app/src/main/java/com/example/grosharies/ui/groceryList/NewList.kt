@@ -6,10 +6,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.grosharies.data.GroceryList.GroceryList
 import com.example.grosharies.data.GroceryList.GroceryListViewModel
@@ -20,27 +18,16 @@ import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
 import java.util.*
 
-lateinit var groceryListViewModel: GroceryListViewModel
-lateinit var listItemViewModel: ListItemViewModel
-
 @Composable
-fun NewList(groupId: String, navController: NavController) {
+fun NewList(
+    groupId: String,
+    navController: NavController,
+    groceryListViewModel: GroceryListViewModel,
+    listItemViewModel: ListItemViewModel
+) {
     var listName by remember { mutableStateOf("") }
     var itemName by remember { mutableStateOf("") }
     var itemAmount by remember { mutableStateOf("") }
-    val context = LocalContext.current
-
-    groceryListViewModel = viewModel(
-        factory = GroceryListViewModel.GroceryListViewModelFactory(
-            context.applicationContext as android.app.Application
-        )
-    )
-
-    listItemViewModel = viewModel(
-        factory = ListItemViewModel.ListItemViewModelFactory(
-            context.applicationContext as android.app.Application
-        )
-    )
 
     GroshariesTheme {
         Column {
@@ -120,15 +107,15 @@ fun NewList(groupId: String, navController: NavController) {
             MainButton(
                 text = "ADD NEW LIST",
                 onClickListener = {
-                    addNewList(listName, groupId.toLong())
-//                    addNewListItem(itemName, itemAmount.toInt(), 40)
+                    addNewList(listName, groupId.toLong(), groceryListViewModel)
+//                    addNewListItem(itemName, itemAmount.toInt(), 40, listItemViewModel)
                     navController.navigate(Screen.GroupDetail.withArgs(groupId))
                 })
         }
     }
 }
 
-fun addNewList(listName: String, groupId: Long) {
+fun addNewList(listName: String, groupId: Long, groceryListViewModel: GroceryListViewModel) {
     if (groupId > 0) {
         groceryListViewModel.insertGroceryLists(
             GroceryList(
@@ -149,7 +136,12 @@ fun addNewList(listName: String, groupId: Long) {
     }
 }
 
-fun addNewListItem(listItemName: String, itemAmount: Int, listId: Long) {
+fun addNewListItem(
+    listItemName: String,
+    itemAmount: Int,
+    listId: Long,
+    listItemViewModel: ListItemViewModel
+) {
     listItemViewModel.insertListItem(
         ListItem(
             itemName = listItemName,
