@@ -12,78 +12,48 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
 fun NewListItem(
     navController: NavController,
     itemName: MutableState<TextFieldValue>,
-    itemAmount: MutableState<TextFieldValue>
+    itemAmount: MutableState<TextFieldValue>,
 ) {
-//    fun submit(listItem: ListItem) {
-//        if (listId != null) {
-//            listItemViewModel.updateListItem(listItem)
-//        } else {
-//            listItemViewModel.insertListItem(listItem)
-//        }
-//
-//        navController.navigateUp()
-//    }
-//
-//    if (listId != null) {
-//        listItemViewModel.getListItemsByList(listId)
-//    }
-    GroshariesTheme {
-        Surface(modifier = Modifier.padding(16.dp)) {
-            Column(modifier = Modifier.padding(PaddingValues(vertical = 16.dp))) {
-                Row(
-                    modifier = Modifier
-                        .padding(
-                            PaddingValues(
-                                start = 16.dp,
-                                end = 16.dp,
-                            )
-                        )
-                        .fillMaxWidth(),
-                ) {
-                    TextField(
-                        value = itemName,
-                        onValueChange = {
-                            itemName = it
-                        },
-                        label = { Text("New item:") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(7f)
-                            .padding(
-                                PaddingValues(
-                                    top = 8.dp,
-                                    bottom = 8.dp,
-                                    end = 4.dp
-                                )
-                            )
+    Row {
+        TextField(
+            value = itemName.value,
+            onValueChange = {
+                itemName.value = it
+            },
+            label = { Text("New item:") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(7f)
+                .padding(
+                    PaddingValues(
+                        top = 8.dp,
+                        bottom = 8.dp,
+                        end = 4.dp
                     )
-                    TextField(
-                        value = itemAmount,
-                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                        onValueChange = {
-                            itemAmount = it
-                        },
-                        label = { Text("amount:") },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(3f)
-                            .padding(
-                                PaddingValues(
-                                    top = 8.dp,
-                                    bottom = 8.dp,
-                                    end = 4.dp
-                                )
-                            )
+                )
+        )
+        TextField(
+            value = itemAmount.value,
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+            onValueChange = {
+                itemAmount.value = it
+            },
+            label = { Text("amount:") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(3f)
+                .padding(
+                    PaddingValues(
+                        top = 8.dp,
+                        bottom = 8.dp,
+                        end = 4.dp
                     )
-                }
-            }
-        }
-
+                )
+        )
     }
 }

@@ -16,7 +16,7 @@ import com.example.grosharies.data.NameInput.NameInputDao
 
 @Database(
     entities = [Group::class, ListItem::class, GroceryList::class, NameInput::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
