@@ -48,7 +48,7 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
                 groupList.map { group ->
                     GroupCard(
                         group = group,
-                        onClick = { navController.navigate(Screen.GroupEdit.withArgs(group.id.toString())) },
+                        onClick = { navController.navigate(Screen.GroupDetail.withArgs(group.id.toString())) },
                         deleteGroup = { group -> groupViewModel.deleteGroup(group) }
                     )
                 }
@@ -59,7 +59,7 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
                     RoundedButton(
                         text = "Join",
                         isSecondary = true,
-                        onClickListener = { navController.navigate(Screen.GroupEdit.route) })
+                        onClickListener = { /*navController.navigate(Screen.GroupEdit.route)*/ })
                 }
             }
         }
