@@ -7,7 +7,13 @@ import androidx.room.*
 interface ListItemDao {
 
     @Query("SELECT * FROM `ListItem`")
-    fun getListItems(): LiveData<List<ListItem>>
+    fun getAllListItems(): LiveData<List<ListItem>>
+
+    @Query("SELECT * FROM `ListItem` WHERE groceryListId = :groceryListId")
+    fun getListItemsFromList(groceryListId: String): LiveData<List<ListItem>>
+
+    @Query("SELECT * FROM `ListItem` WHERE id = :listId")
+    fun getListItem(listId: String): LiveData<ListItem>
 
     @Insert
     suspend fun insertListItem(listItem: ListItem)

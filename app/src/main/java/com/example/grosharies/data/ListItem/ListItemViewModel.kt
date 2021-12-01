@@ -10,15 +10,28 @@ class ListItemViewModel(application: Application) : AndroidViewModel(application
     val getAllGroceryLists: LiveData<List<ListItem>>
     private val repository: ListItemRepository
 
+    val mutableListItems: MutableLiveData<String> = MutableLiveData()
+    val listItems: LiveData<List<ListItem>>
+
+    val listItem: LiveData<ListItem>
+
     init {
         val listItemDao = GroshariesRoomDatabase.getDatabase(application)!!.listItemDao()
         repository = ListItemRepository(listItemDao)
-        getAllGroceryLists = repository.getListItems()
+        getAllGroceryLists = repository.getAllListItems()
+
+        listItems = Transformations.switchMap(mutableListItems) { param ->
+            repository.getListItemsFromList(param)
+        }
+
+        listItem = Transformations.switchMap(mutableListItems) { param ->
+            repository.getListItem(param)
+        }
     }
 
-//    fun getListItemsByGroup(groupId: String) {
-//        mutableListItems.value = groupId
-//    }
+    fun getListItemsByList(groupId: String) {
+        mutableListItems.value = groupId
+    }
 
     fun insertListItem(listItem: ListItem) {
         viewModelScope.launch(Dispatchers.IO) {

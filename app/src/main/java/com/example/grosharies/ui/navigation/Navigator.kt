@@ -93,8 +93,7 @@ fun NavGraphBuilder.listNavigation(
         }
         composable(route = Screen.ListEdit.route + "/{groupId}/{listId}") { entry ->
             EditList(
-                entry.arguments?.getString("groupId") ?: "0",
-                entry.arguments?.getString("listId") ?: "0",
+                listId = entry.arguments?.getString("listId") ?: "0",
                 navController = navController,
                 groceryListViewModel = groceryListViewModel,
                 listItemViewModel = listItemViewModel
@@ -102,8 +101,8 @@ fun NavGraphBuilder.listNavigation(
         }
         composable(route = Screen.StartShopping.route + "/{groupId}/{listId}") { entry ->
             StartShopping(
-                entry.arguments?.getString("groupId") ?: "0",
-                entry.arguments?.getString("listId") ?: "0",
+                groupId = entry.arguments?.getString("groupId") ?: "0",
+                listId = entry.arguments?.getString("listId") ?: "0",
                 navController = navController,
                 groceryListViewModel = groceryListViewModel,
                 listItemViewModel = listItemViewModel
@@ -111,7 +110,7 @@ fun NavGraphBuilder.listNavigation(
         }
         composable(route = Screen.ListNew.route + "/{groupId}") { entry ->
             NewList(
-                entry.arguments?.getString("groupId") ?: "0",
+                groupId = entry.arguments?.getString("groupId") ?: "0",
                 navController = navController,
                 groceryListViewModel = groceryListViewModel,
                 listItemViewModel = listItemViewModel
