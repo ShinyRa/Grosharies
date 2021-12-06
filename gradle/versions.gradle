@@ -1,0 +1,14 @@
+ext {
+
+    // Build versions
+    compile_sdk = 31
+    min_sdk = 23
+    target_sdk = 31
+    version_code = 1
+    version_name = '1.0.0'
+
+    jvm_version = JavaVersion.VERSION_11
+
+    compose_version = '1.4.0'
+    room_version = '2.3.0'
+}

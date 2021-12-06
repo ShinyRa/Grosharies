@@ -5,14 +5,14 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk compile_sdk
 
     defaultConfig {
         applicationId "com.example.grosharies"
-        minSdk 23
-        targetSdk 31
-        versionCode 1
-        versionName "1.0"
+        minSdk min_sdk
+        targetSdk target_sdk
+        versionCode version_code
+        versionName version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -27,11 +27,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility jvm_version
+        targetCompatibility jvm_version
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = jvm_version
         useIR = true
     }
     buildFeatures {
@@ -50,8 +50,13 @@ android {
 
 dependencies {
 
+    // Modules
+    implementation project(':domain')
+    implementation project(':presentation')
+    implementation project(':data')
+
+
     // Room
-    def room_version = "2.3.0"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
 
@@ -63,16 +68,15 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
+
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+
+    // Compose
+    implementation "androidx.activity:activity-compose:$compose_version"
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
-    implementation 'androidx.activity:activity-compose:1.4.0'
-    testImplementation 'junit:junit:'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+
     implementation "androidx.navigation:navigation-compose:2.4.0-beta02"
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.5.31"
 }
