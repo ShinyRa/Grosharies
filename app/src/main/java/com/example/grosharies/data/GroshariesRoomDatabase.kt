@@ -40,6 +40,7 @@ abstract class GroshariesRoomDatabase : RoomDatabase() {
                             context.applicationContext,
                             GroshariesRoomDatabase::class.java, DATABASE_NAME
                         )
+                            .allowMainThreadQueries()
                             .fallbackToDestructiveMigration()
                             .build()
                     }

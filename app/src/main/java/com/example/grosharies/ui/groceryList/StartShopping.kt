@@ -7,6 +7,7 @@ import com.example.grosharies.data.GroceryList.GroceryListViewModel
 import com.example.grosharies.data.ListItem.ListItemViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
+import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 import java.util.*
 
@@ -26,6 +27,8 @@ fun StartShopping(
     }
 
     GroshariesTheme {
+        setTitle("Start Shopping!")
+
         val groceryList =
             GroceryList(
                 "Example",
