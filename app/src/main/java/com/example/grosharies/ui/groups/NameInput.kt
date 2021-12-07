@@ -16,6 +16,7 @@ import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import java.util.*
 import com.example.grosharies.data.NameInput.NameInput
+import com.example.grosharies.ui.navigation.setTitle
 
 @Composable
 fun NameInput(navController: NavController) {
@@ -27,6 +28,8 @@ fun NameInput(navController: NavController) {
         factory = NameInputViewModel.NameInputViewModelFactory(context.applicationContext as Application)
 
     )
+    setTitle("Who are you?")
+
     Column(
         modifier = Modifier
             .fillMaxSize()

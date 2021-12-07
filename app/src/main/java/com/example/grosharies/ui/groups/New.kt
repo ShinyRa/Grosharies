@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.example.grosharies.data.Group.Group
 import com.example.grosharies.data.Group.GroupViewModel
 import com.example.grosharies.ui.common.MainButton
+import com.example.grosharies.ui.navigation.setTitle
 
 @Composable
 fun New(
@@ -23,6 +24,8 @@ fun New(
     groupViewModel: GroupViewModel,
     groupId: Int? = null,
 ) {
+    setTitle("Create a group")
+
     fun submit(group: Group) {
         if (groupId != null) {
             groupViewModel.updateGroup(group)
@@ -34,13 +37,17 @@ fun New(
     }
 
 
-    if (groupId != null) {
-        groupViewModel.getGroupById(groupId)
-    }
+    groupViewModel.getGroupById(groupId)
 
-    var group = groupViewModel.group.observeAsState(initial = Group(name = "")).value
-    val name = remember { mutableStateOf(TextFieldValue(group.name)) }
-    val password = remember { mutableStateOf(TextFieldValue("")) }
+    var group = groupViewModel.group.value
+
+    var name = remember { mutableStateOf(TextFieldValue("")) }
+    var password = remember { mutableStateOf(TextFieldValue("")) }
+
+    if (group != null) {
+        name.value = TextFieldValue(group.name)
+        password.value = TextFieldValue(group.id.toString())
+    }
 
     Surface(modifier = Modifier.padding(16.dp)) {
         Column(modifier = Modifier.padding(PaddingValues(vertical = 16.dp))) {

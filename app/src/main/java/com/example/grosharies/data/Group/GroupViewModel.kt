@@ -1,52 +1,56 @@
 package com.example.grosharies.data.Group
 
 import android.app.Application
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.example.grosharies.data.GroshariesRoomDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class GroupViewModel(application: Application) : AndroidViewModel(application) {
-    val getAllGroups: LiveData<List<Group>>
-    private val repository: GroupRepository
 
-    val groupId: MutableLiveData<Int> = MutableLiveData()
-    val group: LiveData<Group>
+    private val repository: GroupRepository;
+
+    val groups: MutableState<MutableList<Group>> = mutableStateOf(mutableListOf())
+    val group: MutableState<Group> = mutableStateOf(Group(name = ""))
 
     init {
         val groupDao = GroshariesRoomDatabase.getDatabase(application)!!.groupDao()
-        repository = GroupRepository(groupDao)
-        getAllGroups = repository.getAllGroups
-        group = Transformations.switchMap(groupId) { id ->
-            repository.getGroupById(id)
-        }
+        repository = GroupRepository(groupDao = groupDao)
+        groups.value = repository.getGroups()
     }
 
     fun getGroups() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getGroups()
+            groups.value = repository.getGroups()
         }
     }
 
-    fun getGroupById(id: Int) {
-        groupId.value = id
+    fun getGroupById(id: Int?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            group.value = repository.getGroupById(id) ?: Group(name = "")
+        }
     }
-
+    
     fun insertGroup(group: Group) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertGroup(group)
+            getGroups()
         }
     }
 
     fun updateGroup(group: Group) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateGroup(group)
+            getGroups()
         }
     }
 
     fun deleteGroup(group: Group) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteGroup(group)
+            getGroups()
         }
     }
 

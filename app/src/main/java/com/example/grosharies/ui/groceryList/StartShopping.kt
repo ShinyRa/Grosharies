@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import com.example.grosharies.data.GroceryList.GroceryList
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
+import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 import java.util.*
 
@@ -18,6 +19,8 @@ fun StartShopping(groupId: String? = null, listId: String? = null, navController
     }
 
     GroshariesTheme {
+        setTitle("Start Shopping!")
+
         val groceryList =
             GroceryList(
                 "Example",

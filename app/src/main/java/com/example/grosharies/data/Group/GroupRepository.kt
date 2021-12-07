@@ -1,17 +1,13 @@
 package com.example.grosharies.data.Group
 
-import androidx.lifecycle.LiveData
 
 class GroupRepository(private val groupDao: GroupDao) {
 
-    val getAllGroups: LiveData<List<Group>> = groupDao.getGroups()
-
-
-    fun getGroups(): LiveData<List<Group>> {
+    fun getGroups(): MutableList<Group> {
         return groupDao.getGroups()
     }
 
-    fun getGroupById(id: Int): LiveData<Group> {
+    fun getGroupById(id: Int?): Group? {
         return groupDao.getGroupById(id)
     }
 
