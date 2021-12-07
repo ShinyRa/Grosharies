@@ -11,7 +11,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,18 +23,15 @@ import com.example.grosharies.data.Group.GroupViewModel
 import com.example.grosharies.ui.common.DefaultText
 import com.example.grosharies.ui.common.RoundedButton
 import com.example.grosharies.ui.navigation.Screen
-import com.example.grosharies.ui.navigation.TopBar
-import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.backdrop
 
 @ExperimentalAnimationApi
 @Composable
 fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
-    val groups = groupViewModel.getAllGroups.observeAsState(listOf()).value
-    val groupList: List<Group> = groups
 
     setTitle("Group Overview")
+    val groups = groupViewModel.groups.value
 
     GroshariesTheme {
         Surface(
@@ -49,11 +45,13 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
                     .padding(PaddingValues(vertical = 16.dp, horizontal = 8.dp))
                     .verticalScroll(state = ScrollState(0))
             ) {
-                groupList.map { group ->
+                groups.map { group ->
                     GroupCard(
                         group = group,
-                        onClick = { navController.navigate(Screen.GroupDetail.withArgs(group.id.toString())) },
-                        deleteGroup = { group -> groupViewModel.deleteGroup(group) }
+                        onClick = { navController.navigate(Screen.GroupEdit.withArgs(group.id.toString())) },
+                        deleteGroup = { group ->
+                            groupViewModel.deleteGroup(group)
+                         }
                     )
                 }
 
