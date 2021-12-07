@@ -25,7 +25,6 @@ fun DefaultText(text: String) {
 fun DefaultTextInputField(text: String, modifier: Modifier?, textValue: MutableState<TextFieldValue> ){
    // var textValue by remember { mutableStateOf("") }
 
-    val context = LocalContext.current
     TextField(
         value = textValue.value,
         onValueChange = {
