@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import com.example.grosharies.R
 import com.example.grosharies.ui.common.RoundedButton
 import com.example.grosharies.ui.navigation.Screen
+import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.PrimaryColor
 
@@ -29,6 +30,8 @@ fun Home(navController: NavController) {
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxSize()
             ) {
+                setTitle("Home")
+
                 Grosharies()
                 WelcomeTextOnHomeScreen()
 

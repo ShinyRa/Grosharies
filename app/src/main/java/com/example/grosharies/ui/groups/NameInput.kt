@@ -20,6 +20,7 @@ import java.util.*
 import com.example.grosharies.data.NameInput.NameInput
 import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.theme.GroshariesTheme
+import com.example.grosharies.ui.navigation.setTitle
 
 @Composable
 fun NameInput(navController: NavController) {
@@ -43,6 +44,14 @@ fun NameInput(navController: NavController) {
                 .fillMaxSize()
         ) {
             InfoText()
+    setTitle("Who are you?")
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(100.dp),
+    ) {
+        InfoText()
 
             Column(
                 modifier = Modifier
@@ -78,11 +87,11 @@ fun NameInput(navController: NavController) {
 fun InfoText() {
     androidx.compose.material.Text(
         "Enter your name here",
-        fontSize = 20.sp,
+        fontSize = 15.sp,
         textAlign = TextAlign.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(32.dp)
+            .padding(16.dp)
     )
 }
 
