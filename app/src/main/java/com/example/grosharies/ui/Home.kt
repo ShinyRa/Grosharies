@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -34,7 +33,7 @@ fun Home(navController: NavController) {
                 setTitle("Home")
 
                 Grosharies()
-                Text()
+                WelcomeTextOnHomeScreen()
 
                 Screenimage()
 
@@ -53,7 +52,7 @@ fun Grosharies() {
 }
 
 @Composable
-fun Text() {
+fun WelcomeTextOnHomeScreen() {
     Text(
         "Use this app with your friends to have a collaborative grocery list that you can share easily! \n \n \n",
         fontSize = 15.sp,
