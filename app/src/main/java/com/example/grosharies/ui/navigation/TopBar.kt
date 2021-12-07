@@ -7,7 +7,6 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
@@ -55,7 +54,9 @@ fun TopBar(navController: NavController) {
                 title.value
             )
         },
-        actions = {actions},
+        actions = {
+            actions
+        },
         navigationIcon = {
             if (hasBack(queue = navController.backQueue)) {
                 IconButton(onClick = { navController.navigateUp() }) {
