@@ -30,8 +30,9 @@ fun NameInput(navController: NavController) {
     val context = LocalContext.current
     val nameInputViewModel: NameInputViewModel = viewModel(
         factory = NameInputViewModel.NameInputViewModelFactory(context.applicationContext as Application)
-
     )
+    setTitle("Who are you?")
+
     GroshariesTheme {
         Column(
             modifier = Modifier
@@ -44,41 +45,42 @@ fun NameInput(navController: NavController) {
                 .fillMaxSize()
         ) {
             InfoText()
-    setTitle("Who are you?")
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(100.dp),
-    ) {
-        InfoText()
 
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .padding(100.dp),
             ) {
-                Row {
-                    DefaultTextInputField(
-                        text = "Your Name",  modifier = Modifier
-                            .fillMaxWidth(), textValue = nameValue
-                    )
+                InfoText()
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    Row {
+                        DefaultTextInputField(
+                            text = "Your Name", modifier = Modifier
+                                .fillMaxWidth(), textValue = nameValue
+                        )
+                    }
                 }
             }
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(32.dp),
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            MainButton(text = "SAVE", onClickListener = {
-                navController.navigate(Screen.Groups.route)
-                nameInputViewModel.insertNameInput(
-                    NameInput(
-                        name = nameValue.value.text
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(32.dp),
+                verticalArrangement = Arrangement.Bottom
+            ) {
+                MainButton(text = "SAVE", onClickListener = {
+                    navController.navigate(Screen.Groups.route)
+                    nameInputViewModel.insertNameInput(
+                        NameInput(
+                            name = nameValue.value.text
+                        )
                     )
-                )
-            })
+                })
+            }
         }
     }
 }
