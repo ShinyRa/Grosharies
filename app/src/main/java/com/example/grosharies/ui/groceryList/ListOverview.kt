@@ -23,6 +23,7 @@ import com.example.grosharies.data.GroceryList.GroceryListViewModel.GroceryListV
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.common.TextButton
 import com.example.grosharies.ui.navigation.Screen
+import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
@@ -50,6 +51,7 @@ fun ListOverview(groupId: String, navController: NavController) {
 
     GroshariesTheme {
         val groceryList: List<GroceryList> = listItems
+        setTitle("List Overview")
 
         Box {
             Column {

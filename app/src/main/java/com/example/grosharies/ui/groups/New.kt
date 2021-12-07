@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.example.grosharies.data.Group.Group
 import com.example.grosharies.data.Group.GroupViewModel
 import com.example.grosharies.ui.common.MainButton
+import com.example.grosharies.ui.navigation.setTitle
 
 @Composable
 fun New(
@@ -23,6 +24,8 @@ fun New(
     groupViewModel: GroupViewModel,
     groupId: Int? = null,
 ) {
+    setTitle("Create a group")
+
     fun submit(group: Group) {
         if (groupId != null) {
             groupViewModel.updateGroup(group)

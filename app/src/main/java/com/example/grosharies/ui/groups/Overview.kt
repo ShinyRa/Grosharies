@@ -35,7 +35,7 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
     val groups = groupViewModel.getAllGroups.observeAsState(listOf()).value
     val groupList: List<Group> = groups
 
-    setTitle("Test")
+    setTitle("Group Overview")
 
     GroshariesTheme {
         Surface(
