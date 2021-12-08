@@ -56,7 +56,7 @@ dependencies {
 
 
     // Room
-    kapt "androidx.room:room-compiler:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
 
     // Kotlin Extensions and Coroutines support for Room - also needed in this tutorial
