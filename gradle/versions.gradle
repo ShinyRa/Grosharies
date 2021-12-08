@@ -13,5 +13,5 @@ ext {
     compose_ui_version = '1.0.5'
 
     // https://medium.com/androiddevelopers/room-coroutines-422b786dc4c5
-    room_version = '2.3.0'
+    room_version = '2.4.0-alpha03'
 }
