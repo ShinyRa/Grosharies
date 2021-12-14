@@ -1,4 +1,4 @@
-package com.example.grosharies.data.GroceryList
+package com.example.grosharies.data.groceryList
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

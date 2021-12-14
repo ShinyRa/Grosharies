@@ -1,9 +1,8 @@
-package com.example.grosharies.data.NameInput
+package com.example.grosharies.data.nameInput
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.grosharies.data.ListItem.ListItem
 
 @Entity(tableName = "NameInput")
 data class NameInput(

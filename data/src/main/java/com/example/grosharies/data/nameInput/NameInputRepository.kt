@@ -1,4 +1,4 @@
-package com.example.grosharies.data.NameInput
+package com.example.grosharies.data.nameInput
 
 import androidx.lifecycle.LiveData
 

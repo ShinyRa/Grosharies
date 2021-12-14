@@ -12,8 +12,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.grosharies.data.Group.Group
-import com.example.grosharies.data.Group.GroupViewModel
+import com.example.grosharies.data.group.Group
+import com.example.grosharies.group.GroupViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.setTitle
 

@@ -1,4 +1,4 @@
-package com.example.grosharies.data.Group
+package com.example.grosharies.data.group
 
 
 class GroupRepository(private val groupDao: GroupDao) {

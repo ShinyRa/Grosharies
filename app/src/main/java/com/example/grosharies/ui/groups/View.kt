@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.grosharies.data.Group.GroupViewModel
+import com.example.grosharies.group.GroupViewModel
 import com.example.grosharies.ui.groceryList.ListOverview
 
 @Composable

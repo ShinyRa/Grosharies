@@ -1,10 +1,10 @@
-package com.example.grosharies.data.ListItem
+package com.example.grosharies.data.listItem
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.grosharies.data.GroceryList.GroceryList
+import com.example.grosharies.data.groceryList.GroceryList
 
 @Entity(
     tableName = "ListItem",

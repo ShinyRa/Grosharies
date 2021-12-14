@@ -11,10 +11,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.grosharies.data.GroceryList.GroceryList
-import com.example.grosharies.data.GroceryList.GroceryListViewModel
-import com.example.grosharies.data.ListItem.ListItem
-import com.example.grosharies.data.ListItem.ListItemViewModel
+import com.example.grosharies.data.groceryList.GroceryList
+import com.example.grosharies.data.listItem.ListItem
+import com.example.grosharies.groceryList.GroceryListViewModel
+import com.example.grosharies.listItem.ListItemViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme

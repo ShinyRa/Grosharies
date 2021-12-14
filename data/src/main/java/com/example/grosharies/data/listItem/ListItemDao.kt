@@ -1,4 +1,4 @@
-package com.example.grosharies.data.ListItem
+package com.example.grosharies.data.listItem
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

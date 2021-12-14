@@ -1,10 +1,6 @@
-package com.example.grosharies.data.ListItem
+package com.example.grosharies.data.listItem
 
-import android.content.Context
 import androidx.lifecycle.LiveData
-import com.example.grosharies.data.GroshariesRoomDatabase
-import com.example.grosharies.data.Group.Group
-import com.example.grosharies.data.Group.GroupDao
 
 class ListItemRepository(private val listItemDao: ListItemDao) {
     val getAllListItems: LiveData<List<ListItem>> = listItemDao.getListItems()

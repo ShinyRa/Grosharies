@@ -1,8 +1,10 @@
-package com.example.grosharies.data.GroceryList
+package com.example.grosharies.groceryList
 
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.grosharies.data.GroshariesRoomDatabase
+import com.example.grosharies.data.groceryList.GroceryList
+import com.example.grosharies.data.groceryList.GroceryListRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

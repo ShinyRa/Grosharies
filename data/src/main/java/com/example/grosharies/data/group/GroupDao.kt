@@ -1,6 +1,5 @@
-package com.example.grosharies.data.Group
+package com.example.grosharies.data.group
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao

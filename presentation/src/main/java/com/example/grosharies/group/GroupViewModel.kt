@@ -1,16 +1,18 @@
-package com.example.grosharies.data.Group
+package com.example.grosharies.group
 
 import android.app.Application
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.example.grosharies.data.GroshariesRoomDatabase
+import com.example.grosharies.data.group.Group
+import com.example.grosharies.data.group.GroupRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class GroupViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: GroupRepository;
+    private val repository: GroupRepository
 
     val groups: MutableState<MutableList<Group>> = mutableStateOf(mutableListOf())
     val group: MutableState<Group> = mutableStateOf(Group(name = ""))

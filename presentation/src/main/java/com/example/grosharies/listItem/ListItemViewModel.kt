@@ -1,8 +1,10 @@
-package com.example.grosharies.data.ListItem
+package com.example.grosharies.listItem
 
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.grosharies.data.GroshariesRoomDatabase
+import com.example.grosharies.data.listItem.ListItem
+import com.example.grosharies.data.listItem.ListItemRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

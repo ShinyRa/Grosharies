@@ -11,8 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.grosharies.data.NameInput.NameInput
-import com.example.grosharies.data.Group.GroupViewModel
+import com.example.grosharies.group.GroupViewModel
 import com.example.grosharies.ui.Home
 import com.example.grosharies.ui.groceryList.EditList
 import com.example.grosharies.ui.groceryList.ListOverview

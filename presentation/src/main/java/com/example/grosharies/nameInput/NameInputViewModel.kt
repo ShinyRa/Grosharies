@@ -1,8 +1,10 @@
-package com.example.grosharies.data.NameInput
+package com.example.grosharies.nameInput
 
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.grosharies.data.GroshariesRoomDatabase
+import com.example.grosharies.data.nameInput.NameInput
+import com.example.grosharies.data.nameInput.NameInputRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

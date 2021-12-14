@@ -5,14 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.grosharies.data.GroceryList.GroceryList
-import com.example.grosharies.data.GroceryList.GroceryListDao
-import com.example.grosharies.data.Group.Group
-import com.example.grosharies.data.Group.GroupDao
-import com.example.grosharies.data.ListItem.ListItem
-import com.example.grosharies.data.ListItem.ListItemDao
-import com.example.grosharies.data.NameInput.NameInput
-import com.example.grosharies.data.NameInput.NameInputDao
+import com.example.grosharies.data.groceryList.GroceryList
+import com.example.grosharies.data.groceryList.GroceryListDao
+import com.example.grosharies.data.group.Group
+import com.example.grosharies.data.group.GroupDao
+import com.example.grosharies.data.listItem.ListItem
+import com.example.grosharies.data.listItem.ListItemDao
+import com.example.grosharies.data.nameInput.NameInput
+import com.example.grosharies.data.nameInput.NameInputDao
 
 @Database(
     entities = [Group::class, ListItem::class, GroceryList::class, NameInput::class],
