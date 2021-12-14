@@ -32,6 +32,11 @@ class NameInputViewModel(application: Application) : AndroidViewModel(applicatio
             repository.insertNameInput(nameInput)
         }
     }
+    fun getNameCount() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getNameCount()
+        }
+    }
 
     fun updateNameInput(nameInput: NameInput) {
         viewModelScope.launch(Dispatchers.IO) {

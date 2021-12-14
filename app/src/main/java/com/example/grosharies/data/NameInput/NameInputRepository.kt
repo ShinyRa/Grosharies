@@ -22,4 +22,8 @@ class NameInputRepository(private val nameInputDao: NameInputDao) {
         nameInputDao.deleteNameInput(nameInput)
     }
 
+    fun getNameCount(): Int {
+        return nameInputDao.getNameCount()
+    }
+
 }
