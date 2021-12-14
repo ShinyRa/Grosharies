@@ -1,4 +1,4 @@
-package com.example.grosharies.nameInput
+package com.example.grosharies.presentation.nameInput
 
 import android.app.Application
 import androidx.lifecycle.*

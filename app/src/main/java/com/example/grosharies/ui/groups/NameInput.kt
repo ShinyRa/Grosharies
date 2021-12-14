@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.grosharies.nameInput.NameInputViewModel
+import com.example.grosharies.presentation.nameInput.NameInputViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.common.DefaultTextInputField

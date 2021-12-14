@@ -1,4 +1,4 @@
-package com.example.grosharies.listItem
+package com.example.grosharies.presentation.listItem
 
 import android.app.Application
 import androidx.lifecycle.*

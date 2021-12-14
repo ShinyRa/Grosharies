@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.R
 import com.example.grosharies.data.group.Group
-import com.example.grosharies.group.GroupViewModel
+import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.ui.common.DefaultText
 import com.example.grosharies.ui.common.RoundedButton
 import com.example.grosharies.ui.navigation.Screen

@@ -18,8 +18,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.R
 import com.example.grosharies.data.groceryList.GroceryList
-import com.example.grosharies.groceryList.GroceryListViewModel
-import com.example.grosharies.groceryList.GroceryListViewModel.GroceryListViewModelFactory
+import com.example.grosharies.presentation.groceryList.GroceryListViewModel
+import com.example.grosharies.presentation.groceryList.GroceryListViewModel.GroceryListViewModelFactory
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.common.TextButton
 import com.example.grosharies.ui.navigation.Screen

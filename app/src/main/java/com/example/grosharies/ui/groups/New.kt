@@ -13,7 +13,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.data.group.Group
-import com.example.grosharies.group.GroupViewModel
+import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.setTitle
 
@@ -38,15 +38,13 @@ fun New(
 
     groupViewModel.getGroupById(groupId)
 
-    var group = groupViewModel.group.value
+    val group = groupViewModel.group.value
 
-    var name = remember { mutableStateOf(TextFieldValue("")) }
-    var password = remember { mutableStateOf(TextFieldValue("")) }
+    val name = remember { mutableStateOf(TextFieldValue("")) }
+    val password = remember { mutableStateOf(TextFieldValue("")) }
 
-    if (group != null) {
-        name.value = TextFieldValue(group.name)
-        password.value = TextFieldValue("")
-    }
+    name.value = TextFieldValue(group.name)
+    password.value = TextFieldValue("")
 
     Surface(modifier = Modifier.padding(16.dp)) {
         Column(modifier = Modifier.padding(PaddingValues(vertical = 16.dp))) {

@@ -1,5 +1,6 @@
-package com.example.grosharies.group
+package com.example.grosharies.presentation.group
 
+import android.annotation.SuppressLint
 import android.app.Application
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +15,7 @@ class GroupViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: GroupRepository
 
+    @SuppressLint("MutableCollectionMutableState")
     val groups: MutableState<MutableList<Group>> = mutableStateOf(mutableListOf())
     val group: MutableState<Group> = mutableStateOf(Group(name = ""))
 
