@@ -62,11 +62,11 @@ fun NameInput(navController: NavController) {
         ) {
             MainButton(text = "SAVE", onClickListener = {
                 navController.navigate(Screen.Groups.route)
-//                nameInputViewModel.insertNameInput(
-//                    NameInput(
-//                        name = nameValue.value.text
-//                    )
-//                )
+                nameInputViewModel.insertNameInput(
+                    com.example.grosharies.data.nameInput.NameInput(
+                        name = nameValue.value.text
+                    )
+                )
             })
         }
     }
