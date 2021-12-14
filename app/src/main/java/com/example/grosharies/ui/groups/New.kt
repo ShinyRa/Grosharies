@@ -1,6 +1,9 @@
 package com.example.grosharies.ui.groups
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -48,22 +51,29 @@ fun New(
 
     Surface(modifier = Modifier.padding(16.dp)) {
         Column(modifier = Modifier.padding(PaddingValues(vertical = 16.dp))) {
-            Text(text = "name",
+            Text(
+                text = "name",
                 modifier = Modifier.padding(PaddingValues(horizontal = 7.dp)),
-                fontWeight = FontWeight.Medium)
-            TextField(value = name.value,
+                fontWeight = FontWeight.Medium
+            )
+            TextField(
+                value = name.value,
                 onValueChange = {
                     name.value = it
                     group.name = it.text
                 },
-                modifier = Modifier.fillMaxWidth())
-            Text(text = "password",
+                modifier = Modifier.fillMaxWidth()
+            )
+            Text(
+                text = "password",
                 modifier = Modifier.padding(PaddingValues(horizontal = 7.dp)),
-                fontWeight = FontWeight.Medium)
+                fontWeight = FontWeight.Medium
+            )
             TextField(
                 value = password.value,
                 onValueChange = { password.value = it },
-                modifier = Modifier.fillMaxWidth())
+                modifier = Modifier.fillMaxWidth()
+            )
             MainButton(text = if (groupId != null) "Save" else "Create",
                 onClickListener = { submit(group) })
         }

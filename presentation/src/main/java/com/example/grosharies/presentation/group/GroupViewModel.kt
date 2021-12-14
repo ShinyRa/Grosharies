@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Application
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.grosharies.data.GroshariesRoomDatabase
 import com.example.grosharies.data.group.Group
 import com.example.grosharies.data.group.GroupRepository
@@ -36,7 +39,7 @@ class GroupViewModel(application: Application) : AndroidViewModel(application) {
             group.value = repository.getGroupById(id) ?: Group(name = "")
         }
     }
-    
+
     fun insertGroup(group: Group) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertGroup(group)

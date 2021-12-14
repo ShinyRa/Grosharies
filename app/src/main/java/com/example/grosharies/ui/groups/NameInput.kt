@@ -2,7 +2,9 @@ package com.example.grosharies.ui.groups
 
 import android.app.Application
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
@@ -12,11 +14,11 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.grosharies.presentation.nameInput.NameInputViewModel
+import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
-import com.example.grosharies.ui.common.DefaultTextInputField
-import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.navigation.setTitle
+import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
 fun NameInput(navController: NavController) {
@@ -48,7 +50,7 @@ fun NameInput(navController: NavController) {
             ) {
                 Row {
                     DefaultTextInputField(
-                        text = "Your Name",  modifier = Modifier
+                        text = "Your Name", modifier = Modifier
                             .fillMaxWidth(), textValue = nameValue
                     )
                 }
