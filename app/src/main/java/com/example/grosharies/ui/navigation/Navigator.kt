@@ -11,9 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.grosharies.data.GroceryList.GroceryListViewModel
-import com.example.grosharies.data.Group.GroupViewModel
-import com.example.grosharies.data.ListItem.ListItemViewModel
+import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.ui.Home
 import com.example.grosharies.ui.groceryList.EditList
 import com.example.grosharies.ui.groceryList.ListOverview
@@ -28,12 +26,6 @@ fun Navigator(navController: NavHostController) {
     val groupViewModel: GroupViewModel = viewModel(
         factory = GroupViewModel.GroupViewModelFactory(context.applicationContext as Application)
     )
-    val groceryListViewModel: GroceryListViewModel = viewModel(
-        factory = GroceryListViewModel.GroceryListViewModelFactory(context.applicationContext as Application)
-    )
-    val listItemViewModel: ListItemViewModel = viewModel(
-        factory = ListItemViewModel.ListItemViewModelFactory(context.applicationContext as Application)
-    )
 
     NavHost(
         navController = navController,
@@ -41,13 +33,13 @@ fun Navigator(navController: NavHostController) {
         route = "root"
     ) {
         composable(route = Screen.Home.route) { Home(navController = navController) }
-        groupNavigation(navController, groupViewModel, groceryListViewModel, listItemViewModel)
-        listNavigation(navController, groceryListViewModel, listItemViewModel)
+        groupNavigation(navController, groupViewModel)
+        listNavigation(navController)
     }
 }
 
 @ExperimentalAnimationApi
-fun NavGraphBuilder.groupNavigation(navController: NavController, groupViewModel: GroupViewModel, groceryListViewModel: GroceryListViewModel, listItemViewModel: ListItemViewModel) {
+fun NavGraphBuilder.groupNavigation(navController: NavController, groupViewModel: GroupViewModel) {
     navigation(startDestination = Screen.Groups.route, "group") {
         composable(route = Screen.Groups.route) {
             Overview(navController = navController, groupViewModel = groupViewModel)
@@ -69,51 +61,38 @@ fun NavGraphBuilder.groupNavigation(navController: NavController, groupViewModel
             View(
                 groupId = entry.arguments?.getString("groupId") ?: "0",
                 navController = navController,
-                groupViewModel = groupViewModel,
-                groceryListViewModel = groceryListViewModel,
-                listItemViewModel = listItemViewModel
+                groupViewModel = groupViewModel
             )
         }
     }
 }
 
-fun NavGraphBuilder.listNavigation(
-    navController: NavController,
-    groceryListViewModel: GroceryListViewModel,
-    listItemViewModel: ListItemViewModel
-) {
+fun NavGraphBuilder.listNavigation(navController: NavController) {
     navigation(startDestination = Screen.Lists.route, "list") {
         composable(route = Screen.Lists.route + "/{groupId}") { entry ->
             ListOverview(
                 navController = navController,
-                groupId = entry.arguments?.getString("groupId") ?: "0",
-                groceryListViewModel = groceryListViewModel,
-                listItemViewModel = listItemViewModel
+                groupId = entry.arguments?.getString("groupId") ?: "0"
             )
         }
         composable(route = Screen.ListEdit.route + "/{groupId}/{listId}") { entry ->
             EditList(
-                listId = entry.arguments?.getString("listId") ?: "0",
-                navController = navController,
-                groceryListViewModel = groceryListViewModel,
-                listItemViewModel = listItemViewModel
+                entry.arguments?.getString("groupId") ?: "0",
+                entry.arguments?.getString("listId") ?: "0",
+                navController = navController
             )
         }
         composable(route = Screen.StartShopping.route + "/{groupId}/{listId}") { entry ->
             StartShopping(
-                groupId = entry.arguments?.getString("groupId") ?: "0",
-                listId = entry.arguments?.getString("listId") ?: "0",
-                navController = navController,
-                groceryListViewModel = groceryListViewModel,
-                listItemViewModel = listItemViewModel
+                entry.arguments?.getString("groupId") ?: "0",
+                entry.arguments?.getString("listId") ?: "0",
+                navController = navController
             )
         }
         composable(route = Screen.ListNew.route + "/{groupId}") { entry ->
             NewList(
-                groupId = entry.arguments?.getString("groupId") ?: "0",
-                navController = navController,
-                groceryListViewModel = groceryListViewModel,
-                listItemViewModel = listItemViewModel
+                entry.arguments?.getString("groupId") ?: "0",
+                navController = navController
             )
         }
     }

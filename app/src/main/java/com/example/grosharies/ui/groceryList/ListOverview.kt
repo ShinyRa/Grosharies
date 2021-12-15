@@ -3,10 +3,7 @@ package com.example.grosharies.ui.groceryList
 import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -14,14 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.R
-import com.example.grosharies.data.GroceryList.GroceryList
-import com.example.grosharies.data.GroceryList.GroceryListViewModel
-import com.example.grosharies.data.GroceryList.GroceryListViewModel.GroceryListViewModelFactory
-import com.example.grosharies.data.ListItem.ListItemViewModel
+import com.example.grosharies.data.groceryList.GroceryList
+import com.example.grosharies.presentation.groceryList.GroceryListViewModel
+import com.example.grosharies.presentation.groceryList.GroceryListViewModel.GroceryListViewModelFactory
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.common.TextButton
 import com.example.grosharies.ui.navigation.Screen
@@ -29,12 +27,7 @@ import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun ListOverview(
-    groupId: String,
-    navController: NavController,
-    groceryListViewModel: GroceryListViewModel,
-    listItemViewModel: ListItemViewModel
-) {
+fun ListOverview(groupId: String, navController: NavController) {
 
     val context = LocalContext.current
     val myGroceryListViewModel: GroceryListViewModel = viewModel(
@@ -167,5 +160,15 @@ fun ListOverview(
                 MainButton(text = "ADD NEW LIST", onClickListener = { addGroceryList() })
             }
         }
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    val navController = rememberNavController()
+    Surface(color = MaterialTheme.colors.background) {
+        ListOverview("0", navController = navController)
     }
 }
