@@ -35,9 +35,7 @@ class GroupViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getGroupById(id: Int?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            group.value = repository.getGroupById(id) ?: Group(name = "")
-        }
+        group.value = repository.getGroupById(id) ?: Group(name = "")
     }
 
     fun insertGroup(group: Group) {

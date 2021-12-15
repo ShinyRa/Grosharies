@@ -1,6 +1,7 @@
 package com.example.grosharies.ui.groceryList
 
 import android.app.Application
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -20,9 +21,12 @@ import com.example.grosharies.R
 import com.example.grosharies.data.groceryList.GroceryList
 import com.example.grosharies.presentation.groceryList.GroceryListViewModel
 import com.example.grosharies.presentation.groceryList.GroceryListViewModel.GroceryListViewModelFactory
+import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.common.TextButton
 import com.example.grosharies.ui.navigation.Screen
+import com.example.grosharies.ui.navigation.TopBarAction
+import com.example.grosharies.ui.navigation.setActions
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 
@@ -30,28 +34,48 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 fun ListOverview(groupId: String, navController: NavController) {
 
     val context = LocalContext.current
-    val myGroceryListViewModel: GroceryListViewModel = viewModel(
+    val groceryListViewModel: GroceryListViewModel = viewModel(
         factory = GroceryListViewModelFactory(context.applicationContext as Application)
     )
 
+    val groupViewModel: GroupViewModel = viewModel(
+        factory = GroupViewModel.GroupViewModelFactory(context.applicationContext as Application)
+    )
+
     if (groupId == "0") {
-        myGroceryListViewModel.getListItemsWithoutGroup()
+        groceryListViewModel.getListItemsWithoutGroup()
     } else {
-        myGroceryListViewModel.getListItemsByGroup(groupId)
+        groupViewModel.getGroupById(groupId.toInt())
+        groceryListViewModel.getListItemsByGroup(groupId)
     }
-    val listItems = myGroceryListViewModel.GroceryLists.observeAsState(listOf()).value
+
+    val group = groupViewModel.group.value
+
+    val listItems = groceryListViewModel.GroceryLists.observeAsState(listOf()).value
 
     fun addGroceryList() {
         navController.navigate(Screen.ListNew.withArgs(groupId))
     }
 
     fun removeFromList(list: GroceryList) {
-        myGroceryListViewModel.deleteGroceryLists(list)
+        groceryListViewModel.deleteGroceryLists(list)
+    }
+
+    setTitle(if (groupId != "0") group?.name else "Personal lists")
+
+
+    navController.addOnDestinationChangedListener { _, destination, _ ->
+        if (destination.route!!.contains(Screen.Lists.route)) {
+            setActions(listOf(TopBarAction(R.drawable.ic_edit_24) {
+                navController.navigate(Screen.GroupEdit.withArgs(groupId))
+            }))
+        } else {
+            setActions(listOf())
+        }
     }
 
     GroshariesTheme {
         val groceryList: List<GroceryList> = listItems
-        setTitle("List Overview")
 
         Box {
             Column {
