@@ -1,7 +1,10 @@
 package com.example.grosharies.ui.groups
 
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,8 +21,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.R
-import com.example.grosharies.data.Group.Group
-import com.example.grosharies.data.Group.GroupViewModel
+import com.example.grosharies.data.group.Group
+import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.ui.common.DefaultText
 import com.example.grosharies.ui.common.RoundedButton
 import com.example.grosharies.ui.navigation.Screen
@@ -50,9 +53,9 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
                     GroupCard(
                         group = group,
                         onClick = { navController.navigate(Screen.GroupEdit.withArgs(group.id.toString())) },
-                        deleteGroup = { group ->
-                            groupViewModel.deleteGroup(group)
-                         }
+                        deleteGroup = { groupToDelete ->
+                            groupViewModel.deleteGroup(groupToDelete)
+                        }
                     )
                 }
 
@@ -83,7 +86,11 @@ fun GroupCard(
             targetState = true
         }
     }
-    AnimatedVisibility(visibleState = state, enter = slideInHorizontally(), exit = slideOutHorizontally()) {
+    AnimatedVisibility(
+        visibleState = state,
+        enter = slideInHorizontally(),
+        exit = slideOutHorizontally()
+    ) {
         Card(modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)

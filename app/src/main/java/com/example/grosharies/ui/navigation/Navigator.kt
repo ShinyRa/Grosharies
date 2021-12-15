@@ -11,15 +11,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.grosharies.data.NameInput.NameInput
-import com.example.grosharies.data.Group.GroupViewModel
+import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.ui.Home
 import com.example.grosharies.ui.groceryList.EditList
 import com.example.grosharies.ui.groceryList.ListOverview
 import com.example.grosharies.ui.groceryList.NewList
 import com.example.grosharies.ui.groceryList.StartShopping
 import com.example.grosharies.ui.groups.*
-import com.example.grosharies.ui.groups.NameInput
 
 @ExperimentalAnimationApi
 @Composable
@@ -46,16 +44,18 @@ fun NavGraphBuilder.groupNavigation(navController: NavController, groupViewModel
         composable(route = Screen.Groups.route) {
             Overview(navController = navController, groupViewModel = groupViewModel)
         }
-        composable(route = Screen.GroupName.route){
+        composable(route = Screen.GroupName.route) {
             NameInput(navController = navController)
         }
         composable(route = Screen.GroupNew.route) {
             New(navController = navController, groupViewModel = groupViewModel)
         }
         composable(route = Screen.GroupEdit.route + "/{groupId}") { entry ->
-            Edit(navController = navController,
+            Edit(
+                navController = navController,
                 groupViewModel = groupViewModel,
-                groupId = entry.arguments?.getString("groupId")?.toInt() ?: 1)
+                groupId = entry.arguments?.getString("groupId")?.toInt() ?: 1
+            )
         }
         composable(route = Screen.GroupDetail.route + "/{groupId}") { entry ->
             View(

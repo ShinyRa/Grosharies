@@ -1,0 +1,11 @@
+plugins {
+    id 'kotlin'
+    id 'kotlin-kapt'
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = jvm_version
+        freeCompilerArgs = ['-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi']
+    }
+}
