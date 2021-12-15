@@ -18,6 +18,8 @@ sealed class Screen(val route: String, val nameResource: Int) {
     object Lists : Screen("list/overview", R.string.lists)
     object ListEdit : Screen("list/edit", R.string.lists)
     object ListNew : Screen("list/new", R.string.list_new)
+    object ListDetail : Screen("list/view", R.string.list_detail)
+    object ListItemNew : Screen("list/newItem", R.string.new_list_item)
     object StartShopping : Screen("list/shop", R.string.group_detail)
     object GroupName : Screen("group/name", R.string.group_name)
 

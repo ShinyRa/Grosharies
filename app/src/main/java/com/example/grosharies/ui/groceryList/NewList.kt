@@ -6,8 +6,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.grosharies.data.groceryList.GroceryList
 import com.example.grosharies.data.listItem.ListItem
@@ -26,8 +28,6 @@ fun NewList(
     listItemViewModel: ListItemViewModel
 ) {
     var listName by remember { mutableStateOf("") }
-    var itemName by remember { mutableStateOf("") }
-    var itemAmount by remember { mutableStateOf("") }
 
     GroshariesTheme {
         Column {
@@ -58,57 +58,10 @@ fun NewList(
                         )
                 )
             }
-            Row(
-                modifier = Modifier
-                    .padding(
-                        PaddingValues(
-                            start = 16.dp,
-                            end = 16.dp,
-                        )
-                    )
-                    .fillMaxWidth(),
-            ) {
-                TextField(
-                    value = itemName,
-                    onValueChange = {
-                        itemName = it
-                    },
-                    label = { Text("New item:") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(7f)
-                        .padding(
-                            PaddingValues(
-                                top = 8.dp,
-                                bottom = 8.dp,
-                                end = 4.dp
-                            )
-                        )
-                )
-                TextField(
-                    value = itemAmount,
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    onValueChange = {
-                        itemAmount = it
-                    },
-                    label = { Text("amount:") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(3f)
-                        .padding(
-                            PaddingValues(
-                                top = 8.dp,
-                                bottom = 8.dp,
-                                end = 4.dp
-                            )
-                        )
-                )
-            }
             MainButton(
                 text = "ADD NEW LIST",
                 onClickListener = {
                     addNewList(listName, groupId.toLong(), groceryListViewModel)
-//                    addNewListItem(itemName, itemAmount.toInt(), 40, listItemViewModel)
                     navController.navigate(Screen.GroupDetail.withArgs(groupId))
                 })
         }
@@ -134,20 +87,4 @@ fun addNewList(listName: String, groupId: Long, groceryListViewModel: GroceryLis
             )
         )
     }
-}
-
-fun addNewListItem(
-    listItemName: String,
-    itemAmount: Int,
-    listId: Long,
-    listItemViewModel: ListItemViewModel
-) {
-    listItemViewModel.insertListItem(
-        ListItem(
-            itemName = listItemName,
-            itemAmount = itemAmount,
-            itemPurchased = false,
-            listId = listId
-        )
-    )
 }

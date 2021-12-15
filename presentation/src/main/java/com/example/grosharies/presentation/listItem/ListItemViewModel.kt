@@ -1,38 +1,40 @@
 package com.example.grosharies.presentation.listItem
 
+import android.annotation.SuppressLint
 import android.app.Application
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.example.grosharies.data.GroshariesRoomDatabase
+import com.example.grosharies.data.group.Group
 import com.example.grosharies.data.listItem.ListItem
 import com.example.grosharies.data.listItem.ListItemRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ListItemViewModel(application: Application) : AndroidViewModel(application) {
-    val getAllGroceryLists: LiveData<List<ListItem>>
     private val repository: ListItemRepository
 
-    val mutableListItems: MutableLiveData<String> = MutableLiveData()
-    val listItems: LiveData<List<ListItem>>
-
-    val listItem: LiveData<ListItem>
+    @SuppressLint("MutableCollectionMutableState")
+    var listItems: MutableState<MutableList<ListItem>> = mutableStateOf(mutableListOf())
+    val listItem: MutableState<ListItem> =
+        mutableStateOf(ListItem(itemName = "", itemAmount = 0, itemPurchased = false))
 
     init {
         val listItemDao = GroshariesRoomDatabase.getDatabase(application)!!.listItemDao()
-        repository = ListItemRepository(listItemDao)
-        getAllGroceryLists = repository.getAllListItems()
+        repository = ListItemRepository(listItemDao = listItemDao)
+    }
 
-        listItems = Transformations.switchMap(mutableListItems) { param ->
-            repository.getListItemsFromList(param)
-        }
-
-        listItem = Transformations.switchMap(mutableListItems) { param ->
-            repository.getListItem(param)
+    fun getListItemById(id: Int?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            listItem.value = repository.getListItemById(id) ?: ListItem(itemName = "", itemAmount = 0, itemPurchased = false)
         }
     }
 
-    fun getListItemsByList(groupId: String) {
-        mutableListItems.value = groupId
+    fun getListItemsByListId(listId: Int?){
+        viewModelScope.launch(Dispatchers.IO) {
+            listItems.value = repository.getListItemByListId(listId)
+        }
     }
 
     fun insertListItem(listItem: ListItem) {
