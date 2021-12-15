@@ -2,20 +2,20 @@ package com.example.grosharies.ui.groups
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Surface
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.grosharies.R
 import com.example.grosharies.data.Group.Group
@@ -45,7 +45,31 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
                     .fillMaxSize()
                     .padding(PaddingValues(vertical = 16.dp, horizontal = 8.dp))
                     .verticalScroll(state = ScrollState(0))
-            ) {
+            )
+            {
+                Row {
+                    Text(
+                        "You don’t have any groups yet! \n \n" +
+                                "" +
+                                "Create or join one to start\n" +
+                                " your shared shopping experience \n",
+                        fontSize = 15.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    )
+                }
+
+                    Image(
+                        painter = painterResource(R.drawable.no_groups),
+                        contentDescription = "No groups yet",
+                        modifier = Modifier
+                            .size(300.dp, 150.dp)
+                    )
+
+
+
                 groups.map { group ->
                     GroupCard(
                         group = group,
