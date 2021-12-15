@@ -11,7 +11,7 @@ import com.example.grosharies.data.groceryList.GroceryList
     foreignKeys = [ForeignKey(
         entity = GroceryList::class,
         parentColumns = ["id"],
-        childColumns = ["groceryListId"]
+        childColumns = ["listId"]
     )]
 )
 data class ListItem(
@@ -27,7 +27,7 @@ data class ListItem(
     @ColumnInfo(name = "id")
     val id: Long? = null,
 
-    @ColumnInfo(name = "groceryListId", index = true)
+    @ColumnInfo(name = "listId", index = true)
     val listId: Long? = null,
 
     )
