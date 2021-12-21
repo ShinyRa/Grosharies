@@ -9,17 +9,18 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Surface
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.R
 import com.example.grosharies.data.group.Group
 import com.example.grosharies.presentation.group.GroupViewModel
@@ -32,22 +33,22 @@ import com.example.grosharies.ui.theme.backdrop
 
 @ExperimentalAnimationApi
 @Composable
-fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
+fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameInputViewModel: NameInputViewModel) {
 
     setTitle("Group Overview")
+
     val groups = groupViewModel.groups.value
 
-    GroshariesTheme {
-        Surface(
-            color = backdrop, modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(PaddingValues(vertical = 16.dp, horizontal = 8.dp))
-                    .verticalScroll(state = ScrollState(0))
+    LaunchedEffect(nameInputViewModel.username.value) {
+        if (nameInputViewModel.username.value == null) {
+            navController.navigate(Screen.GroupName.route)
+        }
+    }
+        GroshariesTheme {
+            Surface(
+                color = backdrop, modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
             ) {
                 groups.map { group ->
                     GroupCard(
@@ -59,18 +60,19 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
                     )
                 }
 
-                Column(verticalArrangement = Arrangement.Bottom) {
-                    RoundedButton(text = "Create",
-                        onClickListener = { navController.navigate(Screen.GroupNew.route) })
-                    RoundedButton(
-                        text = "Join",
-                        isSecondary = true,
-                        onClickListener = { /*navController.navigate(Screen.GroupEdit.route)*/ })
+                    Column(verticalArrangement = Arrangement.Bottom) {
+                        RoundedButton(text = "Create",
+                            onClickListener = { navController.navigate(Screen.GroupNew.route) })
+                        RoundedButton(
+                            text = "Join",
+                            isSecondary = true,
+                            onClickListener = { /*navController.navigate(Screen.GroupEdit.route)*/ })
+                    }
                 }
             }
-        }
     }
 }
+
 
 @ExperimentalAnimationApi
 @Composable

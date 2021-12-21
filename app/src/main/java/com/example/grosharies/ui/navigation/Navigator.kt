@@ -26,6 +26,9 @@ fun Navigator(navController: NavHostController) {
     val groupViewModel: GroupViewModel = viewModel(
         factory = GroupViewModel.GroupViewModelFactory(context.applicationContext as Application)
     )
+    val nameInputViewModel: NameInputViewModel = viewModel(
+        factory = NameInputViewModel.NameInputViewModelFactory(context.applicationContext as Application)
+    )
     val listItemViewModel: ListItemViewModel = viewModel(
         factory = ListItemViewModel.ListItemViewModelFactory(context.applicationContext as Application)
     )
@@ -39,7 +42,7 @@ fun Navigator(navController: NavHostController) {
         route = "root"
     ) {
         composable(route = Screen.Home.route) { Home(navController = navController) }
-        groupNavigation(navController, groupViewModel, listItemViewModel)
+        groupNavigation(navController, groupViewModel, listItemViewModel, nameInputViewModel)
         listNavigation(navController, groceryListViewModel, listItemViewModel)
     }
 }
@@ -48,11 +51,12 @@ fun Navigator(navController: NavHostController) {
 fun NavGraphBuilder.groupNavigation(
     navController: NavController,
     groupViewModel: GroupViewModel,
-    listItemViewModel: ListItemViewModel
+    listItemViewModel: ListItemViewModel,
+    nameInputViewModel: NameInputViewModel
 ) {
     navigation(startDestination = Screen.Groups.route, "group") {
         composable(route = Screen.Groups.route) {
-            Overview(navController = navController, groupViewModel = groupViewModel)
+            Overview(navController = navController, groupViewModel = groupViewModel, nameInputViewModel = nameInputViewModel)
         }
         composable(route = Screen.GroupName.route) {
             NameInput(navController = navController)
