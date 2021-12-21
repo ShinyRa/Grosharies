@@ -23,14 +23,14 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.navigation.setTitle
 
 @Composable
-fun NameInput(navController: NavController) {
+fun NameInput(navController: NavController, nameInputViewModel: NameInputViewModel) {
     val nameValue = remember {
         mutableStateOf(TextFieldValue(""))
     }
-    val context = LocalContext.current
-    val nameInputViewModel: NameInputViewModel = viewModel(
-        factory = NameInputViewModel.NameInputViewModelFactory(context.applicationContext as Application)
-    )
+//    val context = LocalContext.current
+//    val nameInputViewModel: NameInputViewModel = viewModel(
+//        factory = NameInputViewModel.NameInputViewModelFactory(context.applicationContext as Application)
+//    )
     setTitle("Who are you?")
 
     GroshariesTheme {
@@ -65,12 +65,16 @@ fun NameInput(navController: NavController) {
             verticalArrangement = Arrangement.Bottom
         ) {
             MainButton(text = "SAVE", onClickListener = {
-                navController.navigate(Screen.Groups.route)
+
                 nameInputViewModel.insertNameInput(
                     NameInput(
                         name = nameValue.value.text
                     )
                 )
+                nameInputViewModel.ifUserExists()
+                if (nameInputViewModel.userNameExists.value == 1) {
+                    navController.navigate(Screen.Groups.route)
+                }
             })
         }
     }

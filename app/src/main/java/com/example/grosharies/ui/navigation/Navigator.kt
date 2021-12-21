@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.example.grosharies.data.NameInput.NameInput
 import com.example.grosharies.data.Group.GroupViewModel
+import com.example.grosharies.data.NameInput.NameInputViewModel
 import com.example.grosharies.ui.Home
 import com.example.grosharies.ui.groceryList.EditList
 import com.example.grosharies.ui.groceryList.ListOverview
@@ -27,6 +28,10 @@ fun Navigator(navController: NavHostController) {
     val context = LocalContext.current
     val groupViewModel: GroupViewModel = viewModel(
         factory = GroupViewModel.GroupViewModelFactory(context.applicationContext as Application)
+
+    )
+    val nameInputViewModel: NameInputViewModel = viewModel(
+        factory = NameInputViewModel.NameInputViewModelFactory(context.applicationContext as Application)
     )
 
     NavHost(
@@ -35,19 +40,19 @@ fun Navigator(navController: NavHostController) {
         route = "root"
     ) {
         composable(route = Screen.Home.route) { Home(navController = navController) }
-        groupNavigation(navController, groupViewModel)
+        groupNavigation(navController, groupViewModel, nameInputViewModel)
         listNavigation(navController)
     }
 }
 
 @ExperimentalAnimationApi
-fun NavGraphBuilder.groupNavigation(navController: NavController, groupViewModel: GroupViewModel) {
+fun NavGraphBuilder.groupNavigation(navController: NavController, groupViewModel: GroupViewModel, nameInputViewModel: NameInputViewModel) {
     navigation(startDestination = Screen.Groups.route, "group") {
         composable(route = Screen.Groups.route) {
-            Overview(navController = navController, groupViewModel = groupViewModel)
+            Overview(navController = navController, groupViewModel = groupViewModel, nameInputViewModel)
         }
         composable(route = Screen.GroupName.route){
-            NameInput(navController = navController)
+            NameInput(navController = navController, nameInputViewModel)
         }
         composable(route = Screen.GroupNew.route) {
             New(navController = navController, groupViewModel = groupViewModel)

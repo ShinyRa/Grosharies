@@ -1,6 +1,8 @@
 package com.example.grosharies.data.NameInput
 
 import android.app.Application
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.example.grosharies.data.GroshariesRoomDatabase
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +15,7 @@ class NameInputViewModel(application: Application) : AndroidViewModel(applicatio
     val mutableListItems: MutableLiveData<String> = MutableLiveData()
     val listItems: LiveData<List<NameInput>>
 
+    val userNameExists : MutableState<Int> = mutableStateOf(0)
     init {
         val nameInputDao = GroshariesRoomDatabase.getDatabase(application)!!.nameInputDao()
         repository = NameInputRepository(nameInputDao)
@@ -21,6 +24,7 @@ class NameInputViewModel(application: Application) : AndroidViewModel(applicatio
         listItems = Transformations.switchMap(mutableListItems) { param ->
             repository.getNameInput()
         }
+        userNameExists.value = repository.ifUserExists()
     }
 
     fun getAllNameInputsByGroup(groupId: String) {
@@ -32,9 +36,10 @@ class NameInputViewModel(application: Application) : AndroidViewModel(applicatio
             repository.insertNameInput(nameInput)
         }
     }
-    fun getNameCount() {
+    fun ifUserExists(){
+
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getNameCount()
+            userNameExists.value = repository.ifUserExists()
         }
     }
 
