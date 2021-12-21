@@ -54,7 +54,7 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameI
                 groups.map { group ->
                     GroupCard(
                         group = group,
-                        onClick = { navController.navigate(Screen.GroupEdit.withArgs(group.id.toString())) },
+                        onClick = { navController.navigate(Screen.Lists.withArgs(group.id.toString())) },
                         deleteGroup = { groupToDelete ->
                             groupViewModel.deleteGroup(groupToDelete)
                         }

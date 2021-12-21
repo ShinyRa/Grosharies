@@ -26,7 +26,7 @@ fun New(
     groupViewModel: GroupViewModel,
     groupId: Int? = null,
 ) {
-    setTitle("Create a group")
+    setTitle(if (groupId != null) "Edit group" else "Create a group")
 
     fun submit(group: Group) {
         if (groupId != null) {
