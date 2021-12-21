@@ -10,7 +10,7 @@ interface NameInputDao {
     fun getAllNameInputs(): LiveData<List<NameInput>>
 
     @Query("SELECT * FROM `NameInput` limit 1")
-    fun getNameInput(): LiveData<List<NameInput>>
+    fun getNameInput(): NameInput?
 
     @Query("SELECT COUNT(*) FROM `NameInput`")
     fun getAmountOfNames(): Int

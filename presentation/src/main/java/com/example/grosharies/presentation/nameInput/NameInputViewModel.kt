@@ -1,6 +1,8 @@
 package com.example.grosharies.presentation.nameInput
 
 import android.app.Application
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.example.grosharies.data.GroshariesRoomDatabase
 import com.example.grosharies.data.nameInput.NameInput
@@ -9,20 +11,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class NameInputViewModel(application: Application) : AndroidViewModel(application) {
-    val getAllNameInputs: LiveData<List<NameInput>>
     private val repository: NameInputRepository
 
     val mutableListItems: MutableLiveData<String> = MutableLiveData()
-    val listItems: LiveData<List<NameInput>>
 
+    val username : MutableState<NameInput?> = mutableStateOf(null)
     init {
         val nameInputDao = GroshariesRoomDatabase.getDatabase(application)!!.nameInputDao()
         repository = NameInputRepository(nameInputDao)
-        getAllNameInputs = repository.getAllNameInputs
 
-        listItems = Transformations.switchMap(mutableListItems) { param ->
-            repository.getNameInput()
-        }
+        username.value = repository.ifUserExists()
     }
 
     fun getAllNameInputsByGroup(groupId: String) {
@@ -32,6 +30,7 @@ class NameInputViewModel(application: Application) : AndroidViewModel(applicatio
     fun insertNameInput(nameInput: NameInput) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertNameInput(nameInput)
+            username.value = nameInput
         }
     }
 
