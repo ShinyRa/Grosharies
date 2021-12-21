@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.data.ListItem.ListItemViewModel
+import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
@@ -42,11 +43,11 @@ fun EditList(groupId: String? = null, listId: String? = null, navController: Nav
                     onValueChange = { editGroceryname.value = it },
                     label = { Text ( " Edit the name of your list :") },
                     modifier = Modifier
-                        .weight(5f)
+                        .weight(2f)
                         .padding(
                             PaddingValues(
                                 top = 8.dp,
-                                bottom = 8.dp,
+                                bottom = 4.dp,
                                 end = 4.dp,
                             )
                         )
@@ -101,13 +102,8 @@ fun EditList(groupId: String? = null, listId: String? = null, navController: Nav
                 },
                 modifier = Modifier.padding(PaddingValues(start = 16.dp))
             )
-            Button(
-                onClick = { SaveEdit() }, modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(text = "SAVE")
-            }
+
+            MainButton(text = "Save", onClickListener = {SaveEdit()})
         }
     }
 }
