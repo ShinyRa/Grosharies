@@ -2,7 +2,7 @@ package com.example.grosharies.ui.groceryList
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.example.grosharies.data.GroceryList.GroceryList
+import com.example.grosharies.data.groceryList.GroceryList
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.setTitle

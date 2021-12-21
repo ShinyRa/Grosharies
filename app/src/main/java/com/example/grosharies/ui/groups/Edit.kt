@@ -2,8 +2,7 @@ package com.example.grosharies.ui.groups
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.example.grosharies.data.Group.GroupViewModel
-import com.example.grosharies.ui.common.DefaultText
+import com.example.grosharies.presentation.group.GroupViewModel
 
 @Composable
 fun Edit(

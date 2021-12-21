@@ -1,9 +1,10 @@
 package com.example.grosharies.ui.groups
 
-import android.app.Application
-import android.util.Log
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -21,9 +22,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.R
-import com.example.grosharies.data.Group.Group
-import com.example.grosharies.data.Group.GroupViewModel
-import com.example.grosharies.data.NameInput.NameInputViewModel
+import com.example.grosharies.data.group.Group
+import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.ui.common.DefaultText
 import com.example.grosharies.ui.common.RoundedButton
 import com.example.grosharies.ui.navigation.Screen
@@ -50,21 +50,15 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameI
                     .fillMaxWidth()
                     .fillMaxHeight()
             ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(PaddingValues(vertical = 16.dp, horizontal = 8.dp))
-                        .verticalScroll(state = ScrollState(0))
-                ) {
-                    groups.map { group ->
-                        GroupCard(
-                            group = group,
-                            onClick = { navController.navigate(Screen.GroupEdit.withArgs(group.id.toString())) },
-                            deleteGroup = { group ->
-                                groupViewModel.deleteGroup(group)
-                            }
-                        )
-                    }
+                groups.map { group ->
+                    GroupCard(
+                        group = group,
+                        onClick = { navController.navigate(Screen.GroupEdit.withArgs(group.id.toString())) },
+                        deleteGroup = { groupToDelete ->
+                            groupViewModel.deleteGroup(groupToDelete)
+                        }
+                    )
+                }
 
                     Column(verticalArrangement = Arrangement.Bottom) {
                         RoundedButton(text = "Create",
