@@ -28,6 +28,6 @@ data class ListItem(
     val id: Long? = null,
 
     @ColumnInfo(name = "listId", index = true)
-    val listId: Long? = null,
+    var listId: Long? = null,
 
     )

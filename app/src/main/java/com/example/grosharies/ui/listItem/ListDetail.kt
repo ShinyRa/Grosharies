@@ -34,7 +34,7 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
     println("listItems = $listItems")
 
     fun addListItem() {
-        navController.navigate(Screen.ListItemNew.withArgs("0"))
+        navController.navigate(Screen.ListItemNew.withArgs(listId))
     }
 
     fun editListItem(listItemId: Int) {

@@ -25,6 +25,8 @@ fun ListItemNew(
     navController: NavController,
     listItemViewModel: ListItemViewModel
 ) {
+    listItemViewModel.getListItemById(listItemId)
+
     val currentListItem = listItemViewModel.listItem.value
 
     val itemName = remember { mutableStateOf(TextFieldValue("")) }
@@ -34,7 +36,14 @@ fun ListItemNew(
     itemAmount.value = TextFieldValue(currentListItem.itemAmount.toString())
 
     fun saveListItem(currentListItem: ListItem) {
-        listItemViewModel.updateListItem(currentListItem)
+        if (currentListItem.id == null || currentListItem.id == 0L) {
+            println("listId: $listId")
+            currentListItem.listId = listId?.toLong()
+            println("adding a list Item: $currentListItem")
+            listItemViewModel.insertListItem(currentListItem)
+        } else {
+            listItemViewModel.updateListItem(currentListItem)
+        }
         listItemViewModel.getListItemsByListId(listId)
         navController.navigateUp()
     }
@@ -92,7 +101,9 @@ fun ListItemNew(
                 )
             }
             MainButton(text = if (listItemId != 0) "Save" else "Create",
-                onClickListener = { saveListItem(currentListItem) })
+                onClickListener = {
+                    saveListItem(currentListItem)
+                })
         }
     }
 }
