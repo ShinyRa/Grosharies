@@ -33,7 +33,7 @@ fun ListItemNew(
     val itemAmount = remember { mutableStateOf(TextFieldValue("")) }
 
     itemName.value = TextFieldValue(currentListItem.itemName)
-    itemAmount.value = TextFieldValue(currentListItem.itemAmount.toString())
+    itemAmount.value = TextFieldValue(currentListItem.itemAmount)
 
     fun saveListItem(currentListItem: ListItem) {
         if (currentListItem.id == null || currentListItem.id == 0L) {
@@ -82,7 +82,7 @@ fun ListItemNew(
                     value = itemAmount.value,
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     onValueChange = {
-                        currentListItem.itemAmount = it.text.toInt()
+                        currentListItem.itemAmount = it.text
                         itemAmount.value = it
                     },
                     label = { Text("amount:") },

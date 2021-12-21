@@ -18,7 +18,7 @@ class ListItemViewModel(application: Application) : AndroidViewModel(application
     @SuppressLint("MutableCollectionMutableState")
     var listItems: MutableState<MutableList<ListItem>> = mutableStateOf(mutableListOf())
     val listItem: MutableState<ListItem> =
-        mutableStateOf(ListItem(itemName = "", itemAmount = 0, itemPurchased = false))
+        mutableStateOf(ListItem(itemName = "", itemAmount = "1", itemPurchased = false))
 
     init {
         val listItemDao = GroshariesRoomDatabase.getDatabase(application)!!.listItemDao()
@@ -27,7 +27,7 @@ class ListItemViewModel(application: Application) : AndroidViewModel(application
 
     fun getListItemById(id: Int?) {
         viewModelScope.launch(Dispatchers.IO) {
-            listItem.value = repository.getListItemById(id) ?: ListItem(itemName = "", itemAmount = 0, itemPurchased = false)
+            listItem.value = repository.getListItemById(id) ?: ListItem(itemName = "", itemAmount = "1", itemPurchased = false)
         }
     }
 

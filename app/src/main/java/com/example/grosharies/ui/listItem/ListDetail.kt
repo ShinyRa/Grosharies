@@ -30,7 +30,12 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
     val listItems = listItemViewModel.listItems.value
 
     fun addListItem() {
-        navController.navigate(Screen.ListItemNew.withArgs(listId))
+        navController.navigate(Screen.ListItemNew.withArgs(listId, "0"))
+    }
+
+    fun deleteListItem(listItem: ListItem) {
+        listItemViewModel.deleteListItem(listItem)
+        listItemViewModel.getListItemsByListId(listId.toInt())
     }
 
     fun editListItem(listItemId: Int) {
@@ -86,7 +91,7 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                                     Column(
                                         Modifier
                                             .padding(8.dp)
-                                            .weight(2f),
+                                            .weight(1f),
                                         horizontalAlignment = Alignment.End
                                     ) {
                                         Text(
@@ -97,14 +102,22 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                                 Column(
                                     Modifier
                                         .padding(8.dp)
-                                        .weight(2f),
+                                        .weight(3f),
                                     horizontalAlignment = Alignment.End
                                 ) {
-                                    IconButton(onClick = { editListItem(listItemsList[index].id?.toInt()!!) }) {
-                                        Icon(
-                                            painterResource(id = R.drawable.ic_edit_24),
-                                            contentDescription = "edit"
-                                        )
+                                    Row {
+                                        IconButton(onClick = { editListItem(listItemsList[index].id?.toInt()!!) }) {
+                                            Icon(
+                                                painterResource(id = R.drawable.ic_edit_24),
+                                                contentDescription = "Edit"
+                                            )
+                                        }
+                                        IconButton(onClick = { deleteListItem(listItemsList[index]) }) {
+                                            Icon(
+                                                painterResource(id = R.drawable.ic_close_24),
+                                                contentDescription = "Delete"
+                                            )
+                                        }
                                     }
                                 }
                             }

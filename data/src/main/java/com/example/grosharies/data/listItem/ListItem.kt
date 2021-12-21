@@ -19,7 +19,7 @@ data class ListItem(
     @ColumnInfo(name = "itemName")
     var itemName: String,
     @ColumnInfo(name = "itemAmount")
-    var itemAmount: Int,
+    var itemAmount: String,
     @ColumnInfo(name = "itemPurchased")
     val itemPurchased: Boolean,
 
