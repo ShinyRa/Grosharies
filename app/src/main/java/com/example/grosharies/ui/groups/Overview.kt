@@ -8,10 +8,7 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Surface
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -22,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.R
 import com.example.grosharies.data.Group.Group
 import com.example.grosharies.data.Group.GroupViewModel
@@ -38,51 +36,49 @@ import com.example.grosharies.ui.theme.backdrop
 fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameInputViewModel: NameInputViewModel) {
 
     setTitle("Group Overview")
+
     val groups = groupViewModel.groups.value
 
-    LaunchedEffect(Unit){
-        nameInputViewModel.ifUserExists()
-        println(nameInputViewModel.userNameExists.value)
-
-        if (nameInputViewModel.userNameExists.value == 0) {
+    LaunchedEffect(nameInputViewModel.username.value) {
+        if (nameInputViewModel.username.value == null) {
             navController.navigate(Screen.GroupName.route)
         }
     }
-
-    GroshariesTheme {
-        Surface(
-            color = backdrop, modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(PaddingValues(vertical = 16.dp, horizontal = 8.dp))
-                    .verticalScroll(state = ScrollState(0))
+        GroshariesTheme {
+            Surface(
+                color = backdrop, modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
             ) {
-                groups.map { group ->
-                    GroupCard(
-                        group = group,
-                        onClick = { navController.navigate(Screen.GroupEdit.withArgs(group.id.toString())) },
-                        deleteGroup = { group ->
-                            groupViewModel.deleteGroup(group)
-                        }
-                    )
-                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(PaddingValues(vertical = 16.dp, horizontal = 8.dp))
+                        .verticalScroll(state = ScrollState(0))
+                ) {
+                    groups.map { group ->
+                        GroupCard(
+                            group = group,
+                            onClick = { navController.navigate(Screen.GroupEdit.withArgs(group.id.toString())) },
+                            deleteGroup = { group ->
+                                groupViewModel.deleteGroup(group)
+                            }
+                        )
+                    }
 
-                Column(verticalArrangement = Arrangement.Bottom) {
-                    RoundedButton(text = "Create",
-                        onClickListener = { navController.navigate(Screen.GroupNew.route) })
-                    RoundedButton(
-                        text = "Join",
-                        isSecondary = true,
-                        onClickListener = { /*navController.navigate(Screen.GroupEdit.route)*/ })
+                    Column(verticalArrangement = Arrangement.Bottom) {
+                        RoundedButton(text = "Create",
+                            onClickListener = { navController.navigate(Screen.GroupNew.route) })
+                        RoundedButton(
+                            text = "Join",
+                            isSecondary = true,
+                            onClickListener = { /*navController.navigate(Screen.GroupEdit.route)*/ })
+                    }
                 }
             }
-        }
     }
 }
+
 
 @ExperimentalAnimationApi
 @Composable

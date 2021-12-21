@@ -1,22 +1,16 @@
 package com.example.grosharies.ui.groups
 
-import android.app.Application
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.grosharies.data.NameInput.NameInputViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
-import java.util.*
 import com.example.grosharies.data.NameInput.NameInput
 import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.theme.GroshariesTheme
@@ -24,14 +18,16 @@ import com.example.grosharies.ui.navigation.setTitle
 
 @Composable
 fun NameInput(navController: NavController, nameInputViewModel: NameInputViewModel) {
+
     val nameValue = remember {
         mutableStateOf(TextFieldValue(""))
     }
-//    val context = LocalContext.current
-//    val nameInputViewModel: NameInputViewModel = viewModel(
-//        factory = NameInputViewModel.NameInputViewModelFactory(context.applicationContext as Application)
-//    )
     setTitle("Who are you?")
+    LaunchedEffect(nameInputViewModel.username.value) {
+        if (nameInputViewModel.username.value != null) {
+            navController.navigate(Screen.Groups.route)
+        }
+    }
 
     GroshariesTheme {
         Column(
@@ -65,16 +61,11 @@ fun NameInput(navController: NavController, nameInputViewModel: NameInputViewMod
             verticalArrangement = Arrangement.Bottom
         ) {
             MainButton(text = "SAVE", onClickListener = {
-
                 nameInputViewModel.insertNameInput(
                     NameInput(
                         name = nameValue.value.text
                     )
                 )
-                nameInputViewModel.ifUserExists()
-                if (nameInputViewModel.userNameExists.value == 1) {
-                    navController.navigate(Screen.Groups.route)
-                }
             })
         }
     }

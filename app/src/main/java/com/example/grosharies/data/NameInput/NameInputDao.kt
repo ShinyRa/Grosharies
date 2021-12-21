@@ -10,10 +10,7 @@ interface NameInputDao {
     fun getAllNameInputs(): LiveData<List<NameInput>>
 
     @Query("SELECT * FROM `NameInput` limit 1")
-    fun getNameInput(): LiveData<List<NameInput>>
-
-    @Query("SELECT COUNT(*) FROM `NameInput`")
-    fun ifUserExists(): Int
+    fun getNameInput(): NameInput?
 
     @Insert
     suspend fun insertNameInput(nameInput: NameInput)

@@ -9,22 +9,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class NameInputViewModel(application: Application) : AndroidViewModel(application) {
-    val getAllNameInputs: LiveData<List<NameInput>>
     private val repository: NameInputRepository
 
     val mutableListItems: MutableLiveData<String> = MutableLiveData()
-    val listItems: LiveData<List<NameInput>>
 
-    val userNameExists : MutableState<Int> = mutableStateOf(0)
+    val username : MutableState<NameInput?> = mutableStateOf(null)
     init {
         val nameInputDao = GroshariesRoomDatabase.getDatabase(application)!!.nameInputDao()
         repository = NameInputRepository(nameInputDao)
-        getAllNameInputs = repository.getAllNameInputs
 
-        listItems = Transformations.switchMap(mutableListItems) { param ->
-            repository.getNameInput()
-        }
-        userNameExists.value = repository.ifUserExists()
+        username.value = repository.ifUserExists()
     }
 
     fun getAllNameInputsByGroup(groupId: String) {
@@ -34,12 +28,7 @@ class NameInputViewModel(application: Application) : AndroidViewModel(applicatio
     fun insertNameInput(nameInput: NameInput) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertNameInput(nameInput)
-        }
-    }
-    fun ifUserExists(){
-
-        viewModelScope.launch(Dispatchers.IO) {
-            userNameExists.value = repository.ifUserExists()
+            username.value = nameInput
         }
     }
 

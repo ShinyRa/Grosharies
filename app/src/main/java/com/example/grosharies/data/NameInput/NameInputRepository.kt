@@ -6,10 +6,6 @@ class NameInputRepository(private val nameInputDao: NameInputDao) {
 
     val getAllNameInputs: LiveData<List<NameInput>> = nameInputDao.getAllNameInputs()
 
-    fun getNameInput(): LiveData<List<NameInput>> {
-        return nameInputDao.getNameInput()
-    }
-
     suspend fun insertNameInput(nameInput: NameInput) {
         nameInputDao.insertNameInput(nameInput)
     }
@@ -22,8 +18,8 @@ class NameInputRepository(private val nameInputDao: NameInputDao) {
         nameInputDao.deleteNameInput(nameInput)
     }
 
-    fun ifUserExists(): Int {
-        return nameInputDao.ifUserExists()
+    fun ifUserExists(): NameInput? {
+        return nameInputDao.getNameInput()
     }
 
 }

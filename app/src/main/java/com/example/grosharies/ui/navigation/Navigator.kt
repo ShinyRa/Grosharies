@@ -49,10 +49,10 @@ fun Navigator(navController: NavHostController) {
 fun NavGraphBuilder.groupNavigation(navController: NavController, groupViewModel: GroupViewModel, nameInputViewModel: NameInputViewModel) {
     navigation(startDestination = Screen.Groups.route, "group") {
         composable(route = Screen.Groups.route) {
-            Overview(navController = navController, groupViewModel = groupViewModel, nameInputViewModel)
+            Overview(navController = navController, groupViewModel = groupViewModel, nameInputViewModel = nameInputViewModel)
         }
         composable(route = Screen.GroupName.route){
-            NameInput(navController = navController, nameInputViewModel)
+            NameInput(navController = navController, nameInputViewModel = nameInputViewModel)
         }
         composable(route = Screen.GroupNew.route) {
             New(navController = navController, groupViewModel = groupViewModel)
