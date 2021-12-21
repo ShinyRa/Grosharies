@@ -49,9 +49,9 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
 
         Box {
             Column {
-                Row {
-                    Text(text = "List Name")
-                }
+//                Row {
+//                    Text(text = "List Name")
+//                }
                 LazyColumn(
                     contentPadding = PaddingValues(
                         start = 16.dp,
@@ -124,7 +124,7 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                         }
                     }
                 }
-                MainButton(text = "ADD NEW LIST", onClickListener = {
+                MainButton(text = "ADD NEW ITEM", onClickListener = {
                     addListItem()
                 })
             }
