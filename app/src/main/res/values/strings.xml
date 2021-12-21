@@ -7,5 +7,7 @@
     <string name="group_detail">Group: %d</string>
     <string name="lists">Lists</string>
     <string name="list_new">New Lists</string>
+    <string name="list_detail">List Details</string>
+    <string name="new_list_item">New List Item</string>
     <string name="group_name">Name</string>
 </resources>

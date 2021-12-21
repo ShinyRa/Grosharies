@@ -11,14 +11,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.example.grosharies.presentation.groceryList.GroceryListViewModel
 import com.example.grosharies.presentation.group.GroupViewModel
+import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.presentation.nameInput.NameInputViewModel
 import com.example.grosharies.ui.Home
-import com.example.grosharies.ui.groceryList.EditList
-import com.example.grosharies.ui.groceryList.ListOverview
-import com.example.grosharies.ui.groceryList.NewList
-import com.example.grosharies.ui.groceryList.StartShopping
+import com.example.grosharies.ui.groceryList.*
 import com.example.grosharies.ui.groups.*
+import com.example.grosharies.ui.listItem.ListItemNew
 
 @ExperimentalAnimationApi
 @Composable
@@ -26,10 +26,15 @@ fun Navigator(navController: NavHostController) {
     val context = LocalContext.current
     val groupViewModel: GroupViewModel = viewModel(
         factory = GroupViewModel.GroupViewModelFactory(context.applicationContext as Application)
-
     )
     val nameInputViewModel: NameInputViewModel = viewModel(
         factory = NameInputViewModel.NameInputViewModelFactory(context.applicationContext as Application)
+    )
+    val listItemViewModel: ListItemViewModel = viewModel(
+        factory = ListItemViewModel.ListItemViewModelFactory(context.applicationContext as Application)
+    )
+    val groceryListViewModel: GroceryListViewModel = viewModel(
+        factory = GroceryListViewModel.GroceryListViewModelFactory(context.applicationContext as Application)
     )
 
     NavHost(
@@ -38,13 +43,18 @@ fun Navigator(navController: NavHostController) {
         route = "root"
     ) {
         composable(route = Screen.Home.route) { Home(navController = navController) }
-        groupNavigation(navController, groupViewModel, nameInputViewModel)
-        listNavigation(navController)
+        groupNavigation(navController, groupViewModel, listItemViewModel, nameInputViewModel)
+        listNavigation(navController, groceryListViewModel, listItemViewModel)
     }
 }
 
 @ExperimentalAnimationApi
-fun NavGraphBuilder.groupNavigation(navController: NavController, groupViewModel: GroupViewModel, nameInputViewModel: NameInputViewModel) {
+fun NavGraphBuilder.groupNavigation(
+    navController: NavController,
+    groupViewModel: GroupViewModel,
+    listItemViewModel: ListItemViewModel,
+    nameInputViewModel: NameInputViewModel
+) {
     navigation(startDestination = Screen.Groups.route, "group") {
         composable(route = Screen.Groups.route) {
             Overview(navController = navController, groupViewModel = groupViewModel, nameInputViewModel = nameInputViewModel)
@@ -66,18 +76,23 @@ fun NavGraphBuilder.groupNavigation(navController: NavController, groupViewModel
             View(
                 groupId = entry.arguments?.getString("groupId") ?: "0",
                 navController = navController,
-                groupViewModel = groupViewModel
+                listItemViewModel = listItemViewModel
             )
         }
     }
 }
 
-fun NavGraphBuilder.listNavigation(navController: NavController) {
+fun NavGraphBuilder.listNavigation(
+    navController: NavController,
+    groceryListViewModel: GroceryListViewModel,
+    listItemViewModel: ListItemViewModel
+) {
     navigation(startDestination = Screen.Lists.route, "list") {
         composable(route = Screen.Lists.route + "/{groupId}") { entry ->
             ListOverview(
                 navController = navController,
-                groupId = entry.arguments?.getString("groupId") ?: "0"
+                groupId = entry.arguments?.getString("groupId") ?: "0",
+                listItemViewModel = listItemViewModel
             )
         }
         composable(route = Screen.ListEdit.route + "/{groupId}/{listId}") { entry ->
@@ -97,7 +112,24 @@ fun NavGraphBuilder.listNavigation(navController: NavController) {
         composable(route = Screen.ListNew.route + "/{groupId}") { entry ->
             NewList(
                 entry.arguments?.getString("groupId") ?: "0",
-                navController = navController
+                navController = navController,
+                listItemViewModel = listItemViewModel,
+                groceryListViewModel = groceryListViewModel
+            )
+        }
+        composable(route = Screen.ListDetail.route + "/{listId}") { entry ->
+            ListDetail(
+                listId = entry.arguments?.getString("listId") ?: "0",
+                navController = navController,
+                listItemViewModel = listItemViewModel
+            )
+        }
+        composable(route = Screen.ListItemNew.route + "/{listId}/{listItemId}") { entry ->
+            ListItemNew(
+                listId = entry.arguments?.getString("listId")?.toInt() ?: 0,
+                listItemId = entry.arguments?.getString("listItemId")?.toInt() ?: 0,
+                navController = navController,
+                listItemViewModel = listItemViewModel
             )
         }
     }

@@ -17,9 +17,9 @@ import com.example.grosharies.data.groceryList.GroceryList
 data class ListItem(
 
     @ColumnInfo(name = "itemName")
-    val itemName: String,
+    var itemName: String,
     @ColumnInfo(name = "itemAmount")
-    val itemAmount: Int,
+    var itemAmount: String,
     @ColumnInfo(name = "itemPurchased")
     val itemPurchased: Boolean,
 
@@ -28,6 +28,6 @@ data class ListItem(
     val id: Long? = null,
 
     @ColumnInfo(name = "listId", index = true)
-    val listId: Long? = null,
+    var listId: Long? = null,
 
     )

@@ -1,12 +1,16 @@
 package com.example.grosharies.data.listItem
 
 import androidx.lifecycle.LiveData
+import com.example.grosharies.data.group.Group
 
 class ListItemRepository(private val listItemDao: ListItemDao) {
-    val getAllListItems: LiveData<List<ListItem>> = listItemDao.getListItems()
 
-    fun getListItems(): LiveData<List<ListItem>> {
-        return listItemDao.getListItems()
+    fun getListItemById(id: Int?): ListItem? {
+        return listItemDao.getListItemById(id)
+    }
+
+    suspend fun getListItemByListId(listId: Int?): MutableList<ListItem> {
+        return listItemDao.getListItemsByListId(listId)
     }
 
     suspend fun insertListItem(listItem: ListItem) {

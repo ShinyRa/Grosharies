@@ -1,6 +1,7 @@
 package com.example.grosharies.ui.groceryList
 
 import android.app.Application
+import androidx.compose.foundation.clickable
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,6 +22,7 @@ import com.example.grosharies.R
 import com.example.grosharies.data.groceryList.GroceryList
 import com.example.grosharies.presentation.groceryList.GroceryListViewModel
 import com.example.grosharies.presentation.groceryList.GroceryListViewModel.GroceryListViewModelFactory
+import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.common.TextButton
@@ -31,7 +33,7 @@ import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun ListOverview(groupId: String, navController: NavController) {
+fun ListOverview(groupId: String, navController: NavController, listItemViewModel: ListItemViewModel) {
 
     val context = LocalContext.current
     val groceryListViewModel: GroceryListViewModel = viewModel(
@@ -50,7 +52,6 @@ fun ListOverview(groupId: String, navController: NavController) {
     }
 
     val group = groupViewModel.group.value
-
     val listItems = groceryListViewModel.GroceryLists.observeAsState(listOf()).value
 
     fun addGroceryList() {
@@ -58,6 +59,7 @@ fun ListOverview(groupId: String, navController: NavController) {
     }
 
     fun removeFromList(list: GroceryList) {
+        groceryListViewModel.deleteGroceryLists(list)
         groceryListViewModel.deleteGroceryLists(list)
     }
 
@@ -90,7 +92,15 @@ fun ListOverview(groupId: String, navController: NavController) {
                     items(groceryList.size) { index ->
                         Card(
                             backgroundColor = Color.White,
-                            modifier = Modifier.padding(PaddingValues(bottom = 16.dp))
+                            modifier = Modifier
+                                .padding(PaddingValues(bottom = 16.dp))
+                                .clickable {
+                                    listCardClicked(
+                                        navController,
+                                        listItemViewModel,
+                                        groceryList[index].id.toString()
+                                    )
+                                }
                         ) {
                             Column {
                                 Row(
@@ -133,50 +143,50 @@ fun ListOverview(groupId: String, navController: NavController) {
                                         }
                                     }
                                 }
-                                Row(
-                                    Modifier
-                                        .padding(
-                                            PaddingValues(
-                                                start = 16.dp,
-                                                bottom = 8.dp,
-                                                end = 16.dp,
-                                            )
-                                        )
-                                        .fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                ) {
-                                    Column(
-                                        Modifier
-                                            .padding(8.dp)
-                                    ) {
-                                        TextButton(
-                                            text = "Edit",
-                                            onClickListener = {
-                                                navController.navigate(
-                                                    Screen.ListEdit.withArgs(
-                                                        groupId,
-                                                        groceryList[index].id.toString()
-                                                    )
-                                                )
-                                            }
-                                        )
-                                    }
-                                    Column(
-                                        Modifier
-                                            .padding(8.dp)
-                                    ) {
-                                        MainButton(
-                                            text = "Start Shopping",
-                                            onClickListener = {
-                                                navController.navigate(
-                                                    Screen.StartShopping.withArgs(
-                                                        groupId,
-                                                        groceryList[index].id.toString()
-                                                    )
-                                                )
-                                            })
-                                    }
-                                }
+//                                Row(
+//                                    Modifier
+//                                        .padding(
+//                                            PaddingValues(
+//                                                start = 16.dp,
+//                                                bottom = 8.dp,
+//                                                end = 16.dp,
+//                                            )
+//                                        )
+//                                        .fillMaxWidth(),
+//                                    horizontalArrangement = Arrangement.SpaceBetween,
+//                                ) {
+//                                    Column(
+//                                        Modifier
+//                                            .padding(8.dp)
+//                                    ) {
+//                                        TextButton(
+//                                            text = "Edit",
+//                                            onClickListener = {
+//                                                navController.navigate(
+//                                                    Screen.ListEdit.withArgs(
+//                                                        groupId,
+//                                                        groceryList[index].id.toString()
+//                                                    )
+//                                                )
+//                                            }
+//                                        )
+//                                    }
+//                                    Column(
+//                                        Modifier
+//                                            .padding(8.dp)
+//                                    ) {
+//                                        MainButton(
+//                                            text = "Start Shopping",
+//                                            onClickListener = {
+//                                                navController.navigate(
+//                                                    Screen.StartShopping.withArgs(
+//                                                        groupId,
+//                                                        groceryList[index].id.toString()
+//                                                    )
+//                                                )
+//                                            })
+//                                    }
+//                                }
                             }
                         }
                     }
@@ -187,12 +197,13 @@ fun ListOverview(groupId: String, navController: NavController) {
     }
 }
 
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    val navController = rememberNavController()
-    Surface(color = MaterialTheme.colors.background) {
-        ListOverview("0", navController = navController)
-    }
+fun listCardClicked(
+    navController: NavController,
+    listItemViewModel: ListItemViewModel,
+    listId: String
+) {
+    listItemViewModel.getListItemsByListId(listId.toInt())
+    navController.navigate(
+        Screen.ListDetail.withArgs(listId)
+    )
 }

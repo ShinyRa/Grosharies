@@ -9,6 +9,9 @@ interface GroceryListDao {
     @Query("SELECT * FROM `GroceryList`")
     fun getAllGroceryLists(): LiveData<List<GroceryList>>
 
+    @Query("SELECT * FROM `GroceryList` WHERE id = :listId")
+    fun getGroceryListById(listId: String): LiveData<GroceryList>
+
     @Query("SELECT * FROM `GroceryList` WHERE groupId = :groupId")
     fun getGroceryLists(groupId: String): LiveData<List<GroceryList>>
 
