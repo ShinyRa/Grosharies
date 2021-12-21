@@ -47,6 +47,8 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
                     .verticalScroll(state = ScrollState(0))
             )
             {
+
+            if (groups.size == 0) {
                 Row {
                     Text(
                         "You don’t have any groups yet! \n \n" +
@@ -60,15 +62,15 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
                             .padding(16.dp)
                     )
                 }
+                Image(
+                    painter = painterResource(R.drawable.no_groups),
+                    contentDescription = "No groups yet",
+                    modifier = Modifier
+                        .size(300.dp, 150.dp)
+                )
+            }
 
-                    Image(
-                        painter = painterResource(R.drawable.no_groups),
-                        contentDescription = "No groups yet",
-                        modifier = Modifier
-                            .size(300.dp, 150.dp)
-                    )
-
-
+            else {
 
                 groups.map { group ->
                     GroupCard(
@@ -76,9 +78,10 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
                         onClick = { navController.navigate(Screen.GroupEdit.withArgs(group.id.toString())) },
                         deleteGroup = { group ->
                             groupViewModel.deleteGroup(group)
-                         }
+                        }
                     )
                 }
+            }
 
                 Column(verticalArrangement = Arrangement.Bottom) {
                     RoundedButton(text = "Create",

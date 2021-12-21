@@ -23,6 +23,7 @@ import com.example.grosharies.data.GroceryList.GroceryListViewModel
 import com.example.grosharies.data.Group.GroupViewModel
 import com.example.grosharies.data.ListItem.ListItemViewModel
 import com.example.grosharies.ui.common.DefaultText
+import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
@@ -120,13 +121,8 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
                 },
                 modifier = Modifier.padding(PaddingValues(start = 16.dp))
             )
-            Button(
-                onClick = { SaveEdit() }, modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(text = "SAVE")
-            }
+            MainButton(text = "Save", onClickListener = { SaveEdit()})
+
         }
     }
 }
