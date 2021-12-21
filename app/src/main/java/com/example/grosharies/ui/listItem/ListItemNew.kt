@@ -37,9 +37,7 @@ fun ListItemNew(
 
     fun saveListItem(currentListItem: ListItem) {
         if (currentListItem.id == null || currentListItem.id == 0L) {
-            println("listId: $listId")
             currentListItem.listId = listId?.toLong()
-            println("adding a list Item: $currentListItem")
             listItemViewModel.insertListItem(currentListItem)
         } else {
             listItemViewModel.updateListItem(currentListItem)

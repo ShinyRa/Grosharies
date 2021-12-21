@@ -27,11 +27,7 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 @Composable
 fun ListDetail(listId: String, navController: NavController, listItemViewModel: ListItemViewModel) {
 
-    println("ListId = $listId")
-
     val listItems = listItemViewModel.listItems.value
-
-    println("listItems = $listItems")
 
     fun addListItem() {
         navController.navigate(Screen.ListItemNew.withArgs(listId))
