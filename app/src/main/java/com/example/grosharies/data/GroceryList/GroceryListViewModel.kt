@@ -1,8 +1,11 @@
 package com.example.grosharies.data.GroceryList
 
 import android.app.Application
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
 import com.example.grosharies.data.GroshariesRoomDatabase
+import com.example.grosharies.data.Group.Group
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -11,6 +14,7 @@ class GroceryListViewModel(application: Application) : AndroidViewModel(applicat
 
     val mutableGroceryList: MutableLiveData<String> = MutableLiveData()
     val GroceryLists: LiveData<List<GroceryList>>
+    val groceryList: MutableState<GroceryList?> = mutableStateOf(null)
 
     init {
         val groceryListDao = GroshariesRoomDatabase.getDatabase(application)!!.groceryListDao()
@@ -31,6 +35,10 @@ class GroceryListViewModel(application: Application) : AndroidViewModel(applicat
 
     fun getListItemsWithoutGroup() {
         mutableGroceryList.value = "null"
+    }
+
+    fun getGroceryListById(id: Int) {
+        groceryList.value = repository.getGroceryListById(id)
     }
 
     fun insertGroceryLists(groceryList: GroceryList) {
