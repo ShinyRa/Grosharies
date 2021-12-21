@@ -14,6 +14,7 @@ import androidx.navigation.compose.navigation
 import com.example.grosharies.presentation.groceryList.GroceryListViewModel
 import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.presentation.listItem.ListItemViewModel
+import com.example.grosharies.presentation.nameInput.NameInputViewModel
 import com.example.grosharies.ui.Home
 import com.example.grosharies.ui.groceryList.*
 import com.example.grosharies.ui.groups.*
@@ -59,7 +60,7 @@ fun NavGraphBuilder.groupNavigation(
             Overview(navController = navController, groupViewModel = groupViewModel, nameInputViewModel = nameInputViewModel)
         }
         composable(route = Screen.GroupName.route) {
-            NameInput(navController = navController)
+            NameInput(navController = navController, nameInputViewModel = nameInputViewModel)
         }
         composable(route = Screen.GroupNew.route) {
             New(navController = navController, groupViewModel = groupViewModel)

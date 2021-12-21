@@ -15,15 +15,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.R
 import com.example.grosharies.data.group.Group
 import com.example.grosharies.presentation.group.GroupViewModel
+import com.example.grosharies.presentation.nameInput.NameInputViewModel
 import com.example.grosharies.ui.common.DefaultText
 import com.example.grosharies.ui.common.RoundedButton
 import com.example.grosharies.ui.navigation.Screen
@@ -34,7 +32,6 @@ import com.example.grosharies.ui.theme.backdrop
 @ExperimentalAnimationApi
 @Composable
 fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameInputViewModel: NameInputViewModel) {
-
     setTitle("Group Overview")
 
     val groups = groupViewModel.groups.value
@@ -44,11 +41,15 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameI
             navController.navigate(Screen.GroupName.route)
         }
     }
-        GroshariesTheme {
-            Surface(
-                color = backdrop, modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
+
+    GroshariesTheme {
+        Surface(
+            color = backdrop, modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize().padding(PaddingValues(vertical = 16.dp, horizontal = 8.dp)).verticalScroll(state = ScrollState(0))
             ) {
                 groups.map { group ->
                     GroupCard(
@@ -60,19 +61,19 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameI
                     )
                 }
 
-                    Column(verticalArrangement = Arrangement.Bottom) {
-                        RoundedButton(text = "Create",
-                            onClickListener = { navController.navigate(Screen.GroupNew.route) })
-                        RoundedButton(
-                            text = "Join",
-                            isSecondary = true,
-                            onClickListener = { /*navController.navigate(Screen.GroupEdit.route)*/ })
-                    }
+
+                Column(verticalArrangement = Arrangement.Bottom) {
+                    RoundedButton(text = "Create",
+                        onClickListener = { navController.navigate(Screen.GroupNew.route) })
+                    RoundedButton(
+                        text = "Join",
+                        isSecondary = true,
+                        onClickListener = { /*navController.navigate(Screen.GroupEdit.route)*/ })
                 }
             }
+        }
     }
 }
-
 
 @ExperimentalAnimationApi
 @Composable
