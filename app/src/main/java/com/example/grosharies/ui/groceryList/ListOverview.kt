@@ -1,6 +1,7 @@
 package com.example.grosharies.ui.groceryList
 
 import android.app.Application
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,7 +13,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -34,10 +39,12 @@ import com.github.marlonlom.utilities.timeago.TimeAgo
 import com.github.marlonlom.utilities.timeago.TimeAgoMessages
 
 
-
-
 @Composable
-fun ListOverview(groupId: String, navController: NavController, listItemViewModel: ListItemViewModel) {
+fun ListOverview(
+    groupId: String,
+    navController: NavController,
+    listItemViewModel: ListItemViewModel,
+) {
 
     val context = LocalContext.current
     val groceryListViewModel: GroceryListViewModel = viewModel(
@@ -93,62 +100,94 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
                 .fillMaxHeight()
         ) {
             Column {
-                Column(
-                    modifier = Modifier
-                        .weight(7f)
-                        .padding(vertical = 10.dp, horizontal = 8.dp)
-                        .verticalScroll(ScrollState(0))
-                ) {
-                    groceryLists.map { groceryList ->
-                        Card(
+                if (groceryLists.isEmpty()) {
+                    Column(modifier = Modifier.padding(16.dp).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = if (groupId != "0") "There are no lists here yet!" else "You don't have any lists yet!",
+                            fontSize = 18.sp,
+                            textAlign = TextAlign.Center,
+                            fontStyle = FontStyle.Italic,
                             modifier = Modifier
-                                .padding(16.dp)
                                 .fillMaxWidth()
-                                .clickable {
-                                    listCardClicked(
-                                        navController,
-                                        listItemViewModel,
-                                        groceryList.id.toString()
-                                    )
-                                }
-                        ) {
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                Row(
-                                    Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                ) {
-                                    Column(
-                                        Modifier
-                                            .padding(8.dp)
-                                            .weight(8f)
-                                    ) {
-                                        Text(text = groceryList.listName, fontWeight = FontWeight.Bold)
-                                        Text(text = "${humanReadableDuration(groceryList.lastEdited.time)}", modifier = Modifier.padding(top = 8.dp, bottom = 2.dp))
-                                        Text(text = "By: ${groceryList.createdBy}", fontSize = 12.sp)
+                                .padding(vertical = 16.dp)
+                        )
+                        Text(
+                            text = if (groupId != "0") "Be the first to create a shopping list here" else "Create one to start shopping" ,
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Center,
+                            fontStyle = FontStyle.Italic,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 32.dp)
+                        )
+                        Image(
+                            painter = painterResource(R.drawable.per_im),
+                            contentDescription = "No lists yet!",
+                            modifier = Modifier.size(300.dp, 300.dp)
+                        )
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .weight(7f)
+                            .padding(vertical = 10.dp, horizontal = 8.dp)
+                            .verticalScroll(ScrollState(0))
+                    ) {
+                        groceryLists.map { groceryList ->
+                            Card(
+                                modifier = Modifier
+                                    .padding(16.dp)
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        listCardClicked(
+                                            navController,
+                                            listItemViewModel,
+                                            groceryList.id.toString()
+                                        )
                                     }
-                                    Column(
-                                        Modifier
-                                            .padding(8.dp)
-                                            .weight(2f),
-                                        horizontalAlignment = Alignment.End
+                            ) {
+                                Column(modifier = Modifier.padding(16.dp)) {
+                                    Row(
+                                        Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
                                     ) {
-                                        IconButton(onClick = { removeFromList(groceryList) }) {
-                                            Icon(
-                                                painterResource(id = R.drawable.ic_close_24),
-                                                contentDescription = "close"
-                                            )
+                                        Column(
+                                            Modifier
+                                                .padding(8.dp)
+                                                .weight(8f)
+                                        ) {
+                                            Text(text = groceryList.listName,
+                                                fontWeight = FontWeight.Bold)
+                                            Text(text = "${humanReadableDuration(groceryList.lastEdited.time)}",
+                                                modifier = Modifier.padding(top = 8.dp,
+                                                    bottom = 2.dp))
+                                            Text(text = "By: ${groceryList.createdBy}",
+                                                fontSize = 12.sp)
+                                        }
+                                        Column(
+                                            Modifier
+                                                .padding(8.dp)
+                                                .weight(2f),
+                                            horizontalAlignment = Alignment.End
+                                        ) {
+                                            IconButton(onClick = { removeFromList(groceryList) }) {
+                                                Icon(
+                                                    painterResource(id = R.drawable.ic_close_24),
+                                                    contentDescription = "close"
+                                                )
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
-
-                    Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier
-                        .padding(vertical = 16.dp)
-                        .weight(1f)) {
-                        RoundedButton(text = "Create new shopping list", onClickListener = { addGroceryList() })
-                    }
+                }
+                Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier
+                    .padding(vertical = 16.dp)
+                    .weight(1f)) {
+                    RoundedButton(text = "Create new shopping list",
+                        onClickListener = { addGroceryList() })
                 }
             }
         }
@@ -168,7 +207,8 @@ fun listCardClicked(
 
 fun humanReadableDuration(time: Long): String {
     val LocaleBylanguageTag: Locale = Locale.forLanguageTag("en")
-    val messages: TimeAgoMessages = TimeAgoMessages.Builder().withLocale(LocaleBylanguageTag).build()
+    val messages: TimeAgoMessages =
+        TimeAgoMessages.Builder().withLocale(LocaleBylanguageTag).build()
 
     return TimeAgo.using(time, messages)
 }
