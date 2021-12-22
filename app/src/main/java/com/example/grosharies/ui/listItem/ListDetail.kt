@@ -1,6 +1,5 @@
 package com.example.grosharies.ui.groceryList
 
-import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
@@ -9,15 +8,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.grosharies.R
 import com.example.grosharies.data.listItem.ListItem
-import com.example.grosharies.presentation.groceryList.GroceryListViewModel
-import com.example.grosharies.presentation.groceryList.GroceryListViewModel.GroceryListViewModelFactory
 import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
@@ -90,7 +87,17 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                                             .weight(2f),
                                         horizontalAlignment = Alignment.Start
                                     ) {
-                                        Text(text = listItemsList[index].itemName)
+                                        if (listItemsList[index].itemPurchased) {
+                                            Text(
+                                                text = listItemsList[index].itemName,
+                                                style = TextStyle(textDecoration = TextDecoration.LineThrough)
+                                            )
+                                        } else {
+                                            Text(
+                                                text = listItemsList[index].itemName,
+                                            )
+                                        }
+
                                     }
                                     Column(
                                         Modifier
