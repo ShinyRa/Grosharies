@@ -65,10 +65,10 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameI
                 Column(verticalArrangement = Arrangement.Bottom) {
                     RoundedButton(text = "Create",
                         onClickListener = { navController.navigate(Screen.GroupNew.route) })
-                    RoundedButton(
-                        text = "Join",
-                        isSecondary = true,
-                        onClickListener = { /*navController.navigate(Screen.GroupEdit.route)*/ })
+//                    RoundedButton(
+//                        text = "Join",
+//                        isSecondary = true,
+//                        onClickListener = { /*navController.navigate(Screen.GroupEdit.route)*/ })
                 }
             }
         }
