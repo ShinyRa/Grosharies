@@ -64,7 +64,7 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
         groceryListViewModel.deleteGroceryLists(list)
     }
 
-    setTitle(if (groupId != "0") group?.name else "Personal lists")
+    setTitle(if (groupId != "0") group?.name else "My lists")
 
 
     navController.addOnDestinationChangedListener { _, destination, _ ->

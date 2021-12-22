@@ -26,7 +26,6 @@ data class BottomNavigatorItem(
 
 @Composable
 fun BottomNavigator(navController: NavController) {
-
     val listItems = listOf(
         BottomNavigatorItem(
             "home",
@@ -44,7 +43,7 @@ fun BottomNavigator(navController: NavController) {
             R.drawable.ic_group_24
         ) { navController.navigate(Screen.Groups.route) },
         BottomNavigatorItem(
-            "lists",
+            "my lists",
             arrayOf(Screen.Lists.route, Screen.ListEdit.route, Screen.StartShopping.route),
             R.drawable.ic_list_24
         ) { navController.navigate(Screen.Lists.withArgs("0")) }
