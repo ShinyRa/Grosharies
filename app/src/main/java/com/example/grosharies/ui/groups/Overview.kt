@@ -34,13 +34,16 @@ import com.example.grosharies.ui.theme.backdrop
 fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameInputViewModel: NameInputViewModel) {
     setTitle("Groups")
 
-    val groups = groupViewModel.groups.value
-
+    /*
+     * If display name is not found in the database, the user should not be able to view this content
+     */
     LaunchedEffect(nameInputViewModel.username.value) {
         if (nameInputViewModel.username.value == null) {
             navController.navigate(Screen.GroupName.route)
         }
     }
+
+    val groups = groupViewModel.groups.value
 
     GroshariesTheme {
         Surface(
@@ -61,9 +64,6 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameI
                             }
                         )
                     }
-
-
-
                 }
                 Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.padding(vertical = 16.dp).weight(1f)) {
                     RoundedButton(text = "Create",
