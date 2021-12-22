@@ -102,6 +102,7 @@ fun EditList(groupId: String? = null, listId: String? = null, navController: Nav
                 TextField(
                     value = "",
                     onValueChange = { newName = it },
+                    singleLine = true,
                     label = { Text("New item name:") },
                     modifier = Modifier
                         .weight(5f)
@@ -115,6 +116,7 @@ fun EditList(groupId: String? = null, listId: String? = null, navController: Nav
                 )
                 TextField(
                     value = "",
+                    singleLine = true,
                     onValueChange = {
                         newAmount = it.toInt()
                     },
