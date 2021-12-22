@@ -1,6 +1,7 @@
 package com.example.grosharies.ui.groceryList
 
 import android.app.Application
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -11,8 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -25,6 +28,7 @@ import com.example.grosharies.ui.common.TextButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
+import com.example.grosharies.ui.theme.backdrop
 
 @Composable
 fun ListOverview(groupId: String, navController: NavController) {
@@ -50,11 +54,47 @@ fun ListOverview(groupId: String, navController: NavController) {
     }
 
     GroshariesTheme {
+
         val groceryList: List<GroceryList> = listItems
         setTitle("List Overview")
 
+        Surface(
+            color = backdrop, modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+        )
+        {
+
+
         Box {
-            Column {
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally,)
+            {
+
+            if (groceryList.size == 0)
+
+
+                Row {
+
+                    Text(
+                        "You don't have any list yet \n \n" +
+                                "" +
+                                "Create one to start shopping \n",
+                        fontSize = 15.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    )
+                }
+                Image(
+                    painter = painterResource(R.drawable.per_im),
+                    contentDescription = "No personal list yet! ",
+                    modifier = Modifier
+                        .size(500.dp, 200.dp)
+
+                )
+
                 LazyColumn(
                     contentPadding = PaddingValues(
                         start = 16.dp,
@@ -62,7 +102,9 @@ fun ListOverview(groupId: String, navController: NavController) {
                         end = 16.dp,
                         bottom = 8.dp
                     )
-                ) {
+                )
+
+                {
                     items(groceryList.size) { index ->
                         Card(
                             backgroundColor = Color.White,
@@ -154,10 +196,12 @@ fun ListOverview(groupId: String, navController: NavController) {
                                     }
                                 }
                             }
+
                         }
                     }
                 }
                 MainButton(text = "ADD NEW LIST", onClickListener = { addGroceryList() })
+            }
             }
         }
     }

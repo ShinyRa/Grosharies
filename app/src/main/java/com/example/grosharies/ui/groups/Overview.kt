@@ -66,7 +66,7 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
                     painter = painterResource(R.drawable.no_groups),
                     contentDescription = "No groups yet",
                     modifier = Modifier
-                        .size(300.dp, 150.dp)
+                        .size(500.dp, 200.dp)
                 )
             }
 
