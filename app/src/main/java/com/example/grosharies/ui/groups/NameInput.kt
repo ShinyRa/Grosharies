@@ -1,16 +1,12 @@
 package com.example.grosharies.ui.groups
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.key.KeyEvent
-import androidx.compose.ui.input.key.onKeyEvent
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -25,11 +21,11 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
 fun NameInput(navController: NavController, nameInputViewModel: NameInputViewModel) {
+    setTitle("Who are you?")
 
     val nameValue = remember {
         mutableStateOf(TextFieldValue(""))
     }
-    setTitle("Who are you?")
     LaunchedEffect(nameInputViewModel.username.value) {
         if (nameInputViewModel.username.value != null) {
             navController.navigate(Screen.Groups.route)
@@ -47,46 +43,41 @@ fun NameInput(navController: NavController, nameInputViewModel: NameInputViewMod
                 )
                 .fillMaxSize()
         ) {
-            InfoText()
+            Column(modifier = Modifier.weight(7f).padding(vertical = 32.dp)) {
+                InfoText()
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-                Row {
-                    DefaultTextInputField(
-                        text = "Your Name", modifier = Modifier
-                            .fillMaxWidth(), textValue = nameValue
-                    )
+                Column {
+                    Row {
+                        DefaultTextInputField(
+                            value = nameValue.value,
+                            onChange = { nameValue.value = it },
+                            label = "Your name"
+                        )
+                    }
                 }
             }
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(32.dp),
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            MainButton(text = "SAVE", onClickListener = {
-                nameInputViewModel.insertNameInput(
-                    com.example.grosharies.data.nameInput.NameInput(
-                        name = nameValue.value.text
+            Column(modifier = Modifier.weight(1f)) {
+                MainButton(text = "Save", onClickListener = {
+                    nameInputViewModel.insertNameInput(
+                        com.example.grosharies.data.nameInput.NameInput(
+                            name = nameValue.value.text
+                        )
                     )
-                )
-            })
+                })
+            }
         }
     }
 }
 
 @Composable
 fun InfoText() {
-    androidx.compose.material.Text(
-        "Enter your name here",
+    Text(
+        "To use our collaborative features, please provide a display name to identify yourself",
         fontSize = 15.sp,
         textAlign = TextAlign.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(vertical = 32.dp)
     )
 }
 

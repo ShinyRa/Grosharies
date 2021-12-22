@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.data.group.Group
 import com.example.grosharies.presentation.group.GroupViewModel
+import com.example.grosharies.ui.common.DefaultTextInputField
+import com.example.grosharies.ui.common.Input
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.setTitle
 
@@ -51,35 +53,29 @@ fun New(
 
     Surface(modifier = Modifier.padding(16.dp)) {
         Column(modifier = Modifier.padding(PaddingValues(vertical = 16.dp))) {
-            Text(
-                text = "name",
-                modifier = Modifier.padding(PaddingValues(horizontal = 7.dp)),
-                fontWeight = FontWeight.Medium
-            )
-            TextField(
-                value = name.value,
-                onValueChange = {
-                    if (!it.text.contains("\n")) {
+            Column(modifier = Modifier.weight(7f)) {
+                DefaultTextInputField(
+                    value = name.value,
+                    label = "Name",
+                    onChange = {
                         name.value = it
                         group.name = it.text
-                    }
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
-            Text(
-                text = "password",
-                modifier = Modifier.padding(PaddingValues(horizontal = 7.dp)),
-                fontWeight = FontWeight.Medium
-            )
-            TextField(
-                value = password.value,
-                onValueChange = {
-                    if (!it.text.contains("\n"))
-                    password.value = it },
-                modifier = Modifier.fillMaxWidth()
-            )
-            MainButton(text = if (groupId != null) "Save" else "Create",
-                onClickListener = { submit(group) })
+                    },
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp)
+                )
+                DefaultTextInputField(
+                    value = password.value,
+                    label = "Password",
+                    onChange = {
+                        password.value = it
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            Column(modifier = Modifier.weight(1f)) {
+                MainButton(text = if (groupId != null) "Save" else "Create",
+                    onClickListener = { submit(group) })
+            }
         }
     }
 }
