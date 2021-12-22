@@ -12,11 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.R
 import com.example.grosharies.data.groceryList.GroceryList
 import com.example.grosharies.presentation.groceryList.GroceryListViewModel
@@ -24,7 +22,6 @@ import com.example.grosharies.presentation.groceryList.GroceryListViewModel.Groc
 import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.ui.common.MainButton
-import com.example.grosharies.ui.common.TextButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.TopBarAction
 import com.example.grosharies.ui.navigation.setActions
@@ -59,12 +56,12 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
         navController.navigate(Screen.ListNew.withArgs(groupId))
     }
 
-    fun removeFromList(list: GroceryList) {
-        groceryListViewModel.deleteGroceryLists(list)
+    fun removeList(list: GroceryList) {
+        println("remove list: $list")
         groceryListViewModel.deleteGroceryLists(list)
     }
 
-    setTitle(if (groupId != "0") group?.name else "Personal lists")
+    setTitle(if (groupId != "0") group.name else "Personal lists")
 
 
     navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -144,7 +141,7 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
 //                                            Text(text = item.itemName, color = Color.Gray)
 //                                        }
 //                                        Text(text = "...", color = Color.Gray)
-                                            IconButton(onClick = { removeFromList(groceryList[index]) }) {
+                                            IconButton(onClick = { removeList(groceryList[index]) }) {
                                                 Icon(
                                                     painterResource(id = R.drawable.ic_close_24),
                                                     contentDescription = "close"

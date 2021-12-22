@@ -3,6 +3,8 @@ package com.example.grosharies.data.listItem
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
+import androidx.room.ForeignKey.SET_NULL
 import androidx.room.PrimaryKey
 import com.example.grosharies.data.groceryList.GroceryList
 
@@ -23,13 +25,12 @@ data class ListItem(
     @ColumnInfo(name = "itemAmount")
     var itemAmount: String,
     @ColumnInfo(name = "itemPurchased")
-    val itemPurchased: Boolean,
-
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    val id: Long? = null,
+    var itemPurchased: Boolean,
 
     @ColumnInfo(name = "listId", index = true)
     var listId: Long? = null,
 
-    )
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    val id: Long? = null,
+)
