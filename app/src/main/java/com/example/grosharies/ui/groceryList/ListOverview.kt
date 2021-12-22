@@ -71,8 +71,7 @@ fun ListOverview(groupId: String, navController: NavController) {
             Column(horizontalAlignment = Alignment.CenterHorizontally,)
             {
 
-            if (groceryList.size == 0)
-
+            if (groceryList.size == 0) {
 
                 Row {
 
@@ -91,9 +90,11 @@ fun ListOverview(groupId: String, navController: NavController) {
                     painter = painterResource(R.drawable.per_im),
                     contentDescription = "No personal list yet! ",
                     modifier = Modifier
-                        .size(500.dp, 200.dp)
+                        .size(500.dp, 250.dp)
 
                 )
+            }
+               else {
 
                 LazyColumn(
                     contentPadding = PaddingValues(
@@ -196,12 +197,13 @@ fun ListOverview(groupId: String, navController: NavController) {
                                     }
                                 }
                             }
+                         }
 
                         }
                     }
                 }
                 MainButton(text = "ADD NEW LIST", onClickListener = { addGroceryList() })
-            }
+             }
             }
         }
     }
