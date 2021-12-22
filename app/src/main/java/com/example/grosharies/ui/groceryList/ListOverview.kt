@@ -54,7 +54,7 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
 
     val context = LocalContext.current
     val groceryListViewModel: GroceryListViewModel = viewModel(
-        factory = GroceryListViewModelFactory(context.applicationContext as Application)
+        factory = GroceryListViewModel.GroceryListViewModelFactory(context.applicationContext as Application)
     )
 
     val groupViewModel: GroupViewModel = viewModel(
