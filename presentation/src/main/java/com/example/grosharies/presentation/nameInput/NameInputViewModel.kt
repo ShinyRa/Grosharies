@@ -34,6 +34,13 @@ class NameInputViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    fun getNameInput() {
+        viewModelScope.launch(Dispatchers.IO) {
+            username.value = repository.getNameInput()
+
+        }
+    }
+
     fun updateNameInput(nameInput: NameInput) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateNameInput(nameInput)

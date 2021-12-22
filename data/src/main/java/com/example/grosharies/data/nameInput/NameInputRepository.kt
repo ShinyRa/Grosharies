@@ -14,6 +14,11 @@ class NameInputRepository(private val nameInputDao: NameInputDao) {
         nameInputDao.updateNameInput(nameInput)
     }
 
+    suspend fun getNameInput() : NameInput? {
+        return nameInputDao.getNameInput()
+
+    }
+
     suspend fun deleteNameInput(nameInput: NameInput) {
         nameInputDao.deleteNameInput(nameInput)
     }
