@@ -12,7 +12,5 @@ import com.example.grosharies.ui.groceryList.ListOverview
 
 @Composable
 fun View(groupId: String, navController: NavController, listItemViewModel: ListItemViewModel) {
-    Surface(color = MaterialTheme.colors.background, modifier = Modifier.padding(16.dp)) {
-        ListOverview(groupId, navController = navController, listItemViewModel = listItemViewModel)
-    }
+    ListOverview(groupId, navController = navController, listItemViewModel = listItemViewModel)
 }

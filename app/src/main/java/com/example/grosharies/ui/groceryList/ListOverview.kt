@@ -3,9 +3,11 @@ package com.example.grosharies.ui.groceryList
 import android.app.Application
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -40,7 +42,6 @@ import com.example.grosharies.ui.theme.backdrop
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ListOverview(groupId: String, navController: NavController, listItemViewModel: ListItemViewModel) {
 
@@ -68,7 +69,6 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
 
     fun removeFromList(list: GroceryList) {
         groceryListViewModel.deleteGroceryLists(list)
-        groceryListViewModel.deleteGroceryLists(list)
     }
 
     /*
@@ -90,7 +90,7 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
     }
 
     val listItems = groceryListViewModel.GroceryLists.observeAsState(listOf()).value
-    val groceryList: List<GroceryList> = listItems
+    val groceryLists: List<GroceryList> = listItems
 
     GroshariesTheme {
         Surface(color = backdrop,
@@ -99,27 +99,25 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
                 .fillMaxHeight()
         ) {
             Column {
-                LazyColumn(
-                    modifier = Modifier.weight(7f).padding(vertical = 10.dp, horizontal = 8.dp)
+                Column(
+                    modifier = Modifier.weight(7f).padding(vertical = 10.dp, horizontal = 8.dp).verticalScroll( ScrollState(0))
                 ) {
-                    items(groceryList.size) { index ->
+                    groceryLists.map { groceryList ->
                         Card(
-                            backgroundColor = Color.White,
                             modifier = Modifier
                                 .padding(16.dp)
+                                .fillMaxWidth()
                                 .clickable {
                                     listCardClicked(
                                         navController,
                                         listItemViewModel,
-                                        groceryList[index].id.toString()
+                                        groceryList.id.toString()
                                     )
                                 }
                         ) {
-                            Column {
+                            Column(modifier = Modifier.padding(16.dp)) {
                                 Row(
-                                    Modifier
-                                        .padding(16.dp)
-                                        .fillMaxWidth(),
+                                    Modifier.fillMaxWidth(),
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                 ) {
                                     Column(
@@ -127,9 +125,9 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
                                             .padding(8.dp)
                                             .weight(8f)
                                     ) {
-                                        Text(text = groceryList[index].listName, fontWeight = FontWeight.Bold)
-                                        Text(text = "Updated on: ${groceryList[index].lastEdited}")
-                                        Text(text = "By: ${groceryList[index].createdBy}", fontSize = 14.sp)
+                                        Text(text = groceryList.listName, fontWeight = FontWeight.Bold)
+                                        Text(text = "Updated on: ${groceryList.lastEdited}")
+                                        Text(text = "By: ${groceryList.createdBy}", fontSize = 14.sp)
                                     }
                                     Column(
                                         Modifier
@@ -137,7 +135,7 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
                                             .weight(2f),
                                         horizontalAlignment = Alignment.End
                                     ) {
-                                        IconButton(onClick = { removeFromList(groceryList[index]) }) {
+                                        IconButton(onClick = { removeFromList(groceryList) }) {
                                             Icon(
                                                 painterResource(id = R.drawable.ic_close_24),
                                                 contentDescription = "close"
@@ -148,9 +146,10 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
                             }
                         }
                     }
-                }
-                Column(modifier = Modifier.weight(1f).padding(vertical = 16.dp)) {
-                    RoundedButton(text = "Create new list", onClickListener = { addGroceryList() })
+
+                    Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.padding(vertical = 16.dp).weight(1f)) {
+                        RoundedButton(text = "Create new list", onClickListener = { addGroceryList() })
+                    }
                 }
             }
         }
