@@ -17,7 +17,7 @@ import java.util.*
 data class GroceryList(
 
     @ColumnInfo(name = "listName")
-    val listName: String,
+    var listName: String,
     @ColumnInfo(name = "lastEdited")
     val lastEdited: Date,
     @ColumnInfo(name = "createdBy")

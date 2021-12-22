@@ -18,6 +18,10 @@ class GroceryListRepository(private val groceryListDao: GroceryListDao) {
         return groceryListDao.getGroceryListsWithoutGroup()
     }
 
+    fun getGroceryListById(id: Int): GroceryList? {
+        return groceryListDao.getGroceryListById(id)
+    }
+
     suspend fun insertGroceryLists(groceryList: GroceryList) {
         groceryListDao.insertGroceryLists(groceryList)
     }

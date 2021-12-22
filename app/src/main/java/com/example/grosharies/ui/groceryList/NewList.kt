@@ -11,9 +11,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.grosharies.data.GroceryList.GroceryListViewModel
 import com.example.grosharies.data.groceryList.GroceryList
 import com.example.grosharies.data.listItem.ListItem
-import com.example.grosharies.presentation.groceryList.GroceryListViewModel
 import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.presentation.nameInput.NameInputViewModel
 import com.example.grosharies.ui.common.MainButton

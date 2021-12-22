@@ -18,6 +18,10 @@ interface GroceryListDao {
     @Query("SELECT * FROM `GroceryList` WHERE groupId IS NULL")
     fun getGroceryListsWithoutGroup(): LiveData<List<GroceryList>>
 
+    @Query("SELECT * FROM `GroceryList` WHERE id = :id")
+    fun getGroceryListById(id: Int): GroceryList?
+
+
     @Insert
     suspend fun insertGroceryLists(groceryList: GroceryList)
 

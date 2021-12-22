@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.data.listItem.ListItem
-import com.example.grosharies.presentation.groceryList.GroceryListViewModel
 import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.setTitle
