@@ -41,6 +41,13 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.backdrop
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.*
+import com.github.marlonlom.utilities.timeago.TimeAgo
+
+import com.github.marlonlom.utilities.timeago.TimeAgoMessages
+
+
+
 
 @Composable
 fun ListOverview(groupId: String, navController: NavController, listItemViewModel: ListItemViewModel) {
@@ -100,7 +107,10 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
         ) {
             Column {
                 Column(
-                    modifier = Modifier.weight(7f).padding(vertical = 10.dp, horizontal = 8.dp).verticalScroll( ScrollState(0))
+                    modifier = Modifier
+                        .weight(7f)
+                        .padding(vertical = 10.dp, horizontal = 8.dp)
+                        .verticalScroll(ScrollState(0))
                 ) {
                     groceryLists.map { groceryList ->
                         Card(
@@ -126,8 +136,8 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
                                             .weight(8f)
                                     ) {
                                         Text(text = groceryList.listName, fontWeight = FontWeight.Bold)
-                                        Text(text = "Updated on: ${groceryList.lastEdited}")
-                                        Text(text = "By: ${groceryList.createdBy}", fontSize = 14.sp)
+                                        Text(text = "${humanReadableDuration(groceryList.lastEdited.time)}", modifier = Modifier.padding(top = 8.dp, bottom = 2.dp))
+                                        Text(text = "By: ${groceryList.createdBy}", fontSize = 12.sp)
                                     }
                                     Column(
                                         Modifier
@@ -147,7 +157,9 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
                         }
                     }
 
-                    Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.padding(vertical = 16.dp).weight(1f)) {
+                    Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier
+                        .padding(vertical = 16.dp)
+                        .weight(1f)) {
                         RoundedButton(text = "Create new shopping list", onClickListener = { addGroceryList() })
                     }
                 }
@@ -159,10 +171,17 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
 fun listCardClicked(
     navController: NavController,
     listItemViewModel: ListItemViewModel,
-    listId: String
+    listId: String,
 ) {
     listItemViewModel.getListItemsByListId(listId.toInt())
     navController.navigate(
         Screen.ListDetail.withArgs(listId)
     )
+}
+
+fun humanReadableDuration(time: Long): String {
+    val LocaleBylanguageTag: Locale = Locale.forLanguageTag("en")
+    val messages: TimeAgoMessages = TimeAgoMessages.Builder().withLocale(LocaleBylanguageTag).build()
+
+    return TimeAgo.using(time, messages)
 }
