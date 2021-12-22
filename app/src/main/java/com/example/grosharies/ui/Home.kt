@@ -36,7 +36,7 @@ fun Home(navController: NavController) {
                 Grosharies()
                 WelcomeTextOnHomeScreen()
 
-                Screenimage()
+                ScreenImage()
 
                 ButtonsHomeScreen(navController)
 
@@ -48,7 +48,7 @@ fun Home(navController: NavController) {
 
 @Composable
 fun Grosharies() {
-    Text("Grosharies \n", fontSize = 50.sp, color = PrimaryColor, fontWeight = FontWeight.Bold)
+    Text("Grosharies", fontSize = 50.sp, color = PrimaryColor, fontWeight = FontWeight.Bold)
 
 }
 
@@ -60,20 +60,18 @@ fun WelcomeTextOnHomeScreen() {
         textAlign = TextAlign.Center,
         color = textColorSecondary,
         modifier = Modifier
-            .fillMaxWidth().padding(8.dp)
+            .fillMaxWidth().padding(vertical = 16.dp)
     )
 }
 
 
 @Composable
-fun Screenimage() {
+fun ScreenImage() {
     Row(modifier = Modifier.padding(16.dp)) {
         Image(
             painter = painterResource(R.drawable.gro_im1),
             contentDescription = "Woman grosharing",
             modifier = Modifier.fillMaxWidth()
-//                .size(250.dp, 100.dp)
-
         )
     }
 
@@ -81,11 +79,10 @@ fun Screenimage() {
 
 @Composable
 fun ButtonsHomeScreen(navController: NavController) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(horizontal = 16.dp, vertical = 32.dp)
     ) {
 //        RoundedButton(text = "Most recent list", isSecondary = true, onClickListener = { /*TODO*/ })
 
