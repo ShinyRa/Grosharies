@@ -15,6 +15,7 @@ import com.example.grosharies.data.groceryList.GroceryList
 import com.example.grosharies.data.listItem.ListItem
 import com.example.grosharies.presentation.groceryList.GroceryListViewModel
 import com.example.grosharies.presentation.listItem.ListItemViewModel
+import com.example.grosharies.presentation.nameInput.NameInputViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
@@ -25,7 +26,8 @@ fun NewList(
     groupId: String,
     navController: NavController,
     groceryListViewModel: GroceryListViewModel,
-    listItemViewModel: ListItemViewModel
+    listItemViewModel: ListItemViewModel,
+    nameInputViewModel: NameInputViewModel
 ) {
     var listName by remember { mutableStateOf("") }
 
@@ -61,20 +63,21 @@ fun NewList(
             MainButton(
                 text = "ADD NEW LIST",
                 onClickListener = {
-                    addNewList(listName, groupId.toLong(), groceryListViewModel)
+                    addNewList(listName, groupId.toLong(), groceryListViewModel, nameInputViewModel)
                     navController.navigate(Screen.GroupDetail.withArgs(groupId))
                 })
         }
     }
 }
 
-fun addNewList(listName: String, groupId: Long, groceryListViewModel: GroceryListViewModel) {
+fun addNewList(listName: String, groupId: Long, groceryListViewModel: GroceryListViewModel, nameInputViewModel: NameInputViewModel) {
+    nameInputViewModel.getNameInput()
     if (groupId > 0) {
         groceryListViewModel.insertGroceryLists(
             GroceryList(
                 listName = listName,
                 lastEdited = Date(),
-                createdBy = "Mikal",
+                createdBy = nameInputViewModel.username.value?.name!!,
                 groupId = groupId
             )
         )
@@ -83,7 +86,7 @@ fun addNewList(listName: String, groupId: Long, groceryListViewModel: GroceryLis
             GroceryList(
                 listName = listName,
                 lastEdited = Date(),
-                createdBy = "Mikal"
+                createdBy = nameInputViewModel.username.value?.name!!
             )
         )
     }

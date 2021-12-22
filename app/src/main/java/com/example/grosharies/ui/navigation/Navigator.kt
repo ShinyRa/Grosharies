@@ -44,7 +44,7 @@ fun Navigator(navController: NavHostController) {
     ) {
         composable(route = Screen.Home.route) { Home(navController = navController) }
         groupNavigation(navController, groupViewModel, listItemViewModel, nameInputViewModel)
-        listNavigation(navController, groceryListViewModel, listItemViewModel)
+        listNavigation(navController, groceryListViewModel, listItemViewModel, nameInputViewModel)
     }
 }
 
@@ -85,7 +85,8 @@ fun NavGraphBuilder.groupNavigation(
 fun NavGraphBuilder.listNavigation(
     navController: NavController,
     groceryListViewModel: GroceryListViewModel,
-    listItemViewModel: ListItemViewModel
+    listItemViewModel: ListItemViewModel,
+    nameInputViewModel: NameInputViewModel
 ) {
     navigation(startDestination = Screen.Lists.route, "list") {
         composable(route = Screen.Lists.route + "/{groupId}") { entry ->
@@ -114,7 +115,8 @@ fun NavGraphBuilder.listNavigation(
                 entry.arguments?.getString("groupId") ?: "0",
                 navController = navController,
                 listItemViewModel = listItemViewModel,
-                groceryListViewModel = groceryListViewModel
+                groceryListViewModel = groceryListViewModel,
+                nameInputViewModel= nameInputViewModel,
             )
         }
         composable(route = Screen.ListDetail.route + "/{listId}") { entry ->
