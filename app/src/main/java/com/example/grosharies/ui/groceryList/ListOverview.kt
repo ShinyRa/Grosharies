@@ -87,8 +87,6 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
         Surface(color = backdrop,
             modifier = Modifier.fillMaxWidth().fillMaxHeight()
         ) {
-
-            Box {
                 Column {
                     LazyColumn(
                         contentPadding = PaddingValues(
@@ -203,7 +201,6 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
                     MainButton(text = "ADD NEW LIST", onClickListener = { addGroceryList() })
                 }
             }
-        }
 
     }
 }

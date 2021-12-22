@@ -32,7 +32,7 @@ import com.example.grosharies.ui.theme.backdrop
 @ExperimentalAnimationApi
 @Composable
 fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameInputViewModel: NameInputViewModel) {
-    setTitle("Group Overview")
+    setTitle("Groups")
 
     val groups = groupViewModel.groups.value
 
