@@ -48,21 +48,24 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameI
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize().padding(PaddingValues(vertical = 16.dp, horizontal = 8.dp)).verticalScroll(state = ScrollState(0))
-            ) {
-                groups.map { group ->
-                    GroupCard(
-                        group = group,
-                        onClick = { navController.navigate(Screen.Lists.withArgs(group.id.toString())) },
-                        deleteGroup = { groupToDelete ->
-                            groupViewModel.deleteGroup(groupToDelete)
-                        }
-                    )
+            Column {
+                Column(
+                    modifier = Modifier.weight(7f).padding(PaddingValues(vertical = 10.dp, horizontal = 8.dp)).verticalScroll(state = ScrollState(0))
+                ) {
+                    groups.map { group ->
+                        GroupCard(
+                            group = group,
+                            onClick = { navController.navigate(Screen.Lists.withArgs(group.id.toString())) },
+                            deleteGroup = { groupToDelete ->
+                                groupViewModel.deleteGroup(groupToDelete)
+                            }
+                        )
+                    }
+
+
+
                 }
-
-
-                Column(verticalArrangement = Arrangement.Bottom) {
+                Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.padding(vertical = 16.dp).weight(1f)) {
                     RoundedButton(text = "Create",
                         onClickListener = { navController.navigate(Screen.GroupNew.route) })
 //                    RoundedButton(
