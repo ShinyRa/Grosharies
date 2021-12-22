@@ -59,8 +59,10 @@ fun New(
             TextField(
                 value = name.value,
                 onValueChange = {
-                    name.value = it
-                    group.name = it.text
+                    if (!it.text.contains("\n")) {
+                        name.value = it
+                        group.name = it.text
+                    }
                 },
                 modifier = Modifier.fillMaxWidth()
             )
@@ -71,7 +73,9 @@ fun New(
             )
             TextField(
                 value = password.value,
-                onValueChange = { password.value = it },
+                onValueChange = {
+                    if (!it.text.contains("\n"))
+                    password.value = it },
                 modifier = Modifier.fillMaxWidth()
             )
             MainButton(text = if (groupId != null) "Save" else "Create",
