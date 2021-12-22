@@ -11,7 +11,9 @@ import com.example.grosharies.data.groceryList.GroceryList
     foreignKeys = [ForeignKey(
         entity = GroceryList::class,
         parentColumns = ["id"],
-        childColumns = ["listId"]
+        childColumns = ["listId"],
+        onDelete = CASCADE,
+        onUpdate = CASCADE
     )]
 )
 data class ListItem(
