@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,7 +35,11 @@ import com.example.grosharies.ui.theme.backdrop
 
 @ExperimentalAnimationApi
 @Composable
-fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameInputViewModel: NameInputViewModel) {
+fun Overview(
+    navController: NavController,
+    groupViewModel: GroupViewModel,
+    nameInputViewModel: NameInputViewModel,
+) {
     setTitle("Groups")
 
     /*
@@ -55,32 +60,42 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameI
                 .fillMaxHeight()
         ) {
             Column {
-                Column(
-                    modifier = Modifier.weight(7f)
-                        .padding(PaddingValues(vertical = 10.dp, horizontal = 8.dp))
-                        .verticalScroll(state = ScrollState(0))
-                ) {
-                    if (groups.size == 0) {
-                        Row {
-                            Text(
-                                "You don’t have any groups yet! \n \n" +
-                                        "" +
-                                        "Create or join one to start\n" +
-                                        " your shared shopping experience \n",
-                                fontSize = 15.sp,
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(16.dp)
-                            )
-                        }
+                if (groups.size == 0) {
+                    Column(modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+
+                        Text(
+                            text = "You don't have any groups yet!",
+                            fontSize = 18.sp,
+                            textAlign = TextAlign.Center,
+                            fontStyle = FontStyle.Italic,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 16.dp)
+                        )
+                        Text(
+                            text = "Create or join one to start your shared shopping experience",
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Center,
+                            fontStyle = FontStyle.Italic,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 32.dp)
+                        )
                         Image(
                             painter = painterResource(R.drawable.no_groups),
-                            contentDescription = "No groups yet",
-                            modifier = Modifier
-                                .size(300.dp, 150.dp)
+                            contentDescription = "No lists yet!",
+                            modifier = Modifier.size(300.dp, 300.dp)
                         )
-                    } else {
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .weight(7f)
+                            .padding(PaddingValues(vertical = 10.dp, horizontal = 8.dp))
+                            .verticalScroll(state = ScrollState(0))
+                    ) {
                         groups.map { group ->
                             GroupCard(
                                 group = group,
@@ -93,7 +108,10 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameI
                     }
                 }
 
-                Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.padding(vertical = 16.dp).weight(1f)) {
+                Column(verticalArrangement = Arrangement.Bottom,
+                    modifier = Modifier
+                        .padding(vertical = 16.dp)
+                        .weight(1f)) {
                     RoundedButton(text = "Create new group",
                         onClickListener = { navController.navigate(Screen.GroupNew.route) })
 //                    RoundedButton(
