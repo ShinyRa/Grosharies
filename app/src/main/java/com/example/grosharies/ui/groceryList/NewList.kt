@@ -46,7 +46,8 @@ fun NewList(
                 TextField(
                     value = listName,
                     onValueChange = {
-                        listName = it
+                        if (!it.contains("\n"))
+                            listName = it
                     },
                     label = { Text("New list name:") },
                     modifier = Modifier
@@ -70,7 +71,12 @@ fun NewList(
     }
 }
 
-fun addNewList(listName: String, groupId: Long, groceryListViewModel: GroceryListViewModel, nameInputViewModel: NameInputViewModel) {
+fun addNewList(
+    listName: String,
+    groupId: Long,
+    groceryListViewModel: GroceryListViewModel,
+    nameInputViewModel: NameInputViewModel
+) {
     nameInputViewModel.getNameInput()
     if (groupId > 0) {
         groceryListViewModel.insertGroceryLists(
