@@ -1,5 +1,6 @@
 package com.example.grosharies.ui.listItem
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
@@ -69,7 +70,8 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                                             end = 16.dp,
                                         )
                                     )
-                                    .fillMaxWidth(),
+                                    .fillMaxWidth()
+                                    .clickable { editListItem(listItemsList[index].id?.toInt()!!) },
                                 horizontalArrangement = Arrangement.SpaceBetween,
                             ) {
                                 Row(
@@ -107,16 +109,10 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                                     Column(
                                         Modifier
                                             .padding(8.dp)
-                                            .weight(2f),
+                                            .weight(1f),
                                         horizontalAlignment = Alignment.End
                                     ) {
                                         Row {
-                                            IconButton(onClick = { editListItem(listItemsList[index].id?.toInt()!!) }) {
-                                                Icon(
-                                                    painterResource(id = R.drawable.ic_edit_24),
-                                                    contentDescription = "Edit"
-                                                )
-                                            }
                                             IconButton(onClick = { deleteListItem(listItemsList[index]) }) {
                                                 Icon(
                                                     painterResource(id = R.drawable.ic_close_24),

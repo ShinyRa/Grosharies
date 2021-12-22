@@ -4,13 +4,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxColors
+import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -19,6 +21,7 @@ import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
+import com.example.grosharies.ui.theme.SecondaryColor
 
 @Composable
 fun StartShopping(
@@ -66,7 +69,8 @@ fun StartShopping(
                             checked = checkedState.value,
                             modifier = Modifier
                                 .padding(8.dp),
-                            onCheckedChange = { onCheckedChange(checkedState.value) }
+                            onCheckedChange = { onCheckedChange(checkedState.value) },
+                            colors = CheckboxDefaults.colors(checkedColor = SecondaryColor, checkmarkColor = Color.White)
                         )
                         Column(
                             modifier = Modifier.fillMaxWidth(),

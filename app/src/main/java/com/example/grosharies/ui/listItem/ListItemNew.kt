@@ -48,7 +48,7 @@ fun ListItemNew(
     }
 
     GroshariesTheme {
-        setTitle("List Details")
+        setTitle("Grocery list item")
         Column {
             Row(
                 modifier = Modifier
