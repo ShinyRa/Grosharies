@@ -33,7 +33,6 @@ import com.example.grosharies.ui.theme.backdrop
 @Composable
 fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameInputViewModel: NameInputViewModel) {
     setTitle("Group Overview")
-
     val groups = groupViewModel.groups.value
 
     LaunchedEffect(nameInputViewModel.username.value) {
