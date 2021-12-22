@@ -23,7 +23,7 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
 fun ListDetail(listId: String, navController: NavController, listItemViewModel: ListItemViewModel) {
-
+    listItemViewModel.getListItemsByListId(listId.toInt())
     val listItems = listItemViewModel.listItems.value
 
     fun addListItem() {
@@ -74,14 +74,13 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                             ) {
                                 Row(
                                     modifier = Modifier
-                                        .padding(8.dp)
-                                        .weight(8f),
+                                        .padding(8.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Column(
                                         Modifier
                                             .padding(8.dp)
-                                            .weight(2f),
+                                            .weight(3f),
                                         horizontalAlignment = Alignment.Start
                                     ) {
                                         if (listItemsList[index].itemPurchased) {
@@ -98,33 +97,32 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                                     }
                                     Column(
                                         Modifier
-                                            .padding(8.dp)
-                                            .weight(1f),
+                                            .weight(2f),
                                         horizontalAlignment = Alignment.End
                                     ) {
                                         Text(
-                                            text = "${listItemsList[index].itemAmount} X"
+                                            text = "${listItemsList[index].itemAmount} x"
                                         )
                                     }
-                                }
-                                Column(
-                                    Modifier
-                                        .padding(8.dp)
-                                        .weight(3f),
-                                    horizontalAlignment = Alignment.End
-                                ) {
-                                    Row {
-                                        IconButton(onClick = { editListItem(listItemsList[index].id?.toInt()!!) }) {
-                                            Icon(
-                                                painterResource(id = R.drawable.ic_edit_24),
-                                                contentDescription = "Edit"
-                                            )
-                                        }
-                                        IconButton(onClick = { deleteListItem(listItemsList[index]) }) {
-                                            Icon(
-                                                painterResource(id = R.drawable.ic_close_24),
-                                                contentDescription = "Delete"
-                                            )
+                                    Column(
+                                        Modifier
+                                            .padding(8.dp)
+                                            .weight(2f),
+                                        horizontalAlignment = Alignment.End
+                                    ) {
+                                        Row {
+                                            IconButton(onClick = { editListItem(listItemsList[index].id?.toInt()!!) }) {
+                                                Icon(
+                                                    painterResource(id = R.drawable.ic_edit_24),
+                                                    contentDescription = "Edit"
+                                                )
+                                            }
+                                            IconButton(onClick = { deleteListItem(listItemsList[index]) }) {
+                                                Icon(
+                                                    painterResource(id = R.drawable.ic_close_24),
+                                                    contentDescription = "Delete"
+                                                )
+                                            }
                                         }
                                     }
                                 }
@@ -132,10 +130,10 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                         }
                     }
                 }
-                MainButton(text = "ADD NEW ITEM", onClickListener = {
+                MainButton(text = "Add item", onClickListener = {
                     addListItem()
                 })
-                MainButton(text = "START SHOPPING", onClickListener = {
+                MainButton(text = "Start shopping", onClickListener = {
                     startShopping()
                 })
             }

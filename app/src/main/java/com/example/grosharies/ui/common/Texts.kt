@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.KeyEvent
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import com.example.grosharies.ui.theme.PrimaryColor
 
@@ -27,11 +28,12 @@ fun DefaultText(text: String) {
 }
 
 @Composable
-fun DefaultTextInputField(label: String, value: TextFieldValue, onChange: (TextFieldValue) -> Unit, modifier: Modifier? = null) {
+fun DefaultTextInputField(label: String, value: TextFieldValue, onChange: (TextFieldValue) -> Unit, modifier: Modifier? = null, keyboardType: KeyboardType? = null) {
     TextField(
         value = value,
         onValueChange = { if (!it.text.contains("\n")) onChange(it) },
         label = { Text(text = label) },
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = keyboardType ?: KeyboardType.Text ),
         colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.Transparent, focusedIndicatorColor = PrimaryColor, focusedLabelColor = PrimaryColor),
         modifier = Modifier.fillMaxWidth().composed { modifier ?: Modifier }
     )
