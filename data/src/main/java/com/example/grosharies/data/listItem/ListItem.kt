@@ -21,7 +21,7 @@ data class ListItem(
     @ColumnInfo(name = "itemAmount")
     var itemAmount: String,
     @ColumnInfo(name = "itemPurchased")
-    val itemPurchased: Boolean,
+    var itemPurchased: Boolean,
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
