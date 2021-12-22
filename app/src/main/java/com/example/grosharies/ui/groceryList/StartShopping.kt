@@ -35,15 +35,6 @@ fun StartShopping(
     GroshariesTheme {
         setTitle("Start Shopping!")
 
-//        val groceryList = groceryListViewModel.groceryList.value
-
-//            GroceryList(
-//                "Example",
-//                Date(),
-//                "Mikal",
-//
-//                1
-//            )
         val listItems = listItemViewModel.listItems.value
         Column(
             modifier = Modifier

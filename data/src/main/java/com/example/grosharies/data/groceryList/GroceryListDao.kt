@@ -6,16 +6,16 @@ import androidx.room.*
 @Dao
 interface GroceryListDao {
 
-    @Query("SELECT * FROM `GroceryList`")
+    @Query("SELECT * FROM `GroceryList` g ORDER BY g.lastEdited DESC")
     fun getAllGroceryLists(): LiveData<List<GroceryList>>
 
-    @Query("SELECT * FROM `GroceryList` WHERE id = :listId")
+    @Query("SELECT * FROM `GroceryList` g WHERE id = :listId ORDER BY g.lastEdited DESC")
     fun getGroceryListById(listId: String): LiveData<GroceryList>
 
-    @Query("SELECT * FROM `GroceryList` WHERE groupId = :groupId")
+    @Query("SELECT * FROM `GroceryList` g WHERE groupId = :groupId ORDER BY g.lastEdited DESC")
     fun getGroceryLists(groupId: String): LiveData<List<GroceryList>>
 
-    @Query("SELECT * FROM `GroceryList` WHERE groupId IS NULL")
+    @Query("SELECT * FROM `GroceryList` g WHERE groupId IS NULL ORDER BY g.lastEdited DESC")
     fun getGroceryListsWithoutGroup(): LiveData<List<GroceryList>>
 
     @Insert

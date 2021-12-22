@@ -148,7 +148,7 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
                     }
 
                     Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.padding(vertical = 16.dp).weight(1f)) {
-                        RoundedButton(text = "Create new list", onClickListener = { addGroceryList() })
+                        RoundedButton(text = "Create new shopping list", onClickListener = { addGroceryList() })
                     }
                 }
             }

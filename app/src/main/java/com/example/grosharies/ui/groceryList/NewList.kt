@@ -1,23 +1,19 @@
 package com.example.grosharies.ui.groceryList
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.grosharies.data.groceryList.GroceryList
-import com.example.grosharies.data.listItem.ListItem
 import com.example.grosharies.presentation.groceryList.GroceryListViewModel
 import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.presentation.nameInput.NameInputViewModel
+import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
+import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 import java.util.*
 
@@ -29,44 +25,32 @@ fun NewList(
     listItemViewModel: ListItemViewModel,
     nameInputViewModel: NameInputViewModel
 ) {
-    var listName by remember { mutableStateOf("") }
+    setTitle("New shopping list")
+    val listName = remember { mutableStateOf(TextFieldValue("")) }
+
 
     GroshariesTheme {
-        Column {
-            Row(
-                modifier = Modifier
-                    .padding(
-                        PaddingValues(
-                            start = 16.dp,
-                            end = 16.dp,
-                        )
-                    )
-                    .fillMaxWidth(),
-            ) {
-                TextField(
-                    value = listName,
-                    onValueChange = {
-                        if (!it.contains("\n"))
-                            listName = it
+        Column(Modifier.padding(16.dp)) {
+            Column(Modifier.weight(7f)) {
+                DefaultTextInputField(
+                    value = listName.value,
+                    onChange = {
+                        listName.value = it
                     },
-                    label = { Text("New list name:") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            PaddingValues(
-                                top = 8.dp,
-                                bottom = 8.dp,
-                                end = 4.dp
-                            )
-                        )
+                    label = "Name",
                 )
             }
-            MainButton(
-                text = "ADD NEW LIST",
-                onClickListener = {
-                    addNewList(listName, groupId.toLong(), groceryListViewModel, nameInputViewModel)
-                    navController.navigate(Screen.GroupDetail.withArgs(groupId))
-                })
+            Column(Modifier.weight(1f)) {
+                MainButton(
+                    text = "Create list ",
+                    onClickListener = {
+                        addNewList(listName.value.text,
+                            groupId.toLong(),
+                            groceryListViewModel,
+                            nameInputViewModel)
+                        navController.navigate(Screen.GroupDetail.withArgs(groupId))
+                    })
+            }
         }
     }
 }

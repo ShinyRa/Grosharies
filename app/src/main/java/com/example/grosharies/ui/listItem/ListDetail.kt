@@ -1,4 +1,4 @@
-package com.example.grosharies.ui.groceryList
+package com.example.grosharies.ui.listItem
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -46,13 +46,10 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
 
     GroshariesTheme {
         val listItemsList: List<ListItem> = listItems
-        setTitle("List Details")
+        setTitle("Shopping list")
 
         Box {
             Column {
-//                Row {
-//                    Text(text = "List Name")
-//                }
                 LazyColumn(
                     contentPadding = PaddingValues(
                         start = 16.dp,
