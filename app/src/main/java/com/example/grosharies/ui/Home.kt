@@ -71,7 +71,7 @@ fun Screenimage() {
             painter = painterResource(R.drawable.gro_im1),
             contentDescription = "Woman grosharing",
             modifier = Modifier
-                .size(250.dp,100.dp)
+                .size(250.dp, 100.dp)
         )
     }
 
@@ -89,7 +89,7 @@ fun ButtonsHomeScreen(navController: NavController) {
 
         RoundedButton(
             text = "Groups",
-            onClickListener = { navController.navigate(Screen.GroupName.route) })
+            onClickListener = { navController.navigate(Screen.Groups.route) })
 
         RoundedButton(
             text = "Personal List",

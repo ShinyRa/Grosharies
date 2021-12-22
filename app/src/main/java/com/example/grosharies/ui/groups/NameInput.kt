@@ -1,37 +1,40 @@
 package com.example.grosharies.ui.groups
 
-import android.app.Application
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.TextField
-import androidx.compose.runtime.*
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.grosharies.data.NameInput.NameInputViewModel
+import com.example.grosharies.presentation.nameInput.NameInputViewModel
+import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
-import java.util.*
-import com.example.grosharies.data.NameInput.NameInput
-import com.example.grosharies.ui.common.DefaultTextInputField
-import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.navigation.setTitle
+import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun NameInput(navController: NavController) {
+fun NameInput(navController: NavController, nameInputViewModel: NameInputViewModel) {
+
     val nameValue = remember {
         mutableStateOf(TextFieldValue(""))
     }
-    val context = LocalContext.current
-    val nameInputViewModel: NameInputViewModel = viewModel(
-        factory = NameInputViewModel.NameInputViewModelFactory(context.applicationContext as Application)
-    )
     setTitle("Who are you?")
+    LaunchedEffect(nameInputViewModel.username.value) {
+        if (nameInputViewModel.username.value != null) {
+            navController.navigate(Screen.Groups.route)
+        }
+    }
 
     GroshariesTheme {
         Column(
@@ -52,7 +55,7 @@ fun NameInput(navController: NavController) {
             ) {
                 Row {
                     DefaultTextInputField(
-                        text = "Your Name",  modifier = Modifier
+                        text = "Your Name", modifier = Modifier
                             .fillMaxWidth(), textValue = nameValue
                     )
                 }
@@ -65,9 +68,8 @@ fun NameInput(navController: NavController) {
             verticalArrangement = Arrangement.Bottom
         ) {
             MainButton(text = "SAVE", onClickListener = {
-                navController.navigate(Screen.Groups.route)
                 nameInputViewModel.insertNameInput(
-                    NameInput(
+                    com.example.grosharies.data.nameInput.NameInput(
                         name = nameValue.value.text
                     )
                 )

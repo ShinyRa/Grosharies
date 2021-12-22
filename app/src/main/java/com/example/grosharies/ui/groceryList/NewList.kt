@@ -11,36 +11,25 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.grosharies.data.GroceryList.GroceryList
-import com.example.grosharies.data.GroceryList.GroceryListViewModel
-import com.example.grosharies.data.ListItem.ListItem
-import com.example.grosharies.data.ListItem.ListItemViewModel
+import com.example.grosharies.data.groceryList.GroceryList
+import com.example.grosharies.data.listItem.ListItem
+import com.example.grosharies.presentation.groceryList.GroceryListViewModel
+import com.example.grosharies.presentation.listItem.ListItemViewModel
+import com.example.grosharies.presentation.nameInput.NameInputViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.theme.GroshariesTheme
 import java.util.*
 
-lateinit var groceryListViewModel: GroceryListViewModel
-lateinit var listItemViewModel: ListItemViewModel
-
 @Composable
-fun NewList(groupId: String, navController: NavController) {
+fun NewList(
+    groupId: String,
+    navController: NavController,
+    groceryListViewModel: GroceryListViewModel,
+    listItemViewModel: ListItemViewModel,
+    nameInputViewModel: NameInputViewModel
+) {
     var listName by remember { mutableStateOf("") }
-    var itemName by remember { mutableStateOf("") }
-    var itemAmount by remember { mutableStateOf("") }
-    val context = LocalContext.current
-
-    groceryListViewModel = viewModel(
-        factory = GroceryListViewModel.GroceryListViewModelFactory(
-            context.applicationContext as android.app.Application
-        )
-    )
-
-    listItemViewModel = viewModel(
-        factory = ListItemViewModel.ListItemViewModelFactory(
-            context.applicationContext as android.app.Application
-        )
-    )
 
     GroshariesTheme {
         Column {
@@ -57,7 +46,8 @@ fun NewList(groupId: String, navController: NavController) {
                 TextField(
                     value = listName,
                     onValueChange = {
-                        listName = it
+                        if (!it.contains("\n"))
+                            listName = it
                     },
                     label = { Text("New list name:") },
                     modifier = Modifier
@@ -71,70 +61,29 @@ fun NewList(groupId: String, navController: NavController) {
                         )
                 )
             }
-            Row(
-                modifier = Modifier
-                    .padding(
-                        PaddingValues(
-                            start = 16.dp,
-                            end = 16.dp,
-                        )
-                    )
-                    .fillMaxWidth(),
-            ) {
-                TextField(
-                    value = itemName,
-                    onValueChange = {
-                        itemName = it
-                    },
-                    label = { Text("New item:") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(7f)
-                        .padding(
-                            PaddingValues(
-                                top = 8.dp,
-                                bottom = 8.dp,
-                                end = 4.dp
-                            )
-                        )
-                )
-                TextField(
-                    value = itemAmount,
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    onValueChange = {
-                        itemAmount = it
-                    },
-                    label = { Text("amount:") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(3f)
-                        .padding(
-                            PaddingValues(
-                                top = 8.dp,
-                                bottom = 8.dp,
-                                end = 4.dp
-                            )
-                        )
-                )
-            }
             MainButton(
                 text = "ADD NEW LIST",
                 onClickListener = {
-                    addNewList(listName, groupId.toLong())
-//                    addNewListItem(itemName, itemAmount.toInt(), 40)
+                    addNewList(listName, groupId.toLong(), groceryListViewModel, nameInputViewModel)
                     navController.navigate(Screen.GroupDetail.withArgs(groupId))
                 })
         }
     }
 }
 
-fun addNewList(listName: String, groupId: Long) {
+fun addNewList(
+    listName: String,
+    groupId: Long,
+    groceryListViewModel: GroceryListViewModel,
+    nameInputViewModel: NameInputViewModel
+) {
+    nameInputViewModel.getNameInput()
     if (groupId > 0) {
         groceryListViewModel.insertGroceryLists(
             GroceryList(
                 listName = listName,
                 lastEdited = Date(),
-                createdBy = "Mikal",
+                createdBy = nameInputViewModel.username.value?.name!!,
                 groupId = groupId
             )
         )
@@ -143,19 +92,8 @@ fun addNewList(listName: String, groupId: Long) {
             GroceryList(
                 listName = listName,
                 lastEdited = Date(),
-                createdBy = "Mikal"
+                createdBy = nameInputViewModel.username.value?.name!!
             )
         )
     }
-}
-
-fun addNewListItem(listItemName: String, itemAmount: Int, listId: Long) {
-    listItemViewModel.insertListItem(
-        ListItem(
-            itemName = listItemName,
-            itemAmount = itemAmount,
-            itemPurchased = false,
-            listId = listId
-        )
-    )
 }

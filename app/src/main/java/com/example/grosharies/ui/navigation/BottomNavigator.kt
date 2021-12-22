@@ -28,18 +28,26 @@ data class BottomNavigatorItem(
 fun BottomNavigator(navController: NavController) {
 
     val listItems = listOf(
-        BottomNavigatorItem("home",
+        BottomNavigatorItem(
+            "home",
             arrayOf(Screen.Home.route),
-            R.drawable.ic_home_24) { navController.navigate(Screen.Home.route) },
-        BottomNavigatorItem("groups",
-            arrayOf(Screen.Groups.route,
+            R.drawable.ic_home_24
+        ) { navController.navigate(Screen.Home.route) },
+        BottomNavigatorItem(
+            "groups",
+            arrayOf(
+                Screen.Groups.route,
                 Screen.GroupDetail.route,
                 Screen.GroupNew.route,
-                Screen.GroupEdit.route),
-            R.drawable.ic_group_24) { navController.navigate(Screen.Groups.route) },
-        BottomNavigatorItem("lists",
+                Screen.GroupEdit.route
+            ),
+            R.drawable.ic_group_24
+        ) { navController.navigate(Screen.Groups.route) },
+        BottomNavigatorItem(
+            "lists",
             arrayOf(Screen.Lists.route, Screen.ListEdit.route, Screen.StartShopping.route),
-            R.drawable.ic_list_24) { navController.navigate(Screen.Lists.withArgs("0")) }
+            R.drawable.ic_list_24
+        ) { navController.navigate(Screen.Lists.withArgs("0")) }
     )
 
     val (currentRoute, setCurrentRoute) = remember { mutableStateOf<String?>("") }

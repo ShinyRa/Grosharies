@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,8 +19,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.grosharies.R
-import com.example.grosharies.data.Group.Group
-import com.example.grosharies.data.Group.GroupViewModel
+import com.example.grosharies.data.group.Group
+import com.example.grosharies.presentation.group.GroupViewModel
+import com.example.grosharies.presentation.nameInput.NameInputViewModel
 import com.example.grosharies.ui.common.DefaultText
 import com.example.grosharies.ui.common.RoundedButton
 import com.example.grosharies.ui.navigation.Screen
@@ -29,10 +31,16 @@ import com.example.grosharies.ui.theme.backdrop
 
 @ExperimentalAnimationApi
 @Composable
-fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
-
+fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameInputViewModel: NameInputViewModel) {
     setTitle("Group Overview")
+
     val groups = groupViewModel.groups.value
+
+    LaunchedEffect(nameInputViewModel.username.value) {
+        if (nameInputViewModel.username.value == null) {
+            navController.navigate(Screen.GroupName.route)
+        }
+    }
 
     GroshariesTheme {
         Surface(
@@ -72,6 +80,8 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
 
             else {
 
+                modifier = Modifier.fillMaxSize().padding(PaddingValues(vertical = 16.dp, horizontal = 8.dp)).verticalScroll(state = ScrollState(0))
+            ) {
                 groups.map { group ->
                     GroupCard(
                         group = group,
@@ -79,9 +89,14 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel) {
                         deleteGroup = { group ->
                             groupViewModel.deleteGroup(group)
                         }
+                        onClick = { navController.navigate(Screen.Lists.withArgs(group.id.toString())) },
+                        deleteGroup = { groupToDelete ->
+                            groupViewModel.deleteGroup(groupToDelete)
+                        }
                     )
                 }
             }
+
 
                 Column(verticalArrangement = Arrangement.Bottom) {
                     RoundedButton(text = "Create",
@@ -110,7 +125,11 @@ fun GroupCard(
             targetState = true
         }
     }
-    AnimatedVisibility(visibleState = state, enter = slideInHorizontally(), exit = slideOutHorizontally()) {
+    AnimatedVisibility(
+        visibleState = state,
+        enter = slideInHorizontally(),
+        exit = slideOutHorizontally()
+    ) {
         Card(modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)

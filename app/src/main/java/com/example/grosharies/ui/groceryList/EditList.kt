@@ -48,9 +48,64 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
             groceryListViewModel.updateGroceryLists(groceryList)
         }
         navController.navigate(Screen.GroupDetail.withArgs(groupId.toString()))
+        // TODO: send edited values to the overview
     }
 
     GroshariesTheme {
+//        val listItems = ListItemViewModel.get
+//        Column(
+//            modifier = Modifier
+//                .fillMaxHeight(),
+//            verticalArrangement = Arrangement.SpaceBetween,
+//        ) {
+//            LazyColumn {
+//                items(listItems.size) { index ->
+//                    var name = listItems[index].itemName
+//                    var amount = listItems[index].itemAmount
+//                    Row(
+//                        modifier = Modifier
+//                            .padding(
+//                                PaddingValues(
+//                                    start = 16.dp,
+//                                    top = 8.dp,
+//                                    end = 16.dp,
+//                                )
+//                            )
+//                            .fillMaxWidth(),
+//                    ) {
+//                        TextField(
+//                            value = listItems[index].itemName,
+//                            onValueChange = { name = it },
+//                            label = { Text("Item name:") },
+//                            modifier = Modifier
+//                                .weight(5f)
+//                                .padding(
+//                                    PaddingValues(
+//                                        top = 4.dp,
+//                                        bottom = 4.dp,
+//                                        end = 4.dp
+//                                    )
+//                                )
+//                        )
+//                        TextField(
+//                            value = listItems[index].itemAmount.toString(),
+//                            onValueChange = {
+//                                amount = it.toInt()
+//                            },
+//                            label = { Text("Amount:") },
+//                            modifier = Modifier
+//                                .weight(2f)
+//                                .padding(
+//                                    PaddingValues(
+//                                        top = 4.dp,
+//                                        bottom = 4.dp,
+//                                        start = 4.dp
+//                                    )
+//                                )
+//                        )
+//                    }
+//                }
+//            }
         setTitle("Edit List")
 
         Column {
@@ -85,6 +140,7 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
                 TextField(
                     value = "",
                     onValueChange = { newName = it },
+                    singleLine = true,
                     label = { Text("New item name:") },
                     modifier = Modifier
                         .weight(5f)
@@ -98,6 +154,7 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
                 )
                 TextField(
                     value = "",
+                    singleLine = true,
                     onValueChange = {
                         newAmount = it.toInt()
                     },
