@@ -10,7 +10,7 @@ sealed class Screen(val route: String, val nameResource: Int) {
                 .firstOrNull { it.route == route }
     }
 
-    object Home : Screen("home", R.string.home)
+    object Home : Screen("home/", R.string.home)
     object Groups : Screen("group/overview", R.string.groups)
     object GroupNew : Screen("group/new", R.string.group_new)
     object GroupEdit : Screen("group/edit", R.string.group_edit)

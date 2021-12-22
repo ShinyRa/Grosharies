@@ -19,7 +19,7 @@ import com.example.grosharies.ui.theme.textColor
 
 data class BottomNavigatorItem(
     val name: String,
-    val routes: Array<String>,
+    val namespace: String,
     val id: Int,
     val navigate: () -> Unit,
 )
@@ -29,22 +29,17 @@ fun BottomNavigator(navController: NavController) {
     val listItems = listOf(
         BottomNavigatorItem(
             "Home",
-            arrayOf(Screen.Home.route),
+            "home",
             R.drawable.ic_home_24
         ) { navController.navigate(Screen.Home.route) },
         BottomNavigatorItem(
             "Groups",
-            arrayOf(
-                Screen.Groups.route,
-                Screen.GroupDetail.route,
-                Screen.GroupNew.route,
-                Screen.GroupEdit.route
-            ),
+            "group",
             R.drawable.ic_group_24
         ) { navController.navigate(Screen.Groups.route) },
         BottomNavigatorItem(
             "My lists",
-            arrayOf(Screen.Lists.route, Screen.ListEdit.route, Screen.StartShopping.route),
+            "list",
             R.drawable.ic_list_24
         ) { navController.navigate(Screen.Lists.withArgs("0")) }
     )
@@ -70,7 +65,7 @@ fun BottomNavigator(navController: NavController) {
                         )
                     },
                     label = { Text(text = bottomNavigatorItem.name) },
-                    selected = bottomNavigatorItem.routes.asList().contains(currentRoute),
+                    selected = currentRoute?.split("/")?.first() == bottomNavigatorItem.namespace,
                     onClick = { bottomNavigatorItem.navigate() },
                     selectedContentColor = PrimaryColor,
                     unselectedContentColor = textColor
