@@ -56,47 +56,39 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameI
             )
             {
 
-            if (groups.size == 0) {
-                Row {
-                    Text(
-                        "You don’t have any groups yet! \n \n" +
-                                "" +
-                                "Create or join one to start\n" +
-                                " your shared shopping experience \n",
-                        fontSize = 15.sp,
-                        textAlign = TextAlign.Center,
+                if (groups.size == 0) {
+                    Row {
+                        Text(
+                            "You don’t have any groups yet! \n \n" +
+                                    "" +
+                                    "Create or join one to start\n" +
+                                    " your shared shopping experience \n",
+                            fontSize = 15.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                        )
+                    }
+                    Image(
+                        painter = painterResource(R.drawable.no_groups),
+                        contentDescription = "No groups yet",
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
+                            .size(300.dp, 150.dp)
                     )
+                } else {
+                    groups.map { group ->
+                        GroupCard(
+                            group = group,
+                            onClick = {
+                                navController.navigate(Screen.Lists.withArgs(group.id.toString()))
+                            },
+                            deleteGroup = { groupToDelete ->
+                                groupViewModel.deleteGroup(groupToDelete)
+                            }
+                        )
+                    }
                 }
-                Image(
-                    painter = painterResource(R.drawable.no_groups),
-                    contentDescription = "No groups yet",
-                    modifier = Modifier
-                        .size(300.dp, 150.dp)
-                )
-            }
-
-            else {
-
-                modifier = Modifier.fillMaxSize().padding(PaddingValues(vertical = 16.dp, horizontal = 8.dp)).verticalScroll(state = ScrollState(0))
-            ) {
-                groups.map { group ->
-                    GroupCard(
-                        group = group,
-                        onClick = { navController.navigate(Screen.GroupEdit.withArgs(group.id.toString())) },
-                        deleteGroup = { group ->
-                            groupViewModel.deleteGroup(group)
-                        }
-                        onClick = { navController.navigate(Screen.Lists.withArgs(group.id.toString())) },
-                        deleteGroup = { groupToDelete ->
-                            groupViewModel.deleteGroup(groupToDelete)
-                        }
-                    )
-                }
-            }
-
 
                 Column(verticalArrangement = Arrangement.Bottom) {
                     RoundedButton(text = "Create",

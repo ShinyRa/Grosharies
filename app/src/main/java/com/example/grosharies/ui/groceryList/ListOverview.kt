@@ -18,9 +18,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.R
+import com.example.grosharies.data.GroceryList.GroceryListViewModel
 import com.example.grosharies.data.groceryList.GroceryList
-import com.example.grosharies.presentation.groceryList.GroceryListViewModel
-import com.example.grosharies.presentation.groceryList.GroceryListViewModel.GroceryListViewModelFactory
 import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.ui.common.MainButton
@@ -37,7 +36,7 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
 
     val context = LocalContext.current
     val groceryListViewModel: GroceryListViewModel = viewModel(
-        factory = GroceryListViewModelFactory(context.applicationContext as Application)
+        factory = GroceryListViewModel.GroceryListViewModelFactory(context.applicationContext as Application)
     )
 
     val groupViewModel: GroupViewModel = viewModel(
