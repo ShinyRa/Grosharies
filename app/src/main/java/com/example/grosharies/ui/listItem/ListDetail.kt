@@ -33,6 +33,10 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
         navController.navigate(Screen.ListItemNew.withArgs(listId, "0"))
     }
 
+    fun startShopping() {
+        navController.navigate(Screen.StartShopping.route)
+    }
+
     fun deleteListItem(listItem: ListItem) {
         listItemViewModel.deleteListItem(listItem)
         listItemViewModel.getListItemsByListId(listId.toInt())
@@ -126,6 +130,9 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                 }
                 MainButton(text = "ADD NEW ITEM", onClickListener = {
                     addListItem()
+                })
+                MainButton(text = "START SHOPPING", onClickListener = {
+                    startShopping()
                 })
             }
         }
