@@ -66,7 +66,7 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameI
                     }
                 }
                 Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.padding(vertical = 16.dp).weight(1f)) {
-                    RoundedButton(text = "Create",
+                    RoundedButton(text = "Create new group",
                         onClickListener = { navController.navigate(Screen.GroupNew.route) })
 //                    RoundedButton(
 //                        text = "Join",

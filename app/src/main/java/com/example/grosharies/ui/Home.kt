@@ -91,7 +91,7 @@ fun ButtonsHomeScreen(navController: NavController) {
             onClickListener = { navController.navigate(Screen.Groups.route) })
 
         RoundedButton(
-            text = "Personal List",
+            text = "My lists",
             onClickListener = { navController.navigate(Screen.Lists.withArgs("0")) })
     }
 }
