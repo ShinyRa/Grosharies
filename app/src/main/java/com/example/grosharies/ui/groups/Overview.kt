@@ -1,7 +1,10 @@
 package com.example.grosharies.ui.groups
 
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
@@ -32,14 +35,18 @@ import com.example.grosharies.ui.theme.backdrop
 @ExperimentalAnimationApi
 @Composable
 fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameInputViewModel: NameInputViewModel) {
-    setTitle("Group Overview")
-    val groups = groupViewModel.groups.value
+    setTitle("Groups")
 
+    /*
+     * If display name is not found in the database, the user should not be able to view this content
+     */
     LaunchedEffect(nameInputViewModel.username.value) {
         if (nameInputViewModel.username.value == null) {
             navController.navigate(Screen.GroupName.route)
         }
     }
+
+    val groups = groupViewModel.groups.value
 
     GroshariesTheme {
         Surface(
@@ -47,55 +54,52 @@ fun Overview(navController: NavController, groupViewModel: GroupViewModel, nameI
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(PaddingValues(vertical = 16.dp, horizontal = 8.dp))
-                    .verticalScroll(state = ScrollState(0))
-            )
-            {
-
-                if (groups.size == 0) {
-                    Row {
-                        Text(
-                            "You don’t have any groups yet! \n \n" +
-                                    "" +
-                                    "Create or join one to start\n" +
-                                    " your shared shopping experience \n",
-                            fontSize = 15.sp,
-                            textAlign = TextAlign.Center,
+            Column {
+                Column(
+                    modifier = Modifier.weight(7f)
+                        .padding(PaddingValues(vertical = 10.dp, horizontal = 8.dp))
+                        .verticalScroll(state = ScrollState(0))
+                ) {
+                    if (groups.size == 0) {
+                        Row {
+                            Text(
+                                "You don’t have any groups yet! \n \n" +
+                                        "" +
+                                        "Create or join one to start\n" +
+                                        " your shared shopping experience \n",
+                                fontSize = 15.sp,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp)
+                            )
+                        }
+                        Image(
+                            painter = painterResource(R.drawable.no_groups),
+                            contentDescription = "No groups yet",
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp)
+                                .size(300.dp, 150.dp)
                         )
-                    }
-                    Image(
-                        painter = painterResource(R.drawable.no_groups),
-                        contentDescription = "No groups yet",
-                        modifier = Modifier
-                            .size(300.dp, 150.dp)
-                    )
-                } else {
-                    groups.map { group ->
-                        GroupCard(
-                            group = group,
-                            onClick = {
-                                navController.navigate(Screen.Lists.withArgs(group.id.toString()))
-                            },
-                            deleteGroup = { groupToDelete ->
-                                groupViewModel.deleteGroup(groupToDelete)
-                            }
-                        )
+                    } else {
+                        groups.map { group ->
+                            GroupCard(
+                                group = group,
+                                onClick = { navController.navigate(Screen.Lists.withArgs(group.id.toString())) },
+                                deleteGroup = { groupToDelete ->
+                                    groupViewModel.deleteGroup(groupToDelete)
+                                }
+                            )
+                        }
                     }
                 }
 
-                Column(verticalArrangement = Arrangement.Bottom) {
-                    RoundedButton(text = "Create",
+                Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.padding(vertical = 16.dp).weight(1f)) {
+                    RoundedButton(text = "Create new group",
                         onClickListener = { navController.navigate(Screen.GroupNew.route) })
-                    RoundedButton(
-                        text = "Join",
-                        isSecondary = true,
-                        onClickListener = { /*navController.navigate(Screen.GroupEdit.route)*/ })
+//                    RoundedButton(
+//                        text = "Join",
+//                        isSecondary = true,
+//                        onClickListener = { /*navController.navigate(Screen.GroupEdit.route)*/ })
                 }
             }
         }

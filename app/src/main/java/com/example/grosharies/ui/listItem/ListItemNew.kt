@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.data.listItem.ListItem
 import com.example.grosharies.presentation.listItem.ListItemViewModel
+import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
@@ -47,7 +48,7 @@ fun ListItemNew(
     }
 
     GroshariesTheme {
-        setTitle("List Details")
+        setTitle("Grocery list item")
         Column {
             Row(
                 modifier = Modifier
@@ -60,13 +61,13 @@ fun ListItemNew(
                     .fillMaxWidth(),
             )
             {
-                TextField(
+                DefaultTextInputField(
                     value = itemName.value,
-                    onValueChange = {
+                    onChange = {
                         currentListItem.itemName = it.text
                         itemName.value = it
                     },
-                    label = { Text("New item:") },
+                    label = "Item",
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(7f)
@@ -78,16 +79,15 @@ fun ListItemNew(
                             )
                         )
                 )
-                TextField(
+                DefaultTextInputField(
                     value = itemAmount.value,
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    onValueChange = {
+                    onChange = {
                         currentListItem.itemAmount = it.text
                         itemAmount.value = it
                     },
-                    label = { Text("amount:") },
+                    keyboardType = KeyboardType.Number,
+                    label = "Amount:",
                     modifier = Modifier
-                        .fillMaxWidth()
                         .weight(3f)
                         .padding(
                             PaddingValues(

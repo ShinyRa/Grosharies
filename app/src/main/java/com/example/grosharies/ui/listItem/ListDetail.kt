@@ -1,5 +1,6 @@
-package com.example.grosharies.ui.groceryList
+package com.example.grosharies.ui.listItem
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
@@ -23,7 +24,7 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
 fun ListDetail(listId: String, navController: NavController, listItemViewModel: ListItemViewModel) {
-
+    listItemViewModel.getListItemsByListId(listId.toInt())
     val listItems = listItemViewModel.listItems.value
 
     fun addListItem() {
@@ -46,13 +47,10 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
 
     GroshariesTheme {
         val listItemsList: List<ListItem> = listItems
-        setTitle("List Details")
+        setTitle("Shopping list")
 
         Box {
             Column {
-//                Row {
-//                    Text(text = "List Name")
-//                }
                 LazyColumn(
                     contentPadding = PaddingValues(
                         start = 16.dp,
@@ -72,19 +70,19 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                                             end = 16.dp,
                                         )
                                     )
-                                    .fillMaxWidth(),
+                                    .fillMaxWidth()
+                                    .clickable { editListItem(listItemsList[index].id?.toInt()!!) },
                                 horizontalArrangement = Arrangement.SpaceBetween,
                             ) {
                                 Row(
                                     modifier = Modifier
-                                        .padding(8.dp)
-                                        .weight(8f),
+                                        .padding(8.dp),
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     Column(
                                         Modifier
                                             .padding(8.dp)
-                                            .weight(2f),
+                                            .weight(3f),
                                         horizontalAlignment = Alignment.Start
                                     ) {
                                         if (listItemsList[index].itemPurchased) {
@@ -101,33 +99,26 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                                     }
                                     Column(
                                         Modifier
+                                            .weight(2f),
+                                        horizontalAlignment = Alignment.End
+                                    ) {
+                                        Text(
+                                            text = "${listItemsList[index].itemAmount} x"
+                                        )
+                                    }
+                                    Column(
+                                        Modifier
                                             .padding(8.dp)
                                             .weight(1f),
                                         horizontalAlignment = Alignment.End
                                     ) {
-                                        Text(
-                                            text = "${listItemsList[index].itemAmount} X"
-                                        )
-                                    }
-                                }
-                                Column(
-                                    Modifier
-                                        .padding(8.dp)
-                                        .weight(3f),
-                                    horizontalAlignment = Alignment.End
-                                ) {
-                                    Row {
-                                        IconButton(onClick = { editListItem(listItemsList[index].id?.toInt()!!) }) {
-                                            Icon(
-                                                painterResource(id = R.drawable.ic_edit_24),
-                                                contentDescription = "Edit"
-                                            )
-                                        }
-                                        IconButton(onClick = { deleteListItem(listItemsList[index]) }) {
-                                            Icon(
-                                                painterResource(id = R.drawable.ic_close_24),
-                                                contentDescription = "Delete"
-                                            )
+                                        Row {
+                                            IconButton(onClick = { deleteListItem(listItemsList[index]) }) {
+                                                Icon(
+                                                    painterResource(id = R.drawable.ic_close_24),
+                                                    contentDescription = "Delete"
+                                                )
+                                            }
                                         }
                                     }
                                 }
@@ -135,10 +126,10 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
                         }
                     }
                 }
-                MainButton(text = "ADD NEW ITEM", onClickListener = {
+                MainButton(text = "Add item", onClickListener = {
                     addListItem()
                 })
-                MainButton(text = "START SHOPPING", onClickListener = {
+                MainButton(text = "Start shopping", onClickListener = {
                     startShopping()
                 })
             }

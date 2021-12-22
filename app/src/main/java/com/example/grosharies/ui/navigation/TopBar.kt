@@ -11,23 +11,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.example.grosharies.R
-import com.example.grosharies.ui.common.DefaultText
 
-class TopBarState(
-    val title: String,
-    val actions: Array<TopBarAction?>,
-)
 
 class TopBarAction(
     val iconResource: Int,
     val action: () -> Unit,
 )
-
-// Still not working because don't know how to get navController as a reference instead of immutable copy grrrrrrr
-fun hasBack(queue: ArrayDeque<NavBackStackEntry>): Boolean = queue.size > 0
 
 private var title: MutableState<String> = mutableStateOf("")
 private var actions: MutableState<List<TopBarAction>> = mutableStateOf(listOf())
@@ -42,12 +33,11 @@ fun setActions(it: List<TopBarAction>) {
 
 @Composable
 fun TopBar(navController: NavController) {
-    val (currentRoute, setCurrentRoute) = remember { mutableStateOf<String?>("") }
-    navController.addOnDestinationChangedListener { _, destination, _ ->
-//        setActions(listOf())
-        setCurrentRoute(destination.route)
-//        run {
-//        }
+    val (hasBack, setHasBack) = remember {
+        mutableStateOf<Boolean>(false)
+    }
+    navController.addOnDestinationChangedListener { controller, destination, _ ->
+        setHasBack(controller.backQueue.size > 2)
     }
     TopAppBar(
         title = {
@@ -66,7 +56,7 @@ fun TopBar(navController: NavController) {
             }
         },
         navigationIcon = {
-            if (hasBack(queue = navController.backQueue)) {
+            if (hasBack) {
                 IconButton(onClick = { navController.navigateUp() }) {
                     Icon(
                         painter = painterResource(

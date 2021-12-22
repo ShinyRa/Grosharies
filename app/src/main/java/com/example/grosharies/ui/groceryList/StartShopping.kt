@@ -1,13 +1,19 @@
 package com.example.grosharies.ui.groceryList
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxColors
+import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.data.listItem.ListItem
@@ -15,6 +21,7 @@ import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
+import com.example.grosharies.ui.theme.SecondaryColor
 
 @Composable
 fun StartShopping(
@@ -32,17 +39,8 @@ fun StartShopping(
     }
 
     GroshariesTheme {
-        setTitle("Start Shopping!")
+        setTitle("Start Shopping")
 
-//        val groceryList = groceryListViewModel.groceryList.value
-
-//            GroceryList(
-//                "Example",
-//                Date(),
-//                "Mikal",
-//
-//                1
-//            )
         val listItems = listItemViewModel.listItems.value
         Column(
             modifier = Modifier
@@ -56,19 +54,23 @@ fun StartShopping(
 
                     val checkedState = remember { mutableStateOf(listItems[index].itemPurchased) }
 
+                    fun onCheckedChange(it: Boolean) {
+                        checkedState.value = !it
+                        listItems[index].itemPurchased = !it
+                    }
+
                     Row(
                         modifier = Modifier
                             .padding(8.dp)
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .clickable { onCheckedChange(checkedState.value) }
                     ) {
                         Checkbox(
                             checked = checkedState.value,
                             modifier = Modifier
                                 .padding(8.dp),
-                            onCheckedChange = {
-                                checkedState.value = it
-                                listItems[index].itemPurchased = it
-                            }
+                            onCheckedChange = { onCheckedChange(checkedState.value) },
+                            colors = CheckboxDefaults.colors(checkedColor = SecondaryColor, checkmarkColor = Color.White)
                         )
                         Column(
                             modifier = Modifier.fillMaxWidth(),
@@ -77,15 +79,16 @@ fun StartShopping(
                             Row(modifier = Modifier.fillMaxWidth()) {
                                 Text(
                                     text = name,
+                                    style = TextStyle(textDecoration = if (checkedState.value) TextDecoration.LineThrough else TextDecoration.None),
                                     modifier = Modifier
                                         .padding(8.dp)
-                                        .weight(4f)
+                                        .weight(5f)
                                 )
                                 Text(
-                                    text = "amount: $amount",
+                                    text = "$amount x",
                                     modifier = Modifier
                                         .padding(8.dp)
-                                        .weight(2f)
+                                        .weight(1f)
                                 )
                             }
                         }

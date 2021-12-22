@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.example.grosharies.R
-import com.example.grosharies.ui.theme.primary
+import com.example.grosharies.ui.theme.PrimaryColor
 import com.example.grosharies.ui.theme.textColor
 
 data class BottomNavigatorItem(
@@ -26,15 +26,14 @@ data class BottomNavigatorItem(
 
 @Composable
 fun BottomNavigator(navController: NavController) {
-
     val listItems = listOf(
         BottomNavigatorItem(
-            "home",
+            "Home",
             arrayOf(Screen.Home.route),
             R.drawable.ic_home_24
         ) { navController.navigate(Screen.Home.route) },
         BottomNavigatorItem(
-            "groups",
+            "Groups",
             arrayOf(
                 Screen.Groups.route,
                 Screen.GroupDetail.route,
@@ -44,7 +43,7 @@ fun BottomNavigator(navController: NavController) {
             R.drawable.ic_group_24
         ) { navController.navigate(Screen.Groups.route) },
         BottomNavigatorItem(
-            "lists",
+            "My lists",
             arrayOf(Screen.Lists.route, Screen.ListEdit.route, Screen.StartShopping.route),
             R.drawable.ic_list_24
         ) { navController.navigate(Screen.Lists.withArgs("0")) }
@@ -73,7 +72,7 @@ fun BottomNavigator(navController: NavController) {
                     label = { Text(text = bottomNavigatorItem.name) },
                     selected = bottomNavigatorItem.routes.asList().contains(currentRoute),
                     onClick = { bottomNavigatorItem.navigate() },
-                    selectedContentColor = primary,
+                    selectedContentColor = PrimaryColor,
                     unselectedContentColor = textColor
                 )
             }

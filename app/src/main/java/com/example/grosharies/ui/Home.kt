@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -20,6 +21,7 @@ import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.PrimaryColor
+import com.example.grosharies.ui.theme.textColorSecondary
 
 @Composable
 fun Home(navController: NavController) {
@@ -30,12 +32,11 @@ fun Home(navController: NavController) {
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxSize()
             ) {
-                setTitle("Home")
-
+                setTitle("")
                 Grosharies()
                 WelcomeTextOnHomeScreen()
 
-                Screenimage()
+                ScreenImage()
 
                 ButtonsHomeScreen(navController)
 
@@ -47,31 +48,30 @@ fun Home(navController: NavController) {
 
 @Composable
 fun Grosharies() {
-    Text("Grosharies \n", fontSize = 50.sp, color = PrimaryColor, fontWeight = FontWeight.Bold)
+    Text("Grosharies", fontSize = 50.sp, color = PrimaryColor, fontWeight = FontWeight.Bold)
 
 }
 
 @Composable
 fun WelcomeTextOnHomeScreen() {
     Text(
-        "Use this app with your friends to have a collaborative grocery list that you can share easily! \n \n \n",
+        "Use this app with your friends to have a collaborative grocery list that you can share easily!",
         fontSize = 15.sp,
         textAlign = TextAlign.Center,
+        color = textColorSecondary,
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
+            .fillMaxWidth().padding(vertical = 16.dp)
     )
 }
 
 
 @Composable
-fun Screenimage() {
-    Row {
+fun ScreenImage() {
+    Row(modifier = Modifier.padding(16.dp)) {
         Image(
             painter = painterResource(R.drawable.gro_im1),
             contentDescription = "Woman grosharing",
-            modifier = Modifier
-                .size(250.dp, 100.dp)
+            modifier = Modifier.fillMaxWidth()
         )
     }
 
@@ -79,20 +79,19 @@ fun Screenimage() {
 
 @Composable
 fun ButtonsHomeScreen(navController: NavController) {
-
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(horizontal = 16.dp, vertical = 32.dp)
     ) {
-        RoundedButton(text = "Most recent list", isSecondary = true, onClickListener = { /*TODO*/ })
+//        RoundedButton(text = "Most recent list", isSecondary = true, onClickListener = { /*TODO*/ })
 
         RoundedButton(
             text = "Groups",
             onClickListener = { navController.navigate(Screen.Groups.route) })
 
         RoundedButton(
-            text = "Personal List",
+            text = "My lists",
             onClickListener = { navController.navigate(Screen.Lists.withArgs("0")) })
     }
 }

@@ -9,7 +9,8 @@ interface ListItemDao {
     @Query("SELECT * FROM `ListItem` WHERE id = :id")
     fun getListItemById(id: Int?): ListItem?
 
-    @Query("SELECT * FROM `ListItem` WHERE listId = :listId")
+    // TODO: Add created on property to order by
+    @Query("SELECT * FROM `ListItem` li WHERE listId = :listId ORDER BY li.id DESC ")
     suspend fun getListItemsByListId(listId: Int?): MutableList<ListItem>
 
     @Insert
