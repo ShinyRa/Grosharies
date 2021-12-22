@@ -6,8 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.grosharies.data.GroceryList.GroceryListViewModel
 import com.example.grosharies.data.groceryList.GroceryList
-import com.example.grosharies.presentation.groceryList.GroceryListViewModel
 import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.presentation.nameInput.NameInputViewModel
 import com.example.grosharies.ui.common.DefaultTextInputField

@@ -1,49 +1,36 @@
 package com.example.grosharies.ui.groceryList
 
 import android.app.Application
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.grosharies.R
+import com.example.grosharies.data.GroceryList.GroceryListViewModel
 import com.example.grosharies.data.groceryList.GroceryList
-import com.example.grosharies.presentation.groceryList.GroceryListViewModel
-import com.example.grosharies.presentation.groceryList.GroceryListViewModel.GroceryListViewModelFactory
 import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.presentation.listItem.ListItemViewModel
-import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.common.RoundedButton
-import com.example.grosharies.ui.common.TextButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.TopBarAction
 import com.example.grosharies.ui.navigation.setActions
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.backdrop
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 import com.github.marlonlom.utilities.timeago.TimeAgo
-
 import com.github.marlonlom.utilities.timeago.TimeAgoMessages
 
 
