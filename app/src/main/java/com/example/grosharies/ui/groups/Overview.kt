@@ -92,7 +92,7 @@ fun Overview(
                 } else {
                     Column(
                         modifier = Modifier
-                            .weight(7f)
+                            .weight(6f)
                             .padding(PaddingValues(vertical = 10.dp, horizontal = 8.dp))
                             .verticalScroll(state = ScrollState(0))
                     ) {
@@ -114,10 +114,6 @@ fun Overview(
                         .weight(1f)) {
                     RoundedButton(text = "Create new group",
                         onClickListener = { navController.navigate(Screen.GroupNew.route) })
-//                    RoundedButton(
-//                        text = "Join",
-//                        isSecondary = true,
-//                        onClickListener = { /*navController.navigate(Screen.GroupEdit.route)*/ })
                 }
             }
         }

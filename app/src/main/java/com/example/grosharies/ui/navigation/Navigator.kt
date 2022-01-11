@@ -123,8 +123,9 @@ fun NavGraphBuilder.listNavigation(
                 nameInputViewModel= nameInputViewModel,
             )
         }
-        composable(route = Screen.ListDetail.route + "/{listId}") { entry ->
+        composable(route = Screen.ListDetail.route + "/{groupId}/{listId}") { entry ->
             ListDetail(
+                groupId = entry.arguments?.getString("groupId") ?: "0",
                 listId = entry.arguments?.getString("listId") ?: "0",
                 navController = navController,
                 listItemViewModel = listItemViewModel

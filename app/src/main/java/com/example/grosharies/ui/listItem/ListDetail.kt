@@ -19,11 +19,13 @@ import com.example.grosharies.data.listItem.ListItem
 import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
+import com.example.grosharies.ui.navigation.TopBarAction
+import com.example.grosharies.ui.navigation.setActions
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun ListDetail(listId: String, navController: NavController, listItemViewModel: ListItemViewModel) {
+fun ListDetail(groupId: String, listId: String, navController: NavController, listItemViewModel: ListItemViewModel) {
     listItemViewModel.getListItemsByListId(listId.toInt())
     val listItems = listItemViewModel.listItems.value
 
@@ -44,6 +46,20 @@ fun ListDetail(listId: String, navController: NavController, listItemViewModel: 
         listItemViewModel.getListItemById(listItemId)
         navController.navigate(Screen.ListItemNew.withArgs(listId, listItemId.toString()))
     }
+
+    /*
+     * Add an edit list action to topbar if route matches ListDetail and a listId exists
+     */
+    navController.addOnDestinationChangedListener { _, destination, _ ->
+        if (destination.route!!.contains(Screen.ListDetail.route)) {
+            setActions(listOf(TopBarAction(R.drawable.ic_edit_24) {
+                navController.navigate(Screen.ListEdit.withArgs(groupId, listId))
+            }))
+        } else {
+            setActions(listOf())
+        }
+    }
+
 
     GroshariesTheme {
         val listItemsList: List<ListItem> = listItems
