@@ -30,7 +30,11 @@ import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.backdrop
 
 @Composable
-fun ListOverview(groupId: String, navController: NavController, listItemViewModel: ListItemViewModel) {
+fun ListOverview(
+    groupId: String,
+    navController: NavController,
+    listItemViewModel: ListItemViewModel
+) {
 
     val context = LocalContext.current
     val groceryListViewModel: GroceryListViewModel = viewModel(
@@ -50,7 +54,7 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
 
     val group = groupViewModel.group.value
 
-    val listItems = groceryListViewModel.GroceryLists.observeAsState(listOf()).value
+    val lists = groceryListViewModel.GroceryLists.observeAsState(listOf()).value
 
     fun addGroceryList() {
         navController.navigate(Screen.ListNew.withArgs(groupId))
@@ -79,10 +83,13 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
     }
 
     GroshariesTheme {
-        val groceryList: List<GroceryList> = listItems
+        val groceryList: List<GroceryList> = lists
 
-        Surface(color = backdrop,
-            modifier = Modifier.fillMaxWidth().fillMaxHeight()
+        Surface(
+            color = backdrop,
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
         ) {
 
             Box {
@@ -141,7 +148,10 @@ fun ListOverview(groupId: String, navController: NavController, listItemViewMode
 //                                            Text(text = item.itemName, color = Color.Gray)
 //                                        }
 //                                        Text(text = "...", color = Color.Gray)
-                                            IconButton(onClick = { removeList(groceryList[index]) }) {
+                                            IconButton(onClick = {
+                                                println("index: $index")
+                                                removeList(groceryList[index])
+                                            }) {
                                                 Icon(
                                                     painterResource(id = R.drawable.ic_close_24),
                                                     contentDescription = "close"
