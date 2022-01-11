@@ -13,18 +13,13 @@ import kotlinx.coroutines.launch
 class NameInputViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: NameInputRepository
 
-    val mutableListItems: MutableLiveData<String> = MutableLiveData()
+    val username: MutableState<NameInput?> = mutableStateOf(null)
 
-    val username : MutableState<NameInput?> = mutableStateOf(null)
     init {
         val nameInputDao = GroshariesRoomDatabase.getDatabase(application)!!.nameInputDao()
         repository = NameInputRepository(nameInputDao)
 
         username.value = repository.ifUserExists()
-    }
-
-    fun getAllNameInputsByGroup(groupId: String) {
-        mutableListItems.value = groupId
     }
 
     fun insertNameInput(nameInput: NameInput) {
@@ -37,19 +32,6 @@ class NameInputViewModel(application: Application) : AndroidViewModel(applicatio
     fun getNameInput() {
         viewModelScope.launch(Dispatchers.IO) {
             username.value = repository.getNameInput()
-
-        }
-    }
-
-    fun updateNameInput(nameInput: NameInput) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.updateNameInput(nameInput)
-        }
-    }
-
-    fun deleteNameInput(nameInput: NameInput) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteNameInput(nameInput)
         }
     }
 

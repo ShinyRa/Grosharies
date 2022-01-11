@@ -1,10 +1,10 @@
 package com.example.grosharies.data.nameInput
 
-import androidx.lifecycle.LiveData
-
 class NameInputRepository(private val nameInputDao: NameInputDao) {
 
-    val getAllNameInputs: LiveData<List<NameInput>> = nameInputDao.getAllNameInputs()
+    fun getNameInput(): NameInput? {
+        return nameInputDao.getNameInput()
+    }
 
     suspend fun insertNameInput(nameInput: NameInput) {
         nameInputDao.insertNameInput(nameInput)
@@ -14,11 +14,6 @@ class NameInputRepository(private val nameInputDao: NameInputDao) {
         nameInputDao.updateNameInput(nameInput)
     }
 
-    suspend fun getNameInput() : NameInput? {
-        return nameInputDao.getNameInput()
-
-    }
-
     suspend fun deleteNameInput(nameInput: NameInput) {
         nameInputDao.deleteNameInput(nameInput)
     }
@@ -26,5 +21,4 @@ class NameInputRepository(private val nameInputDao: NameInputDao) {
     fun ifUserExists(): NameInput? {
         return nameInputDao.getNameInput()
     }
-
 }

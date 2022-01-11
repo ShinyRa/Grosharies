@@ -12,12 +12,23 @@ import androidx.compose.ui.text.input.TextFieldValue
 import com.example.grosharies.ui.theme.PrimaryColor
 
 @Composable
-fun Input(label: String, value: TextFieldValue, onChange: (TextFieldValue) -> Unit, modifier: Modifier? = null) {
+fun Input(
+    label: String,
+    value: TextFieldValue,
+    onChange: (TextFieldValue) -> Unit,
+    modifier: Modifier? = null
+) {
     TextField(
         value = value,
         onValueChange = { onChange(it) },
         label = { Text(text = label) },
-        colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.Transparent, focusedIndicatorColor = PrimaryColor, focusedLabelColor = PrimaryColor),
-        modifier = Modifier.fillMaxWidth().composed { modifier ?: Modifier }
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = Color.Transparent,
+            focusedIndicatorColor = PrimaryColor,
+            focusedLabelColor = PrimaryColor
+        ),
+        modifier = Modifier
+            .fillMaxWidth()
+            .composed { modifier ?: Modifier }
     )
 }

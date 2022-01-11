@@ -2,7 +2,6 @@ package com.example.grosharies.ui.common
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -161,8 +160,8 @@ fun IconButtonRightSide(text: String, color: Color = Color.White, onClickListene
 
 @Composable
 fun CustomBackgroundButtons(text: String, color: Color = Color.White, onClickListener: () -> Unit) {
-//custom background buttons
-// create a variable mainButtonColor and define background Color and content Color
+    //custom background buttons
+    // create a variable mainButtonColor and define background Color and content Color
     val mainButtonColor = ButtonDefaults.buttonColors(
         backgroundColor = Color.Magenta,
         contentColor = MaterialTheme.colors.surface

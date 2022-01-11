@@ -5,7 +5,6 @@ import androidx.room.*
 
 @Dao
 interface NameInputDao {
-
     @Query("SELECT * FROM `NameInput`")
     fun getAllNameInputs(): LiveData<List<NameInput>>
 

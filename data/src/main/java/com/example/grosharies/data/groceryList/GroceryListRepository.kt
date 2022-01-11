@@ -33,5 +33,4 @@ class GroceryListRepository(private val groceryListDao: GroceryListDao) {
     suspend fun deleteGroceryLists(groceryList: GroceryList) {
         groceryListDao.deleteGroceryLists(groceryList)
     }
-
 }

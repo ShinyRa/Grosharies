@@ -8,7 +8,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -45,11 +44,9 @@ fun Home(navController: NavController) {
     }
 }
 
-
 @Composable
 fun Grosharies() {
     Text("Grosharies", fontSize = 50.sp, color = PrimaryColor, fontWeight = FontWeight.Bold)
-
 }
 
 @Composable
@@ -60,10 +57,10 @@ fun WelcomeTextOnHomeScreen() {
         textAlign = TextAlign.Center,
         color = textColorSecondary,
         modifier = Modifier
-            .fillMaxWidth().padding(vertical = 16.dp)
+            .fillMaxWidth()
+            .padding(vertical = 16.dp)
     )
 }
-
 
 @Composable
 fun ScreenImage() {
@@ -74,7 +71,6 @@ fun ScreenImage() {
             modifier = Modifier.fillMaxWidth()
         )
     }
-
 }
 
 @Composable
@@ -84,7 +80,6 @@ fun ButtonsHomeScreen(navController: NavController) {
             .fillMaxSize()
             .padding(horizontal = 16.dp, vertical = 32.dp)
     ) {
-//        RoundedButton(text = "Most recent list", isSecondary = true, onClickListener = { /*TODO*/ })
 
         RoundedButton(
             text = "Groups",

@@ -1,8 +1,10 @@
 package com.example.grosharies.ui.groceryList
 
 import android.app.Application
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,12 +27,10 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
     val groceryListViewModel: GroceryListViewModel = viewModel(
         factory = GroceryListViewModel.GroceryListViewModelFactory(context.applicationContext as Application)
     )
-
     groceryListViewModel.getGroceryListById(listId.toInt())
 
-    var groceryList = groceryListViewModel.groceryList.value
-
-    var editGroceryname = remember { mutableStateOf(TextFieldValue(groceryList?.listName ?: ""))}
+    val groceryList = groceryListViewModel.groceryList.value
+    val editGroceryName = remember { mutableStateOf(TextFieldValue(groceryList?.listName ?: "")) }
 
     fun saveEdit() {
         if (groceryList != null) {
@@ -47,9 +47,9 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
                 Column(modifier = Modifier.weight(7f)) {
                     DefaultTextInputField(
                         label = "Name",
-                        value = editGroceryname.value,
+                        value = editGroceryName.value,
                         onChange = {
-                            editGroceryname.value = it
+                            editGroceryName.value = it
                             groceryList?.listName = it.text
                         },
                         modifier = Modifier

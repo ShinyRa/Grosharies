@@ -13,11 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -34,9 +32,9 @@ import com.example.grosharies.ui.navigation.setActions
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.backdrop
-import java.util.*
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import com.github.marlonlom.utilities.timeago.TimeAgoMessages
+import java.util.*
 
 
 @Composable
@@ -75,7 +73,7 @@ fun ListOverview(
     /*
      * Set the title to the group name if a group was found, otherwise to My lists
      */
-    setTitle(if (groupId != "0") group?.name else "My lists")
+    setTitle(if (groupId != "0") group.name else "My lists")
 
     /*
      * Add an edit group action to topbar if route matches ListOverview and a groupId exists
@@ -90,18 +88,24 @@ fun ListOverview(
         }
     }
 
-    val listItems = groceryListViewModel.GroceryLists.observeAsState(listOf()).value
+    val listItems = groceryListViewModel.groceryLists.observeAsState(listOf()).value
     val groceryLists: List<GroceryList> = listItems
 
     GroshariesTheme {
-        Surface(color = backdrop,
+        Surface(
+            color = backdrop,
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
         ) {
             Column {
                 if (groceryLists.isEmpty()) {
-                    Column(modifier = Modifier.padding(16.dp).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
                         Text(
                             text = if (groupId != "0") "There are no lists here yet!" else "You don't have any lists yet!",
                             fontSize = 18.sp,
@@ -112,7 +116,7 @@ fun ListOverview(
                                 .padding(vertical = 16.dp)
                         )
                         Text(
-                            text = if (groupId != "0") "Be the first to create a shopping list here" else "Create one to start shopping" ,
+                            text = if (groupId != "0") "Be the first to create a shopping list here" else "Create one to start shopping",
                             fontSize = 14.sp,
                             textAlign = TextAlign.Center,
                             fontStyle = FontStyle.Italic,
@@ -157,13 +161,21 @@ fun ListOverview(
                                                 .padding(8.dp)
                                                 .weight(8f)
                                         ) {
-                                            Text(text = groceryList.listName,
-                                                fontWeight = FontWeight.Bold)
-                                            Text(text = "${humanReadableDuration(groceryList.lastEdited.time)}",
-                                                modifier = Modifier.padding(top = 8.dp,
-                                                    bottom = 2.dp))
-                                            Text(text = "By: ${groceryList.createdBy}",
-                                                fontSize = 12.sp)
+                                            Text(
+                                                text = groceryList.listName,
+                                                fontWeight = FontWeight.Bold
+                                            )
+                                            Text(
+                                                text = humanReadableDuration(groceryList.lastEdited.time),
+                                                modifier = Modifier.padding(
+                                                    top = 8.dp,
+                                                    bottom = 2.dp
+                                                )
+                                            )
+                                            Text(
+                                                text = "By: ${groceryList.createdBy}",
+                                                fontSize = 12.sp
+                                            )
                                         }
                                         Column(
                                             Modifier
@@ -185,9 +197,11 @@ fun ListOverview(
                     }
                 }
 
-                Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier
-                    .padding(vertical = 16.dp)
-                    .weight(6f)) {
+                Column(
+                    verticalArrangement = Arrangement.Bottom, modifier = Modifier
+                        .padding(vertical = 16.dp)
+                        .weight(6f)
+                ) {
                     RoundedButton(text = "Create new shopping list",
                         onClickListener = { addGroceryList() })
                 }

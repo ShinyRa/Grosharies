@@ -43,7 +43,11 @@ fun NameInput(navController: NavController, nameInputViewModel: NameInputViewMod
                 )
                 .fillMaxSize()
         ) {
-            Column(modifier = Modifier.weight(7f).padding(vertical = 32.dp)) {
+            Column(
+                modifier = Modifier
+                    .weight(7f)
+                    .padding(vertical = 32.dp)
+            ) {
                 InfoText()
 
                 Column {

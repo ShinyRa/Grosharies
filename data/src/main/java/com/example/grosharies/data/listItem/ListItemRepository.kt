@@ -1,8 +1,5 @@
 package com.example.grosharies.data.listItem
 
-import androidx.lifecycle.LiveData
-import com.example.grosharies.data.group.Group
-
 class ListItemRepository(private val listItemDao: ListItemDao) {
 
     fun getListItemById(id: Int?): ListItem? {
@@ -24,5 +21,4 @@ class ListItemRepository(private val listItemDao: ListItemDao) {
     suspend fun deleteListItem(listItem: ListItem) {
         listItemDao.deleteListItem(listItem)
     }
-
 }

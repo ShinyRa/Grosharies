@@ -16,7 +16,10 @@ import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.presentation.nameInput.NameInputViewModel
 import com.example.grosharies.ui.Home
-import com.example.grosharies.ui.groceryList.*
+import com.example.grosharies.ui.groceryList.EditList
+import com.example.grosharies.ui.groceryList.ListOverview
+import com.example.grosharies.ui.groceryList.NewList
+import com.example.grosharies.ui.groceryList.StartShopping
 import com.example.grosharies.ui.groups.*
 import com.example.grosharies.ui.listItem.ListDetail
 import com.example.grosharies.ui.listItem.ListItemNew
@@ -118,9 +121,8 @@ fun NavGraphBuilder.listNavigation(
             NewList(
                 entry.arguments?.getString("groupId") ?: "0",
                 navController = navController,
-                listItemViewModel = listItemViewModel,
                 groceryListViewModel = groceryListViewModel,
-                nameInputViewModel= nameInputViewModel,
+                nameInputViewModel = nameInputViewModel,
             )
         }
         composable(route = Screen.ListDetail.route + "/{groupId}/{listId}") { entry ->

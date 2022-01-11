@@ -1,14 +1,16 @@
 package com.example.grosharies.ui.groceryList
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.data.GroceryList.GroceryListViewModel
 import com.example.grosharies.data.groceryList.GroceryList
-import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.presentation.nameInput.NameInputViewModel
 import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.common.MainButton
@@ -22,12 +24,10 @@ fun NewList(
     groupId: String,
     navController: NavController,
     groceryListViewModel: GroceryListViewModel,
-    listItemViewModel: ListItemViewModel,
     nameInputViewModel: NameInputViewModel
 ) {
     setTitle("New shopping list")
     val listName = remember { mutableStateOf(TextFieldValue("")) }
-
 
     GroshariesTheme {
         Column(Modifier.padding(16.dp)) {
@@ -44,10 +44,12 @@ fun NewList(
                 MainButton(
                     text = "Create list ",
                     onClickListener = {
-                        addNewList(listName.value.text,
+                        addNewList(
+                            listName.value.text,
                             groupId.toLong(),
                             groceryListViewModel,
-                            nameInputViewModel)
+                            nameInputViewModel
+                        )
                         navController.navigate(Screen.GroupDetail.withArgs(groupId))
                     })
             }

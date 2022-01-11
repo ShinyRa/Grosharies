@@ -61,7 +61,10 @@ fun Overview(
         ) {
             Column {
                 if (groups.size == 0) {
-                    Column(modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                    Column(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
@@ -107,11 +110,12 @@ fun Overview(
                         }
                     }
                 }
-
-                Column(verticalArrangement = Arrangement.Bottom,
+                Column(
+                    verticalArrangement = Arrangement.Bottom,
                     modifier = Modifier
                         .padding(vertical = 16.dp)
-                        .weight(1f)) {
+                        .weight(1f)
+                ) {
                     RoundedButton(text = "Create new group",
                         onClickListener = { navController.navigate(Screen.GroupNew.route) })
                 }

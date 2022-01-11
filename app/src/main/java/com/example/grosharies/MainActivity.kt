@@ -9,8 +9,8 @@ import androidx.compose.material.Surface
 import com.example.grosharies.ui.navigation.DefaultScaffold
 import com.example.grosharies.ui.theme.GroshariesTheme
 
+@ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
-    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

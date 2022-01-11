@@ -12,6 +12,5 @@ data class Group(
     var name: String,
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
     val id: Long? = null,
 )

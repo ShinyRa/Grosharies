@@ -25,7 +25,12 @@ import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
-fun ListDetail(groupId: String, listId: String, navController: NavController, listItemViewModel: ListItemViewModel) {
+fun ListDetail(
+    groupId: String,
+    listId: String,
+    navController: NavController,
+    listItemViewModel: ListItemViewModel
+) {
     listItemViewModel.getListItemsByListId(listId.toInt())
     val listItems = listItemViewModel.listItems.value
 
@@ -59,7 +64,6 @@ fun ListDetail(groupId: String, listId: String, navController: NavController, li
             setActions(listOf())
         }
     }
-
 
     GroshariesTheme {
         val listItemsList: List<ListItem> = listItems
