@@ -142,6 +142,7 @@ fun ListOverview(
                                         listCardClicked(
                                             navController,
                                             listItemViewModel,
+                                            groupId,
                                             groceryList.id.toString()
                                         )
                                     }
@@ -183,9 +184,10 @@ fun ListOverview(
                         }
                     }
                 }
+
                 Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier
                     .padding(vertical = 16.dp)
-                    .weight(1f)) {
+                    .weight(6f)) {
                     RoundedButton(text = "Create new shopping list",
                         onClickListener = { addGroceryList() })
                 }
@@ -197,11 +199,12 @@ fun ListOverview(
 fun listCardClicked(
     navController: NavController,
     listItemViewModel: ListItemViewModel,
+    groupId: String,
     listId: String,
 ) {
     listItemViewModel.getListItemsByListId(listId.toInt())
     navController.navigate(
-        Screen.ListDetail.withArgs(listId)
+        Screen.ListDetail.withArgs(groupId, listId)
     )
 }
 
