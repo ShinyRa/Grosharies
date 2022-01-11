@@ -32,12 +32,11 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
 
     var editGroceryname = remember { mutableStateOf(TextFieldValue(groceryList?.listName ?: ""))}
 
-    fun SaveEdit() {
+    fun saveEdit() {
         if (groceryList != null) {
             groceryListViewModel.updateGroceryLists(groceryList)
         }
         navController.navigate(Screen.GroupDetail.withArgs(groupId.toString()))
-        // TODO: send edited values to the overview
     }
 
     setTitle("Edit List")
@@ -64,7 +63,7 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
                     )
                 }
                 Column(modifier = Modifier.weight(1f)) {
-                    MainButton(text = "Save", onClickListener = { SaveEdit() })
+                    MainButton(text = "Save", onClickListener = { saveEdit() })
                 }
             }
         }
