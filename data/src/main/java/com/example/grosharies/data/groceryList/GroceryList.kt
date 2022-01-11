@@ -4,18 +4,20 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.example.grosharies.data.group.Group
 import java.util.*
 
 @Entity(
     tableName = "GroceryList",
     foreignKeys = [ForeignKey(
-        entity = GroceryList::class,
+        entity = Group::class,
         parentColumns = ["id"],
         childColumns = ["groupId"],
+        onDelete = ForeignKey.CASCADE
     )]
 )
-data class GroceryList(
 
+data class GroceryList(
     @ColumnInfo(name = "listName")
     var listName: String,
     @ColumnInfo(name = "lastEdited")
@@ -27,6 +29,5 @@ data class GroceryList(
     val groupId: Long? = null,
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
     val id: Long? = null
 )

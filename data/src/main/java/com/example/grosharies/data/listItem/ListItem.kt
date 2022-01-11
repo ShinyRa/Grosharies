@@ -11,11 +11,12 @@ import com.example.grosharies.data.groceryList.GroceryList
     foreignKeys = [ForeignKey(
         entity = GroceryList::class,
         parentColumns = ["id"],
-        childColumns = ["listId"]
+        childColumns = ["listId"],
+        onDelete = ForeignKey.CASCADE
     )]
 )
-data class ListItem(
 
+data class ListItem(
     @ColumnInfo(name = "itemName")
     var itemName: String,
     @ColumnInfo(name = "itemAmount")
@@ -24,10 +25,8 @@ data class ListItem(
     var itemPurchased: Boolean,
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
     val id: Long? = null,
 
     @ColumnInfo(name = "listId", index = true)
     var listId: Long? = null,
-
-    )
+)
