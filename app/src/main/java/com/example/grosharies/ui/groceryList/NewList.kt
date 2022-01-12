@@ -14,7 +14,6 @@ import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.setTitle
-import com.example.grosharies.ui.theme.GroshariesTheme
 import java.util.*
 
 @Composable
@@ -23,34 +22,32 @@ fun NewList(
     navController: NavController,
     groceryListViewModel: GroceryListViewModel,
     listItemViewModel: ListItemViewModel,
-    nameInputViewModel: NameInputViewModel
+    nameInputViewModel: NameInputViewModel,
 ) {
     setTitle("New shopping list")
     val listName = remember { mutableStateOf(TextFieldValue("")) }
 
 
-    GroshariesTheme {
-        Column(Modifier.padding(16.dp)) {
-            Column(Modifier.weight(7f)) {
-                DefaultTextInputField(
-                    value = listName.value,
-                    onChange = {
-                        listName.value = it
-                    },
-                    label = "Name",
-                )
-            }
-            Column(Modifier.weight(1f)) {
-                MainButton(
-                    text = "Create list ",
-                    onClickListener = {
-                        addNewList(listName.value.text,
-                            groupId.toLong(),
-                            groceryListViewModel,
-                            nameInputViewModel)
-                        navController.navigate(Screen.GroupDetail.withArgs(groupId))
-                    })
-            }
+    Column(Modifier.padding(16.dp)) {
+        Column(Modifier.weight(7f)) {
+            DefaultTextInputField(
+                value = listName.value,
+                onChange = {
+                    listName.value = it
+                },
+                label = "Name",
+            )
+        }
+        Column(Modifier.weight(1f)) {
+            MainButton(
+                text = "Create list ",
+                onClickListener = {
+                    addNewList(listName.value.text,
+                        groupId.toLong(),
+                        groceryListViewModel,
+                        nameInputViewModel)
+                    navController.navigate(Screen.GroupDetail.withArgs(groupId))
+                })
         }
     }
 }
@@ -59,7 +56,7 @@ fun addNewList(
     listName: String,
     groupId: Long,
     groceryListViewModel: GroceryListViewModel,
-    nameInputViewModel: NameInputViewModel
+    nameInputViewModel: NameInputViewModel,
 ) {
     nameInputViewModel.getNameInput()
     if (groupId > 0) {

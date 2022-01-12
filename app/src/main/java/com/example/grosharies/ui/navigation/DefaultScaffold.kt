@@ -7,6 +7,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.example.grosharies.ui.theme.GroshariesTheme
 
 @ExperimentalAnimationApi
 @Composable
@@ -16,8 +17,10 @@ fun DefaultScaffold() {
     Scaffold(
         topBar = { TopBar(navController) },
         content = {
-            Surface(modifier = Modifier.padding(it)) {
-                Navigator(navController = navController)
+            GroshariesTheme {
+                Surface(modifier = Modifier.padding(it)) {
+                    Navigator(navController = navController)
+                }
             }
         },
         bottomBar = { BottomNavigator(navController) }

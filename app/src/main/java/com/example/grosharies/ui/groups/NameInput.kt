@@ -17,7 +17,6 @@ import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.setTitle
-import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
 fun NameInput(navController: NavController, nameInputViewModel: NameInputViewModel) {
@@ -32,39 +31,39 @@ fun NameInput(navController: NavController, nameInputViewModel: NameInputViewMod
         }
     }
 
-    GroshariesTheme {
-        Column(
-            modifier = Modifier
-                .padding(
-                    PaddingValues(
-                        start = 32.dp,
-                        end = 32.dp,
-                    )
+    Column(
+        modifier = Modifier
+            .padding(
+                PaddingValues(
+                    start = 32.dp,
+                    end = 32.dp,
                 )
-                .fillMaxSize()
-        ) {
-            Column(modifier = Modifier.weight(7f).padding(vertical = 32.dp)) {
-                InfoText()
+            )
+            .fillMaxSize()
+    ) {
+        Column(modifier = Modifier
+            .weight(7f)
+            .padding(vertical = 32.dp)) {
+            InfoText()
 
-                Column {
-                    Row {
-                        DefaultTextInputField(
-                            value = nameValue.value,
-                            onChange = { nameValue.value = it },
-                            label = "Your name"
-                        )
-                    }
+            Column {
+                Row {
+                    DefaultTextInputField(
+                        value = nameValue.value,
+                        onChange = { nameValue.value = it },
+                        label = "Your name"
+                    )
                 }
             }
-            Column(modifier = Modifier.weight(1f)) {
-                MainButton(text = "Save", onClickListener = {
-                    nameInputViewModel.insertNameInput(
-                        com.example.grosharies.data.nameInput.NameInput(
-                            name = nameValue.value.text
-                        )
+        }
+        Column(modifier = Modifier.weight(1f)) {
+            MainButton(text = "Save", onClickListener = {
+                nameInputViewModel.insertNameInput(
+                    com.example.grosharies.data.nameInput.NameInput(
+                        name = nameValue.value.text
                     )
-                })
-            }
+                )
+            })
         }
     }
 }

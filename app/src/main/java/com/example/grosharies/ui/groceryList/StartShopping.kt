@@ -20,17 +20,16 @@ import com.example.grosharies.data.listItem.ListItem
 import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.setTitle
-import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.SecondaryColor
 
 @Composable
 fun StartShopping(
     listItemViewModel: ListItemViewModel,
-    navController: NavController
+    navController: NavController,
 ) {
 
     fun finishShopping(listItems: MutableList<ListItem>) {
-        listItems.forEach {listItem ->
+        listItems.forEach { listItem ->
             listItemViewModel.updateListItem(listItem = listItem)
         }
         navController.navigateUp()
@@ -38,64 +37,63 @@ fun StartShopping(
         // TODO: send edited values to the overview
     }
 
-    GroshariesTheme {
-        setTitle("Start Shopping")
+    setTitle("Start Shopping")
 
-        val listItems = listItemViewModel.listItems.value
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween,
-        ) {
-            LazyColumn {
-                items(listItems.size) { index ->
-                    val name = listItems[index].itemName
-                    val amount = listItems[index].itemAmount
+    val listItems = listItemViewModel.listItems.value
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceBetween,
+    ) {
+        LazyColumn {
+            items(listItems.size) { index ->
+                val name = listItems[index].itemName
+                val amount = listItems[index].itemAmount
 
-                    val checkedState = remember { mutableStateOf(listItems[index].itemPurchased) }
+                val checkedState = remember { mutableStateOf(listItems[index].itemPurchased) }
 
-                    fun onCheckedChange(it: Boolean) {
-                        checkedState.value = !it
-                        listItems[index].itemPurchased = !it
-                    }
+                fun onCheckedChange(it: Boolean) {
+                    checkedState.value = !it
+                    listItems[index].itemPurchased = !it
+                }
 
-                    Row(
+                Row(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth()
+                        .clickable { onCheckedChange(checkedState.value) }
+                ) {
+                    Checkbox(
+                        checked = checkedState.value,
                         modifier = Modifier
-                            .padding(8.dp)
-                            .fillMaxWidth()
-                            .clickable { onCheckedChange(checkedState.value) }
+                            .padding(8.dp),
+                        onCheckedChange = { onCheckedChange(checkedState.value) },
+                        colors = CheckboxDefaults.colors(checkedColor = SecondaryColor,
+                            checkmarkColor = Color.White)
+                    )
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Checkbox(
-                            checked = checkedState.value,
-                            modifier = Modifier
-                                .padding(8.dp),
-                            onCheckedChange = { onCheckedChange(checkedState.value) },
-                            colors = CheckboxDefaults.colors(checkedColor = SecondaryColor, checkmarkColor = Color.White)
-                        )
-                        Column(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Row(modifier = Modifier.fillMaxWidth()) {
-                                Text(
-                                    text = name,
-                                    style = TextStyle(textDecoration = if (checkedState.value) TextDecoration.LineThrough else TextDecoration.None),
-                                    modifier = Modifier
-                                        .padding(8.dp)
-                                        .weight(5f)
-                                )
-                                Text(
-                                    text = "$amount x",
-                                    modifier = Modifier
-                                        .padding(8.dp)
-                                        .weight(1f)
-                                )
-                            }
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            Text(
+                                text = name,
+                                style = TextStyle(textDecoration = if (checkedState.value) TextDecoration.LineThrough else TextDecoration.None),
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .weight(5f)
+                            )
+                            Text(
+                                text = "$amount x",
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .weight(1f)
+                            )
                         }
                     }
                 }
             }
-            MainButton(text = "Finish shopping", onClickListener = { finishShopping(listItems) })
         }
+        MainButton(text = "Finish shopping", onClickListener = { finishShopping(listItems) })
     }
 }

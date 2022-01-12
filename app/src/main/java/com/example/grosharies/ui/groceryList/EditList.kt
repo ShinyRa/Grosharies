@@ -17,7 +17,6 @@ import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.setTitle
-import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
 fun EditList(groupId: String? = null, listId: String, navController: NavController) {
@@ -30,7 +29,7 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
 
     var groceryList = groceryListViewModel.groceryList.value
 
-    var editGroceryname = remember { mutableStateOf(TextFieldValue(groceryList?.listName ?: ""))}
+    var editGroceryname = remember { mutableStateOf(TextFieldValue(groceryList?.listName ?: "")) }
 
     fun saveEdit() {
         if (groceryList != null) {
@@ -41,30 +40,28 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
 
     setTitle("Edit List")
 
-    GroshariesTheme {
-        Surface(modifier = Modifier.padding(16.dp)) {
-            Column(modifier = Modifier.padding(PaddingValues(vertical = 16.dp))) {
-                Column(modifier = Modifier.weight(7f)) {
-                    DefaultTextInputField(
-                        label = "Name",
-                        value = editGroceryname.value,
-                        onChange = {
-                            editGroceryname.value = it
-                            groceryList?.listName = it.text
-                        },
-                        modifier = Modifier
-                            .padding(
-                                PaddingValues(
-                                    top = 8.dp,
-                                    bottom = 8.dp,
-                                    end = 4.dp,
-                                )
+    Surface(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(PaddingValues(vertical = 16.dp))) {
+            Column(modifier = Modifier.weight(7f)) {
+                DefaultTextInputField(
+                    label = "Name",
+                    value = editGroceryname.value,
+                    onChange = {
+                        editGroceryname.value = it
+                        groceryList?.listName = it.text
+                    },
+                    modifier = Modifier
+                        .padding(
+                            PaddingValues(
+                                top = 8.dp,
+                                bottom = 8.dp,
+                                end = 4.dp,
                             )
-                    )
-                }
-                Column(modifier = Modifier.weight(1f)) {
-                    MainButton(text = "Save", onClickListener = { saveEdit() })
-                }
+                        )
+                )
+            }
+            Column(modifier = Modifier.weight(1f)) {
+                MainButton(text = "Save", onClickListener = { saveEdit() })
             }
         }
     }
