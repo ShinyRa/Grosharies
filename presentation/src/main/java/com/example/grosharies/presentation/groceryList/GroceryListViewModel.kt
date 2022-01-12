@@ -1,4 +1,4 @@
-package com.example.grosharies.data.GroceryList
+package com.example.grosharies.presentation.groceryList
 
 import android.app.Application
 import androidx.compose.runtime.MutableState
