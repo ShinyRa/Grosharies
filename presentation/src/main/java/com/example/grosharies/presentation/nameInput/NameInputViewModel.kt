@@ -3,7 +3,10 @@ package com.example.grosharies.presentation.nameInput
 import android.app.Application
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.grosharies.data.GroshariesRoomDatabase
 import com.example.grosharies.data.nameInput.NameInput
 import com.example.grosharies.data.nameInput.NameInputRepository

@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.grosharies.R
-import com.example.grosharies.data.GroceryList.GroceryListViewModel
 import com.example.grosharies.data.groceryList.GroceryList
+import com.example.grosharies.presentation.groceryList.GroceryListViewModel
 import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.ui.common.RoundedButton
@@ -35,7 +35,6 @@ import com.example.grosharies.ui.theme.backdrop
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import com.github.marlonlom.utilities.timeago.TimeAgoMessages
 import java.util.*
-
 
 @Composable
 fun ListOverview(
