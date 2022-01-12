@@ -32,6 +32,9 @@ fun ListItemNew(
     itemName.value = TextFieldValue(currentListItem.itemName)
     itemAmount.value = TextFieldValue(currentListItem.itemAmount)
 
+    /*
+     * update an item if the id's are not null or zero otherwise add a new item
+     */
     fun saveListItem(currentListItem: ListItem) {
         if (currentListItem.id == null || currentListItem.id == 0L) {
             currentListItem.listId = listId?.toLong()

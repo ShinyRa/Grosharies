@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.app.Application
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.grosharies.data.GroshariesRoomDatabase
-import com.example.grosharies.data.group.Group
 import com.example.grosharies.data.listItem.ListItem
 import com.example.grosharies.data.listItem.ListItemRepository
 import kotlinx.coroutines.Dispatchers
@@ -25,13 +27,20 @@ class ListItemViewModel(application: Application) : AndroidViewModel(application
         repository = ListItemRepository(listItemDao = listItemDao)
     }
 
+    /*
+     * get a list item or create an empty one
+     */
     fun getListItemById(id: Int?) {
         viewModelScope.launch(Dispatchers.IO) {
-            listItem.value = repository.getListItemById(id) ?: ListItem(itemName = "", itemAmount = "1", itemPurchased = false)
+            listItem.value = repository.getListItemById(id) ?: ListItem(
+                itemName = "",
+                itemAmount = "1",
+                itemPurchased = false
+            )
         }
     }
 
-    fun getListItemsByListId(listId: Int?){
+    fun getListItemsByListId(listId: Int?) {
         viewModelScope.launch(Dispatchers.IO) {
             listItems.value = repository.getListItemByListId(listId)
         }

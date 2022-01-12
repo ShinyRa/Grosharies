@@ -2,7 +2,6 @@ package com.example.grosharies.ui.common
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +16,7 @@ import com.example.grosharies.ui.theme.PrimaryColor
 import com.example.grosharies.ui.theme.SecondaryColor
 import com.example.grosharies.ui.theme.textColor
 
+//This is a composable for the main button, This is a prefab that can be used multiple times using the parameters
 @Composable
 fun MainButton(text: String, onClickListener: () -> Unit, isSecondary: Boolean = false) {
     // Create a Main Button or Normal Button
@@ -62,6 +62,7 @@ fun ElevatedButton(text: String, color: Color = Color.White, onClickListener: ()
     }
 }
 
+//A button with rounded edges using the same functions as the main button
 @Composable
 fun RoundedButton(text: String, onClickListener: () -> Unit, isSecondary: Boolean = false) {
     // Rounded Button
@@ -161,8 +162,8 @@ fun IconButtonRightSide(text: String, color: Color = Color.White, onClickListene
 
 @Composable
 fun CustomBackgroundButtons(text: String, color: Color = Color.White, onClickListener: () -> Unit) {
-//custom background buttons
-// create a variable mainButtonColor and define background Color and content Color
+    //custom background buttons
+    // create a variable mainButtonColor and define background Color and content Color
     val mainButtonColor = ButtonDefaults.buttonColors(
         backgroundColor = Color.Magenta,
         contentColor = MaterialTheme.colors.surface

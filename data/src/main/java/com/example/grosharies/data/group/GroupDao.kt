@@ -4,7 +4,6 @@ import androidx.room.*
 
 @Dao
 interface GroupDao {
-
     @Query("SELECT * FROM `Group`")
     fun getGroups(): MutableList<Group>
 

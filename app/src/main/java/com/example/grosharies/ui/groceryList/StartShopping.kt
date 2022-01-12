@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Checkbox
-import androidx.compose.material.CheckboxColors
 import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -27,14 +26,14 @@ fun StartShopping(
     listItemViewModel: ListItemViewModel,
     navController: NavController,
 ) {
-
+    /*
+     * update the listItems based on if the checkbox is clicked
+     */
     fun finishShopping(listItems: MutableList<ListItem>) {
         listItems.forEach { listItem ->
             listItemViewModel.updateListItem(listItem = listItem)
         }
         navController.navigateUp()
-        // TODO: Think about namespace throughout the app
-        // TODO: send edited values to the overview
     }
 
     setTitle("Start Shopping")
@@ -45,6 +44,7 @@ fun StartShopping(
             .fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
+        // loop though the listItems with a lazyColumn
         LazyColumn {
             items(listItems.size) { index ->
                 val name = listItems[index].itemName
@@ -68,8 +68,10 @@ fun StartShopping(
                         modifier = Modifier
                             .padding(8.dp),
                         onCheckedChange = { onCheckedChange(checkedState.value) },
-                        colors = CheckboxDefaults.colors(checkedColor = SecondaryColor,
-                            checkmarkColor = Color.White)
+                        colors = CheckboxDefaults.colors(
+                            checkedColor = SecondaryColor,
+                            checkmarkColor = Color.White
+                        )
                     )
                     Column(
                         modifier = Modifier.fillMaxWidth(),

@@ -8,7 +8,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.data.GroceryList.GroceryListViewModel
 import com.example.grosharies.data.groceryList.GroceryList
-import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.presentation.nameInput.NameInputViewModel
 import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.common.MainButton
@@ -21,13 +20,12 @@ fun NewList(
     groupId: String,
     navController: NavController,
     groceryListViewModel: GroceryListViewModel,
-    listItemViewModel: ListItemViewModel,
-    nameInputViewModel: NameInputViewModel,
+    nameInputViewModel: NameInputViewModel
 ) {
     setTitle("New shopping list")
     val listName = remember { mutableStateOf(TextFieldValue("")) }
 
-
+    // the form for updating the name of the list
     Column(Modifier.padding(16.dp)) {
         Column(Modifier.weight(7f)) {
             DefaultTextInputField(
@@ -42,16 +40,21 @@ fun NewList(
             MainButton(
                 text = "Create list ",
                 onClickListener = {
-                    addNewList(listName.value.text,
+                    addNewList(
+                        listName.value.text,
                         groupId.toLong(),
                         groceryListViewModel,
-                        nameInputViewModel)
+                        nameInputViewModel
+                    )
                     navController.navigate(Screen.GroupDetail.withArgs(groupId))
                 })
         }
     }
 }
 
+/*
+ * update the groceryList with the new name and update the "lastEdited" field to the current date
+ */
 fun addNewList(
     listName: String,
     groupId: Long,

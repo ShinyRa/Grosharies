@@ -28,7 +28,7 @@ class GroupViewModel(application: Application) : AndroidViewModel(application) {
         groups.value = repository.getGroups()
     }
 
-    fun getGroups() {
+    private fun getGroups() {
         viewModelScope.launch(Dispatchers.IO) {
             groups.value = repository.getGroups()
         }

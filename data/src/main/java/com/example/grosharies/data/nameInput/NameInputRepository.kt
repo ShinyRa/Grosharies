@@ -1,30 +1,24 @@
 package com.example.grosharies.data.nameInput
 
-import androidx.lifecycle.LiveData
-
 class NameInputRepository(private val nameInputDao: NameInputDao) {
 
-    val getAllNameInputs: LiveData<List<NameInput>> = nameInputDao.getAllNameInputs()
+    fun getNameInput(): NameInput? {
+        return nameInputDao.getNameInput()
+    }
 
     suspend fun insertNameInput(nameInput: NameInput) {
         nameInputDao.insertNameInput(nameInput)
     }
 
-    suspend fun updateNameInput(nameInput: NameInput) {
-        nameInputDao.updateNameInput(nameInput)
-    }
-
-    suspend fun getNameInput() : NameInput? {
-        return nameInputDao.getNameInput()
-
-    }
-
-    suspend fun deleteNameInput(nameInput: NameInput) {
-        nameInputDao.deleteNameInput(nameInput)
-    }
-
+    //checks if the user exists
     fun ifUserExists(): NameInput? {
         return nameInputDao.getNameInput()
     }
-
+//    suspend fun updateNameInput(nameInput: NameInput) {
+//        nameInputDao.updateNameInput(nameInput)
+//    }
+//
+//    suspend fun deleteNameInput(nameInput: NameInput) {
+//        nameInputDao.deleteNameInput(nameInput)
+//    }
 }

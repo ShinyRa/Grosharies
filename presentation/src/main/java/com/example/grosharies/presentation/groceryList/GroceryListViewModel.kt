@@ -1,4 +1,4 @@
-package com.example.grosharies.data.GroceryList
+package com.example.grosharies.presentation.groceryList
 
 import android.app.Application
 import androidx.compose.runtime.MutableState
@@ -13,31 +13,24 @@ import kotlinx.coroutines.launch
 class GroceryListViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: GroceryListRepository
 
-    val mutableGroceryList: MutableLiveData<String> = MutableLiveData()
-    val GroceryLists: LiveData<List<GroceryList>>
+    private val mutableGroceryList: MutableLiveData<String> = MutableLiveData()
+    val groceryLists: LiveData<List<GroceryList>>
     val groceryList: MutableState<GroceryList?> = mutableStateOf(null)
 
-//    val groceryList: LiveData<GroceryList>
-
+    /*
+     * initialize the repository and the groceryLists
+     */
     init {
         val groceryListDao = GroshariesRoomDatabase.getDatabase(application)!!.groceryListDao()
         repository = GroceryListRepository(groceryListDao)
 
-        GroceryLists = Transformations.switchMap(mutableGroceryList) { param ->
+        groceryLists = Transformations.switchMap(mutableGroceryList) { param ->
             if (param == "null") {
                 repository.getGroceryListsWithoutGroup()
             } else {
                 repository.getGroceryLists(param)
             }
         }
-
-//        groceryList = Transformations.switchMap(mutableGroceryList) { param ->
-//            repository.getGroceryListById(param)
-//        }
-    }
-
-    fun getListItemById(groupId: String) {
-        mutableGroceryList.value = groupId
     }
 
     fun getListItemsByGroup(groupId: String) {

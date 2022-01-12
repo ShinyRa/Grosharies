@@ -4,12 +4,6 @@ import androidx.lifecycle.LiveData
 
 class GroceryListRepository(private val groceryListDao: GroceryListDao) {
 
-    val getAllGroceryLists: LiveData<List<GroceryList>> = groceryListDao.getAllGroceryLists()
-
-    fun getGroceryListById(listId: String): LiveData<GroceryList> {
-        return groceryListDao.getGroceryListById(listId)
-    }
-
     fun getGroceryLists(groupId: String): LiveData<List<GroceryList>> {
         return groceryListDao.getGroceryLists(groupId)
     }
@@ -33,5 +27,4 @@ class GroceryListRepository(private val groceryListDao: GroceryListDao) {
     suspend fun deleteGroceryLists(groceryList: GroceryList) {
         groceryListDao.deleteGroceryLists(groceryList)
     }
-
 }

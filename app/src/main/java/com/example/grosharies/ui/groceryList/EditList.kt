@@ -1,8 +1,10 @@
 package com.example.grosharies.ui.groceryList
 
 import android.app.Application
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,13 +26,14 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
     val groceryListViewModel: GroceryListViewModel = viewModel(
         factory = GroceryListViewModel.GroceryListViewModelFactory(context.applicationContext as Application)
     )
-
     groceryListViewModel.getGroceryListById(listId.toInt())
 
-    var groceryList = groceryListViewModel.groceryList.value
+    val groceryList = groceryListViewModel.groceryList.value
+    val editGroceryName = remember { mutableStateOf(TextFieldValue(groceryList?.listName ?: "")) }
 
-    var editGroceryname = remember { mutableStateOf(TextFieldValue(groceryList?.listName ?: "")) }
-
+    /*
+     * save the edited list and navigate back to the group screen
+     */
     fun saveEdit() {
         if (groceryList != null) {
             groceryListViewModel.updateGroceryLists(groceryList)

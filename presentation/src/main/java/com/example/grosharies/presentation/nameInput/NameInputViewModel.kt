@@ -3,7 +3,10 @@ package com.example.grosharies.presentation.nameInput
 import android.app.Application
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.grosharies.data.GroshariesRoomDatabase
 import com.example.grosharies.data.nameInput.NameInput
 import com.example.grosharies.data.nameInput.NameInputRepository
@@ -13,9 +16,10 @@ import kotlinx.coroutines.launch
 class NameInputViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: NameInputRepository
 
-    val mutableListItems: MutableLiveData<String> = MutableLiveData()
+//    val mutableListItems: MutableLiveData<String> = MutableLiveData()
 
-    val username : MutableState<NameInput?> = mutableStateOf(null)
+    val username: MutableState<NameInput?> = mutableStateOf(null)
+
     init {
         val nameInputDao = GroshariesRoomDatabase.getDatabase(application)!!.nameInputDao()
         repository = NameInputRepository(nameInputDao)
@@ -23,9 +27,9 @@ class NameInputViewModel(application: Application) : AndroidViewModel(applicatio
         username.value = repository.ifUserExists()
     }
 
-    fun getAllNameInputsByGroup(groupId: String) {
-        mutableListItems.value = groupId
-    }
+//    fun getAllNameInputsByGroup(groupId: String) {
+//        mutableListItems.value = groupId
+//    }
 
     fun insertNameInput(nameInput: NameInput) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -34,6 +38,7 @@ class NameInputViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    //Gets the nameinput from
     fun getNameInput() {
         viewModelScope.launch(Dispatchers.IO) {
             username.value = repository.getNameInput()
@@ -41,17 +46,17 @@ class NameInputViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    fun updateNameInput(nameInput: NameInput) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.updateNameInput(nameInput)
-        }
-    }
-
-    fun deleteNameInput(nameInput: NameInput) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteNameInput(nameInput)
-        }
-    }
+//    fun updateNameInput(nameInput: NameInput) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            repository.updateNameInput(nameInput)
+//        }
+//    }
+//
+//    fun deleteNameInput(nameInput: NameInput) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            repository.deleteNameInput(nameInput)
+//        }
+//    }
 
     class NameInputViewModelFactory(
         private val application: Application

@@ -32,10 +32,8 @@ fun New(
         } else {
             groupViewModel.insertGroup(group)
         }
-
         navController.navigateUp()
     }
-
 
     groupViewModel.getGroupById(groupId)
 
@@ -55,7 +53,9 @@ fun New(
                         name.value = it
                         group.name = it.text
                     },
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp)
                 )
             }
             Column(modifier = Modifier.weight(1f)) {

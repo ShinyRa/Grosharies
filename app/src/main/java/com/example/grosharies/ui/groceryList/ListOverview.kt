@@ -8,23 +8,20 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.grosharies.R
-import com.example.grosharies.data.GroceryList.GroceryListViewModel
 import com.example.grosharies.data.groceryList.GroceryList
+import com.example.grosharies.presentation.groceryList.GroceryListViewModel
 import com.example.grosharies.presentation.group.GroupViewModel
 import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.ui.common.RoundedButton
@@ -33,10 +30,9 @@ import com.example.grosharies.ui.navigation.TopBarAction
 import com.example.grosharies.ui.navigation.setActions
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.backdrop
-import java.util.*
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import com.github.marlonlom.utilities.timeago.TimeAgoMessages
-
+import java.util.*
 
 @Composable
 fun ListOverview(
@@ -54,6 +50,10 @@ fun ListOverview(
         factory = GroupViewModel.GroupViewModelFactory(context.applicationContext as Application)
     )
 
+    /*
+     * Get the grocery personal groceryLists if the groupId is zero, otherwise get the groceryLists
+     * from a certain group
+     */
     if (groupId == "0") {
         groceryListViewModel.getListItemsWithoutGroup()
     } else {
@@ -74,7 +74,7 @@ fun ListOverview(
     /*
      * Set the title to the group name if a group was found, otherwise to My lists
      */
-    setTitle(if (groupId != "0") group?.name else "My lists")
+    setTitle(if (groupId != "0") group.name else "My lists")
 
     /*
      * Add an edit group action to topbar if route matches ListOverview and a groupId exists
@@ -89,20 +89,24 @@ fun ListOverview(
         }
     }
 
-    val listItems = groceryListViewModel.GroceryLists.observeAsState(listOf()).value
+    val listItems = groceryListViewModel.groceryLists.observeAsState(listOf()).value
     val groceryLists: List<GroceryList> = listItems
 
-    Surface(color = backdrop,
+    Surface(
+        color = backdrop,
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
     ) {
         Column {
+            // check if the empty state should be shown
             if (groceryLists.isEmpty()) {
-                Column(modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text(
                         text = if (groupId != "0") "There are no lists here yet!" else "You don't have any lists yet!",
                         fontSize = 18.sp,
@@ -134,6 +138,7 @@ fun ListOverview(
                         .padding(vertical = 10.dp, horizontal = 8.dp)
                         .verticalScroll(ScrollState(0))
                 ) {
+                    // map through the groceryLists to show them individually in cards
                     groceryLists.map { groceryList ->
                         Card(
                             modifier = Modifier
@@ -158,13 +163,21 @@ fun ListOverview(
                                             .padding(8.dp)
                                             .weight(8f)
                                     ) {
-                                        Text(text = groceryList.listName,
-                                            fontWeight = FontWeight.Bold)
-                                        Text(text = "${humanReadableDuration(groceryList.lastEdited.time)}",
-                                            modifier = Modifier.padding(top = 8.dp,
-                                                bottom = 2.dp))
-                                        Text(text = "By: ${groceryList.createdBy}",
-                                            fontSize = 12.sp)
+                                        Text(
+                                            text = groceryList.listName,
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                        Text(
+                                            text = humanReadableDuration(groceryList.lastEdited.time),
+                                            modifier = Modifier.padding(
+                                                top = 8.dp,
+                                                bottom = 2.dp
+                                            )
+                                        )
+                                        Text(
+                                            text = "By: ${groceryList.createdBy}",
+                                            fontSize = 12.sp
+                                        )
                                     }
                                     Column(
                                         Modifier
@@ -185,10 +198,11 @@ fun ListOverview(
                     }
                 }
             }
-
-            Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier
-                .padding(vertical = 16.dp)
-                .weight(6f)) {
+            Column(
+                verticalArrangement = Arrangement.Bottom, modifier = Modifier
+                    .padding(vertical = 16.dp)
+                    .weight(6f)
+            ) {
                 RoundedButton(text = "Create new shopping list",
                     onClickListener = { addGroceryList() })
             }
@@ -196,6 +210,9 @@ fun ListOverview(
     }
 }
 
+/*
+ * navigate to the detail view when the card is clicked
+ */
 fun listCardClicked(
     navController: NavController,
     listItemViewModel: ListItemViewModel,
@@ -208,10 +225,13 @@ fun listCardClicked(
     )
 }
 
+/*
+ * convert a date to text like "an hour ago"
+ */
 fun humanReadableDuration(time: Long): String {
-    val LocaleBylanguageTag: Locale = Locale.forLanguageTag("en")
+    val localeBylanguageTag: Locale = Locale.forLanguageTag("en")
     val messages: TimeAgoMessages =
-        TimeAgoMessages.Builder().withLocale(LocaleBylanguageTag).build()
+        TimeAgoMessages.Builder().withLocale(localeBylanguageTag).build()
 
     return TimeAgo.using(time, messages)
 }

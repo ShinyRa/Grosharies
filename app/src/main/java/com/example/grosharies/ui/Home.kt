@@ -41,11 +41,9 @@ fun Home(navController: NavController) {
     }
 }
 
-
 @Composable
 fun Grosharies() {
     Text("Grosharies", fontSize = 50.sp, color = PrimaryColor, fontWeight = FontWeight.Bold)
-
 }
 
 @Composable
@@ -56,10 +54,10 @@ fun WelcomeTextOnHomeScreen() {
         textAlign = TextAlign.Center,
         color = textColorSecondary,
         modifier = Modifier
-            .fillMaxWidth().padding(vertical = 16.dp)
+            .fillMaxWidth()
+            .padding(vertical = 16.dp)
     )
 }
-
 
 @Composable
 fun ScreenImage() {
@@ -70,7 +68,6 @@ fun ScreenImage() {
             modifier = Modifier.fillMaxWidth()
         )
     }
-
 }
 
 @Composable
@@ -80,7 +77,6 @@ fun ButtonsHomeScreen(navController: NavController) {
             .fillMaxSize()
             .padding(horizontal = 16.dp, vertical = 32.dp)
     ) {
-//        RoundedButton(text = "Most recent list", isSecondary = true, onClickListener = { /*TODO*/ })
 
         RoundedButton(
             text = "Groups",

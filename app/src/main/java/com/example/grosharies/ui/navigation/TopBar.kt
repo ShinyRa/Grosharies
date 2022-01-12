@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.grosharies.R
 
-
 class TopBarAction(
     val iconResource: Int,
     val action: () -> Unit,

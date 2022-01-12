@@ -28,24 +28,28 @@ fun ListDetail(
     groupId: String,
     listId: String,
     navController: NavController,
-    listItemViewModel: ListItemViewModel,
+    listItemViewModel: ListItemViewModel
 ) {
     listItemViewModel.getListItemsByListId(listId.toInt())
     val listItems = listItemViewModel.listItems.value
 
+    // navigate to the newListItem screen
     fun addListItem() {
         navController.navigate(Screen.ListItemNew.withArgs(listId, "0"))
     }
 
+    // navigate to the startShoppings screen
     fun startShopping() {
         navController.navigate(Screen.StartShopping.route)
     }
 
+    // delete an item and update the list
     fun deleteListItem(listItem: ListItem) {
         listItemViewModel.deleteListItem(listItem)
         listItemViewModel.getListItemsByListId(listId.toInt())
     }
 
+    // edit an item
     fun editListItem(listItemId: Int) {
         listItemViewModel.getListItemById(listItemId)
         navController.navigate(Screen.ListItemNew.withArgs(listId, listItemId.toString()))
