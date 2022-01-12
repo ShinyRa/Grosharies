@@ -40,10 +40,8 @@ fun New(
     val group = groupViewModel.group.value
 
     val name = remember { mutableStateOf(TextFieldValue("")) }
-    val password = remember { mutableStateOf(TextFieldValue("")) }
 
     name.value = TextFieldValue(group.name)
-    password.value = TextFieldValue("")
 
     Surface(modifier = Modifier.padding(16.dp)) {
         Column(modifier = Modifier.padding(PaddingValues(vertical = 16.dp))) {
@@ -58,14 +56,6 @@ fun New(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 16.dp)
-                )
-                DefaultTextInputField(
-                    value = password.value,
-                    label = "Password",
-                    onChange = {
-                        password.value = it
-                    },
-                    modifier = Modifier.fillMaxWidth()
                 )
             }
             Column(modifier = Modifier.weight(1f)) {
