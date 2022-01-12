@@ -22,7 +22,6 @@ import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.TopBarAction
 import com.example.grosharies.ui.navigation.setActions
 import com.example.grosharies.ui.navigation.setTitle
-import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
 fun ListDetail(
@@ -69,80 +68,79 @@ fun ListDetail(
         }
     }
 
-    GroshariesTheme {
-        val listItemsList: List<ListItem> = listItems
-        setTitle("Shopping list")
 
-        Box {
-            Column {
-                LazyColumn(
-                    contentPadding = PaddingValues(
-                        start = 16.dp,
-                        top = 8.dp,
-                        end = 16.dp,
-                        bottom = 8.dp
-                    )
-                ) {
-                    items(listItemsList.size) { index ->
-                        Column {
-                            Row(
-                                Modifier
-                                    .padding(
-                                        PaddingValues(
-                                            start = 16.dp,
-                                            top = 8.dp,
-                                            end = 16.dp,
-                                        )
+    val listItemsList: List<ListItem> = listItems
+    setTitle("Shopping list")
+
+    Box {
+        Column {
+            LazyColumn(
+                contentPadding = PaddingValues(
+                    start = 16.dp,
+                    top = 8.dp,
+                    end = 16.dp,
+                    bottom = 8.dp
+                )
+            ) {
+                items(listItemsList.size) { index ->
+                    Column {
+                        Row(
+                            Modifier
+                                .padding(
+                                    PaddingValues(
+                                        start = 16.dp,
+                                        top = 8.dp,
+                                        end = 16.dp,
                                     )
-                                    .fillMaxWidth()
-                                    .clickable { editListItem(listItemsList[index].id?.toInt()!!) },
-                                horizontalArrangement = Arrangement.SpaceBetween,
+                                )
+                                .fillMaxWidth()
+                                .clickable { editListItem(listItemsList[index].id?.toInt()!!) },
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .padding(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Row(
-                                    modifier = Modifier
-                                        .padding(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
+                                Column(
+                                    Modifier
+                                        .padding(8.dp)
+                                        .weight(3f),
+                                    horizontalAlignment = Alignment.Start
                                 ) {
-                                    Column(
-                                        Modifier
-                                            .padding(8.dp)
-                                            .weight(3f),
-                                        horizontalAlignment = Alignment.Start
-                                    ) {
-                                        if (listItemsList[index].itemPurchased) {
-                                            Text(
-                                                text = listItemsList[index].itemName,
-                                                style = TextStyle(textDecoration = TextDecoration.LineThrough)
-                                            )
-                                        } else {
-                                            Text(
-                                                text = listItemsList[index].itemName,
-                                            )
-                                        }
-
-                                    }
-                                    Column(
-                                        Modifier
-                                            .weight(2f),
-                                        horizontalAlignment = Alignment.End
-                                    ) {
+                                    if (listItemsList[index].itemPurchased) {
                                         Text(
-                                            text = "${listItemsList[index].itemAmount} x"
+                                            text = listItemsList[index].itemName,
+                                            style = TextStyle(textDecoration = TextDecoration.LineThrough)
+                                        )
+                                    } else {
+                                        Text(
+                                            text = listItemsList[index].itemName,
                                         )
                                     }
-                                    Column(
-                                        Modifier
-                                            .padding(8.dp)
-                                            .weight(1f),
-                                        horizontalAlignment = Alignment.End
-                                    ) {
-                                        Row {
-                                            IconButton(onClick = { deleteListItem(listItemsList[index]) }) {
-                                                Icon(
-                                                    painterResource(id = R.drawable.ic_close_24),
-                                                    contentDescription = "Delete"
-                                                )
-                                            }
+
+                                }
+                                Column(
+                                    Modifier
+                                        .weight(2f),
+                                    horizontalAlignment = Alignment.End
+                                ) {
+                                    Text(
+                                        text = "${listItemsList[index].itemAmount} x"
+                                    )
+                                }
+                                Column(
+                                    Modifier
+                                        .padding(8.dp)
+                                        .weight(1f),
+                                    horizontalAlignment = Alignment.End
+                                ) {
+                                    Row {
+                                        IconButton(onClick = { deleteListItem(listItemsList[index]) }) {
+                                            Icon(
+                                                painterResource(id = R.drawable.ic_close_24),
+                                                contentDescription = "Delete"
+                                            )
                                         }
                                     }
                                 }
@@ -150,13 +148,13 @@ fun ListDetail(
                         }
                     }
                 }
-                MainButton(text = "Add item", onClickListener = {
-                    addListItem()
-                })
-                MainButton(text = "Start shopping", onClickListener = {
-                    startShopping()
-                })
             }
+            MainButton(text = "Add item", onClickListener = {
+                addListItem()
+            })
+            MainButton(text = "Start shopping", onClickListener = {
+                startShopping()
+            })
         }
     }
 }

@@ -35,44 +35,41 @@ fun NameInput(navController: NavController, nameInputViewModel: NameInputViewMod
         }
     }
 
-    GroshariesTheme {
+    Column(
+        modifier = Modifier
+            .padding(
+                PaddingValues(
+                    start = 32.dp,
+                    end = 32.dp,
+                )
+            )
+            .fillMaxSize()
+    ) {
         Column(
             modifier = Modifier
-                .padding(
-                    PaddingValues(
-                        start = 32.dp,
-                        end = 32.dp,
-                    )
-                )
-                .fillMaxSize()
+                .weight(7f)
+                .padding(vertical = 32.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .weight(7f)
-                    .padding(vertical = 32.dp)
-            ) {
-                InfoText()
+            InfoText()
 
-                Column {
-                    Row {
-                        DefaultTextInputField(
-                            value = nameValue.value,
-                            onChange = { nameValue.value = it },
-                            label = "Your name"
-                        )
-                    }
+            Column {
+                Row {
+                    DefaultTextInputField(
+                        value = nameValue.value,
+                        onChange = { nameValue.value = it },
+                        label = "Your name"
+                    )
                 }
             }
-            //Sends the name that has been entered in the textfield to the viewmodel
-            Column(modifier = Modifier.weight(1f)) {
-                MainButton(text = "Save", onClickListener = {
-                    nameInputViewModel.insertNameInput(
-                        NameInput(
-                            name = nameValue.value.text
-                        )
+        }
+        Column(modifier = Modifier.weight(1f)) {
+            MainButton(text = "Save", onClickListener = {
+                nameInputViewModel.insertNameInput(
+                    com.example.grosharies.data.nameInput.NameInput(
+                        name = nameValue.value.text
                     )
-                })
-            }
+                )
+            })
         }
     }
 }

@@ -30,7 +30,6 @@ import com.example.grosharies.ui.common.DefaultText
 import com.example.grosharies.ui.common.RoundedButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.setTitle
-import com.example.grosharies.ui.theme.GroshariesTheme
 import com.example.grosharies.ui.theme.backdrop
 
 @ExperimentalAnimationApi
@@ -53,72 +52,70 @@ fun Overview(
 
     val groups = groupViewModel.groups.value
 
-    GroshariesTheme {
-        Surface(
-            color = backdrop, modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-        ) {
-            Column {
-                if (groups.size == 0) {
-                    Column(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-
-                        Text(
-                            text = "You don't have any groups yet!",
-                            fontSize = 18.sp,
-                            textAlign = TextAlign.Center,
-                            fontStyle = FontStyle.Italic,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 16.dp)
-                        )
-                        Text(
-                            text = "Create or join one to start your shared shopping experience",
-                            fontSize = 14.sp,
-                            textAlign = TextAlign.Center,
-                            fontStyle = FontStyle.Italic,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 32.dp)
-                        )
-                        Image(
-                            painter = painterResource(R.drawable.no_groups),
-                            contentDescription = "No lists yet!",
-                            modifier = Modifier.size(300.dp, 300.dp)
-                        )
-                    }
-                } else {
-                    Column(
-                        modifier = Modifier
-                            .weight(6f)
-                            .padding(PaddingValues(vertical = 10.dp, horizontal = 8.dp))
-                            .verticalScroll(state = ScrollState(0))
-                    ) {
-                        groups.map { group ->
-                            GroupCard(
-                                group = group,
-                                onClick = { navController.navigate(Screen.Lists.withArgs(group.id.toString())) },
-                                deleteGroup = { groupToDelete ->
-                                    groupViewModel.deleteGroup(groupToDelete)
-                                }
-                            )
-                        }
-                    }
-                }
+    Surface(
+        color = backdrop, modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+    ) {
+        Column {
+            if (groups.size == 0) {
                 Column(
-                    verticalArrangement = Arrangement.Bottom,
                     modifier = Modifier
-                        .padding(vertical = 16.dp)
-                        .weight(1f)
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    RoundedButton(text = "Create new group",
-                        onClickListener = { navController.navigate(Screen.GroupNew.route) })
+
+                    Text(
+                        text = "You don't have any groups yet!",
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Center,
+                        fontStyle = FontStyle.Italic,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp)
+                    )
+                    Text(
+                        text = "Create or join one to start your shared shopping experience",
+                        fontSize = 14.sp,
+                        textAlign = TextAlign.Center,
+                        fontStyle = FontStyle.Italic,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 32.dp)
+                    )
+                    Image(
+                        painter = painterResource(R.drawable.no_groups),
+                        contentDescription = "No lists yet!",
+                        modifier = Modifier.size(300.dp, 300.dp)
+                    )
                 }
+            } else {
+                Column(
+                    modifier = Modifier
+                        .weight(6f)
+                        .padding(PaddingValues(vertical = 10.dp, horizontal = 8.dp))
+                        .verticalScroll(state = ScrollState(0))
+                ) {
+                    groups.map { group ->
+                        GroupCard(
+                            group = group,
+                            onClick = { navController.navigate(Screen.Lists.withArgs(group.id.toString())) },
+                            deleteGroup = { groupToDelete ->
+                                groupViewModel.deleteGroup(groupToDelete)
+                            }
+                        )
+                    }
+                }
+            }
+            Column(
+                verticalArrangement = Arrangement.Bottom,
+                modifier = Modifier
+                    .padding(vertical = 16.dp)
+                    .weight(1f)
+            ) {
+                RoundedButton(text = "Create new group",
+                    onClickListener = { navController.navigate(Screen.GroupNew.route) })
             }
         }
     }
