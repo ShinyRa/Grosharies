@@ -14,7 +14,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.grosharies.data.GroceryList.GroceryListViewModel
+import com.example.grosharies.presentation.groceryList.GroceryListViewModel
 import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
@@ -48,9 +48,9 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
             Column(modifier = Modifier.weight(7f)) {
                 DefaultTextInputField(
                     label = "Name",
-                    value = editGroceryname.value,
+                    value = editGroceryName.value,
                     onChange = {
-                        editGroceryname.value = it
+                        editGroceryName.value = it
                         groceryList?.listName = it.text
                     },
                     modifier = Modifier
