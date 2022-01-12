@@ -53,6 +53,10 @@ fun ListOverview(
         factory = GroupViewModel.GroupViewModelFactory(context.applicationContext as Application)
     )
 
+    /*
+     * Get the grocery personal groceryLists if the groupId is zero, otherwise get the groceryLists
+     * from a certain group
+     */
     if (groupId == "0") {
         groceryListViewModel.getListItemsWithoutGroup()
     } else {
@@ -99,6 +103,7 @@ fun ListOverview(
                 .fillMaxHeight()
         ) {
             Column {
+                // check if the empty state should be shown
                 if (groceryLists.isEmpty()) {
                     Column(
                         modifier = Modifier
@@ -137,6 +142,7 @@ fun ListOverview(
                             .padding(vertical = 10.dp, horizontal = 8.dp)
                             .verticalScroll(ScrollState(0))
                     ) {
+                        // map through the groceryLists to show them individually in cards
                         groceryLists.map { groceryList ->
                             Card(
                                 modifier = Modifier
@@ -196,7 +202,6 @@ fun ListOverview(
                         }
                     }
                 }
-
                 Column(
                     verticalArrangement = Arrangement.Bottom, modifier = Modifier
                         .padding(vertical = 16.dp)
@@ -210,6 +215,9 @@ fun ListOverview(
     }
 }
 
+/*
+ * navigate to the detail view when the card is clicked
+ */
 fun listCardClicked(
     navController: NavController,
     listItemViewModel: ListItemViewModel,
@@ -222,10 +230,13 @@ fun listCardClicked(
     )
 }
 
+/*
+ * convert a date to text like "an hour ago"
+ */
 fun humanReadableDuration(time: Long): String {
-    val LocaleBylanguageTag: Locale = Locale.forLanguageTag("en")
+    val localeBylanguageTag: Locale = Locale.forLanguageTag("en")
     val messages: TimeAgoMessages =
-        TimeAgoMessages.Builder().withLocale(LocaleBylanguageTag).build()
+        TimeAgoMessages.Builder().withLocale(localeBylanguageTag).build()
 
     return TimeAgo.using(time, messages)
 }

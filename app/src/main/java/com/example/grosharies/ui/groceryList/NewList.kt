@@ -29,6 +29,7 @@ fun NewList(
     setTitle("New shopping list")
     val listName = remember { mutableStateOf(TextFieldValue("")) }
 
+    // the form for updating the name of the list
     GroshariesTheme {
         Column(Modifier.padding(16.dp)) {
             Column(Modifier.weight(7f)) {
@@ -57,6 +58,9 @@ fun NewList(
     }
 }
 
+/*
+ * update the groceryList with the new name and update the "lastEdited" field to the current date
+ */
 fun addNewList(
     listName: String,
     groupId: Long,

@@ -27,7 +27,9 @@ fun StartShopping(
     listItemViewModel: ListItemViewModel,
     navController: NavController
 ) {
-
+    /*
+     * update the listItems based on if the checkbox is clicked
+     */
     fun finishShopping(listItems: MutableList<ListItem>) {
         listItems.forEach { listItem ->
             listItemViewModel.updateListItem(listItem = listItem)
@@ -44,6 +46,7 @@ fun StartShopping(
                 .fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
+            // loop though the listItems with a lazyColumn
             LazyColumn {
                 items(listItems.size) { index ->
                     val name = listItems[index].itemName
