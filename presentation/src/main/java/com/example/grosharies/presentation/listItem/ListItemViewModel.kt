@@ -27,6 +27,9 @@ class ListItemViewModel(application: Application) : AndroidViewModel(application
         repository = ListItemRepository(listItemDao = listItemDao)
     }
 
+    /*
+     * get a list item or create an empty one
+     */
     fun getListItemById(id: Int?) {
         viewModelScope.launch(Dispatchers.IO) {
             listItem.value = repository.getListItemById(id) ?: ListItem(

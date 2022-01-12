@@ -1,6 +1,5 @@
 package com.example.grosharies.data.group
 
-
 class GroupRepository(private val groupDao: GroupDao) {
 
     fun getGroups(): MutableList<Group> {

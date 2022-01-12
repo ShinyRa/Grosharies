@@ -32,6 +32,9 @@ fun EditList(groupId: String? = null, listId: String, navController: NavControll
     val groceryList = groceryListViewModel.groceryList.value
     val editGroceryName = remember { mutableStateOf(TextFieldValue(groceryList?.listName ?: "")) }
 
+    /*
+     * save the edited list and navigate back to the group screen
+     */
     fun saveEdit() {
         if (groceryList != null) {
             groceryListViewModel.updateGroceryLists(groceryList)

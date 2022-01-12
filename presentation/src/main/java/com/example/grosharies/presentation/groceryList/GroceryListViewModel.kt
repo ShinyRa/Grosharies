@@ -1,4 +1,4 @@
-package com.example.grosharies.data.GroceryList
+package com.example.grosharies.presentation.groceryList
 
 import android.app.Application
 import androidx.compose.runtime.MutableState
@@ -17,6 +17,9 @@ class GroceryListViewModel(application: Application) : AndroidViewModel(applicat
     val groceryLists: LiveData<List<GroceryList>>
     val groceryList: MutableState<GroceryList?> = mutableStateOf(null)
 
+    /*
+     * initialize the repository and the groceryLists
+     */
     init {
         val groceryListDao = GroshariesRoomDatabase.getDatabase(application)!!.groceryListDao()
         repository = GroceryListRepository(groceryListDao)
@@ -28,10 +31,6 @@ class GroceryListViewModel(application: Application) : AndroidViewModel(applicat
                 repository.getGroceryLists(param)
             }
         }
-    }
-
-    fun getListItemById(groupId: String) {
-        mutableGroceryList.value = groupId
     }
 
     fun getListItemsByGroup(groupId: String) {
