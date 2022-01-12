@@ -18,7 +18,9 @@ import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.Screen
 import com.example.grosharies.ui.navigation.setTitle
 import com.example.grosharies.ui.theme.GroshariesTheme
+import com.example.grosharies.data.nameInput.NameInput
 
+//This function displays the screen where you can enter your name and it will be stored in the database
 @Composable
 fun NameInput(navController: NavController, nameInputViewModel: NameInputViewModel) {
     setTitle("Who are you?")
@@ -26,6 +28,7 @@ fun NameInput(navController: NavController, nameInputViewModel: NameInputViewMod
     val nameValue = remember {
         mutableStateOf(TextFieldValue(""))
     }
+    //the launched effect makes sure that it runs only once
     LaunchedEffect(nameInputViewModel.username.value) {
         if (nameInputViewModel.username.value != null) {
             navController.navigate(Screen.Groups.route)
@@ -60,10 +63,11 @@ fun NameInput(navController: NavController, nameInputViewModel: NameInputViewMod
                     }
                 }
             }
+            //Sends the name that has been entered in the textfield to the viewmodel
             Column(modifier = Modifier.weight(1f)) {
                 MainButton(text = "Save", onClickListener = {
                     nameInputViewModel.insertNameInput(
-                        com.example.grosharies.data.nameInput.NameInput(
+                        NameInput(
                             name = nameValue.value.text
                         )
                     )
@@ -73,6 +77,7 @@ fun NameInput(navController: NavController, nameInputViewModel: NameInputViewMod
     }
 }
 
+//Info text is displayed to tell the user what to do
 @Composable
 fun InfoText() {
     Text(

@@ -10,15 +10,15 @@ class NameInputRepository(private val nameInputDao: NameInputDao) {
         nameInputDao.insertNameInput(nameInput)
     }
 
-    suspend fun updateNameInput(nameInput: NameInput) {
-        nameInputDao.updateNameInput(nameInput)
-    }
-
-    suspend fun deleteNameInput(nameInput: NameInput) {
-        nameInputDao.deleteNameInput(nameInput)
-    }
-
+    //checks if the user exists
     fun ifUserExists(): NameInput? {
         return nameInputDao.getNameInput()
     }
+//    suspend fun updateNameInput(nameInput: NameInput) {
+//        nameInputDao.updateNameInput(nameInput)
+//    }
+//
+//    suspend fun deleteNameInput(nameInput: NameInput) {
+//        nameInputDao.deleteNameInput(nameInput)
+//    }
 }

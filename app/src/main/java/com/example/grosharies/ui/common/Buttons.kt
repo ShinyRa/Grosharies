@@ -16,6 +16,7 @@ import com.example.grosharies.ui.theme.PrimaryColor
 import com.example.grosharies.ui.theme.SecondaryColor
 import com.example.grosharies.ui.theme.textColor
 
+//This is a composable for the main button, This is a prefab that can be used multiple times using the parameters
 @Composable
 fun MainButton(text: String, onClickListener: () -> Unit, isSecondary: Boolean = false) {
     // Create a Main Button or Normal Button
@@ -61,6 +62,7 @@ fun ElevatedButton(text: String, color: Color = Color.White, onClickListener: ()
     }
 }
 
+//A button with rounded edges using the same functions as the main button
 @Composable
 fun RoundedButton(text: String, onClickListener: () -> Unit, isSecondary: Boolean = false) {
     // Rounded Button

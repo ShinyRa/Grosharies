@@ -18,6 +18,7 @@ fun DefaultText(text: String) {
     Text(text = text)
 }
 
+//Prefab InputField for the text where you can enter text as a user.
 @Composable
 fun DefaultTextInputField(
     label: String,
