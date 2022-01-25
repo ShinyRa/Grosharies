@@ -14,6 +14,7 @@ import com.example.grosharies.presentation.listItem.ListItemViewModel
 import com.example.grosharies.ui.common.DefaultTextInputField
 import com.example.grosharies.ui.common.MainButton
 import com.example.grosharies.ui.navigation.setTitle
+import com.example.grosharies.ui.theme.GroshariesTheme
 
 @Composable
 fun ListItemNew(
@@ -44,59 +45,61 @@ fun ListItemNew(
         navController.navigateUp()
     }
 
-    setTitle("Grocery list item")
-    Column {
-        Row(
-            modifier = Modifier
-                .padding(
-                    PaddingValues(
-                        start = 16.dp,
-                        end = 16.dp,
+    GroshariesTheme {
+        setTitle("Grocery list item")
+        Column {
+            Row(
+                modifier = Modifier
+                    .padding(
+                        PaddingValues(
+                            start = 16.dp,
+                            end = 16.dp,
+                        )
                     )
+                    .fillMaxWidth(),
+            )
+            {
+                DefaultTextInputField(
+                    value = itemName.value,
+                    onChange = {
+                        currentListItem.itemName = it.text
+                        itemName.value = it
+                    },
+                    label = "Item",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(7f)
+                        .padding(
+                            PaddingValues(
+                                top = 8.dp,
+                                bottom = 8.dp,
+                                end = 4.dp
+                            )
+                        )
                 )
-                .fillMaxWidth(),
-        )
-        {
-            DefaultTextInputField(
-                value = itemName.value,
-                onChange = {
-                    currentListItem.itemName = it.text
-                    itemName.value = it
-                },
-                label = "Item",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(7f)
-                    .padding(
-                        PaddingValues(
-                            top = 8.dp,
-                            bottom = 8.dp,
-                            end = 4.dp
+                DefaultTextInputField(
+                    value = itemAmount.value,
+                    onChange = {
+                        currentListItem.itemAmount = it.text
+                        itemAmount.value = it
+                    },
+                    keyboardType = KeyboardType.Number,
+                    label = "Amount:",
+                    modifier = Modifier
+                        .weight(3f)
+                        .padding(
+                            PaddingValues(
+                                top = 8.dp,
+                                bottom = 8.dp,
+                                end = 4.dp
+                            )
                         )
-                    )
-            )
-            DefaultTextInputField(
-                value = itemAmount.value,
-                onChange = {
-                    currentListItem.itemAmount = it.text
-                    itemAmount.value = it
-                },
-                keyboardType = KeyboardType.Number,
-                label = "Amount:",
-                modifier = Modifier
-                    .weight(3f)
-                    .padding(
-                        PaddingValues(
-                            top = 8.dp,
-                            bottom = 8.dp,
-                            end = 4.dp
-                        )
-                    )
-            )
+                )
+            }
+            MainButton(text = if (listItemId != 0) "Save" else "Create",
+                onClickListener = {
+                    saveListItem(currentListItem)
+                })
         }
-        MainButton(text = if (listItemId != 0) "Save" else "Create",
-            onClickListener = {
-                saveListItem(currentListItem)
-            })
     }
 }
