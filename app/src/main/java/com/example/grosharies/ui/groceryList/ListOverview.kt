@@ -202,7 +202,7 @@ fun ListOverview(
             Column(
                 verticalArrangement = Arrangement.Bottom, modifier = Modifier
                     .padding(vertical = 16.dp)
-                    .weight(6f)
+                    .weight(2f)
             ) {
                 RoundedButton(text = "Create new shopping list",
                     onClickListener = { addGroceryList() })
