@@ -26,11 +26,9 @@ fun ListItemNew(
 
     val currentListItem = listItemViewModel.listItem.value
 
-    val itemName = remember { mutableStateOf(TextFieldValue("")) }
-    val itemAmount = remember { mutableStateOf(TextFieldValue("")) }
+    val itemName = remember { mutableStateOf(TextFieldValue(currentListItem.itemName)) }
+    val itemAmount = remember { mutableStateOf(TextFieldValue(currentListItem.itemAmount)) }
 
-    itemName.value = TextFieldValue(currentListItem.itemName)
-    itemAmount.value = TextFieldValue(currentListItem.itemAmount)
 
     /*
      * update an item if the id's are not null or zero otherwise add a new item
